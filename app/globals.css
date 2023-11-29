@@ -2,8 +2,18 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    Fira Sans,
+    Droid Sans,
+    Helvetica Neue,
+    sans-serif;
   background: #1e1e1e;
   min-height: 100vh;
   display: flex;
@@ -28,8 +38,11 @@ body {
   border-radius: 10px;
   width: 85%;
   padding: 50px;
-  box-shadow: 0 54px 55px rgb(78 78 78 / 25%), 0 -12px 30px rgb(78 78 78 / 25%),
-    0 4px 6px rgb(78 78 78 / 25%), 0 12px 13px rgb(78 78 78 / 25%),
+  box-shadow:
+    0 54px 55px rgb(78 78 78 / 25%),
+    0 -12px 30px rgb(78 78 78 / 25%),
+    0 4px 6px rgb(78 78 78 / 25%),
+    0 12px 13px rgb(78 78 78 / 25%),
     0 -3px 5px rgb(78 78 78 / 25%);
 }
 

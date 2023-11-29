@@ -17,11 +17,11 @@ export default function Home() {
       const response = await fetch('/api/unsubscribe', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          email: data.get('email'),
-        }),
+          email: data.get('email')
+        })
       });
 
       if (!response?.ok) {
@@ -30,6 +30,8 @@ export default function Home() {
 
       const formResponse: z.infer<typeof ResponseSchema> =
         await response.json();
+
+      console.log(formResponse);
 
       router.push('/success');
     } catch (err) {
@@ -40,24 +42,24 @@ export default function Home() {
 
   return (
     <VerticalLayout>
-      <form className="container" onSubmit={handleSubmit}>
+      <form className='container' onSubmit={handleSubmit}>
         <h1>Unsubscribe newsletter</h1>
-        <div className="email block">
-          <label htmlFor="frm-email">Email</label>
+        <div className='email block'>
+          <label htmlFor='frm-email'>Email</label>
           <input
-            placeholder="example@email.com"
-            id="email"
-            type="email"
-            name="email"
+            placeholder='example@email.com'
+            id='email'
+            type='email'
+            name='email'
             required
           />
         </div>
-        <div className="button block">
-          <button type="submit">Unsubscribe</button>
+        <div className='button block'>
+          <button type='submit'>Unsubscribe</button>
         </div>
       </form>
-      <Button label="Home" onClick={() => router.push('/')} />
-      <Button label="Subscribe" onClick={() => router.push('/subscribe')} />
+      <Button label='Home' onClick={() => router.push('/')} />
+      <Button label='Subscribe' onClick={() => router.push('/subscribe')} />
     </VerticalLayout>
   );
 }

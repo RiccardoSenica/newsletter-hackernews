@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <VerticalLayout>
       <h1>Home</h1>
-      <Button label="Subscribe" onClick={() => router.push('/subscribe')} />
-      <Button label="Unsubscribe" onClick={() => router.push('/unsubscribe')} />
+      <Button label='Subscribe' onClick={() => router.push('/subscribe')} />
+      <Button label='Unsubscribe' onClick={() => router.push('/unsubscribe')} />
     </VerticalLayout>
   );
 }

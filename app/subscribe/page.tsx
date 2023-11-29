@@ -18,12 +18,12 @@ export default function Home() {
       const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           email: data.get('email'),
-          targetingAllowed: isChecked,
-        }),
+          targetingAllowed: isChecked
+        })
       });
 
       if (!response?.ok) {
@@ -32,6 +32,8 @@ export default function Home() {
 
       const formResponse: z.infer<typeof ResponseSchema> =
         await response.json();
+
+      console.log(formResponse);
 
       router.push('/success');
     } catch (err) {
@@ -46,34 +48,34 @@ export default function Home() {
 
   return (
     <VerticalLayout>
-      <form className="container" onSubmit={handleSubmit}>
+      <form className='container' onSubmit={handleSubmit}>
         <h1>Subscribe to newsletter</h1>
-        <div className="email block">
-          <label htmlFor="frm-email">Email</label>
+        <div className='email block'>
+          <label htmlFor='frm-email'>Email</label>
           <input
-            placeholder="example@email.com"
-            id="email"
-            type="email"
-            name="email"
+            placeholder='example@email.com'
+            id='email'
+            type='email'
+            name='email'
             required
           />
         </div>
-        <div className="checkbox block">
-          <label htmlFor="frm-checkbox">Allow advertising</label>
+        <div className='checkbox block'>
+          <label htmlFor='frm-checkbox'>Allow advertising</label>
           <input
-            id="targetingAllowed"
-            type="checkbox"
-            name="targetingAllowed"
+            id='targetingAllowed'
+            type='checkbox'
+            name='targetingAllowed'
             checked={isChecked}
             onChange={handleCheckboxChange}
           />
         </div>
-        <div className="button block">
-          <button type="submit">Subscribe</button>
+        <div className='button block'>
+          <button type='submit'>Subscribe</button>
         </div>
       </form>
-      <Button label="Home" onClick={() => router.push('/')} />
-      <Button label="Unsubscribe" onClick={() => router.push('/unsubscribe')} />
+      <Button label='Home' onClick={() => router.push('/')} />
+      <Button label='Unsubscribe' onClick={() => router.push('/unsubscribe')} />
     </VerticalLayout>
   );
 }
