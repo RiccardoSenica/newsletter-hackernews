@@ -1,16 +1,11 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import { Button } from '../components/Button';
-import { VerticalLayout } from '../components/VerticalLayout';
+import { CustomLink } from '../components/elements/customLink';
 
 export default function Home() {
-  const router = useRouter();
-
   return (
-    <VerticalLayout>
-      <h1>Home</h1>
-      <Button label='Subscribe' onClick={() => router.push('/subscribe')} />
-      <Button label='Unsubscribe' onClick={() => router.push('/unsubscribe')} />
-    </VerticalLayout>
+    <div>
+      <CustomLink path='/subscribe' text='Subscribe' />
+      <CustomLink path='/unsubscribe' text='Unsubscribe' />
+      <CustomLink path='/privacy' text='Privacy' />
+    </div>
   );
 }

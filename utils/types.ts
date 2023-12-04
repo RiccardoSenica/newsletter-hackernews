@@ -1,16 +1,19 @@
 import { z } from 'zod';
 
 export const ResponseSchema = z.object({
-  message: z.string()
+  message: z.string(),
 });
 
 export const SubscribeFormSchema = z.object({
   email: z.string().email(),
-  targetingAllowed: z.boolean()
+});
+
+export const ConfirmationSchema = z.object({
+  code: z.string(),
 });
 
 export const UnsubscribeFormSchema = z.object({
-  email: z.string().email()
+  email: z.string().email(),
 });
 
 export const NewsSchema = z.object({
@@ -21,5 +24,5 @@ export const NewsSchema = z.object({
   by: z.string(),
   time: z.number(),
   url: z.string().optional(),
-  score: z.number()
+  score: z.number(),
 });

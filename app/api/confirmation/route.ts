@@ -1,41 +1,41 @@
 import { z } from 'zod';
-import UnsubscribeEmail from '../../../components/emails/unsubscribe';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
-import { sendEmail } from '../../../utils/sender';
-import { ResponseSchema, UnsubscribeFormSchema } from '../../../utils/types';
+import { ConfirmationSchema, ResponseSchema } from '../../../utils/types';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
 export async function POST(request: Request) {
   const body = await request.json();
-  const validation = UnsubscribeFormSchema.safeParse(body);
-  if (!validation.success) {
+  const validation = ConfirmationSchema.safeParse(body);
+  if (!validation.success || !validation.data.code) {
     return ApiResponse(400, 'Bad request');
   }
 
-  const { email } = validation.data;
-
   const user = await prisma.user.findUnique({
     where: {
-      email
+      code: validation.data.code
     }
   });
 
-  if (user && !user.deleted) {
+  if (user) {
     await prisma.user.update({
       where: {
-        email
+        code: validation.data.code
       },
       data: {
-        deleted: true
+        confirmed: true
       }
     });
 
-    sendEmail([email], 'Unsubscribe confirmation', UnsubscribeEmail());
+    const message: z.infer<typeof ResponseSchema> = {
+      message: `Thank you for confirming the subscripion!`
+    };
+
+    return ApiResponse(200, JSON.stringify(message));
   }
 
   const message: z.infer<typeof ResponseSchema> = {
-    message: `${email} unsubscribed!`
+    message: `Nothing to see here...`
   };
 
   return ApiResponse(200, JSON.stringify(message));

@@ -1,14 +1,11 @@
+# Hackernews newsletter
+
 ## To do
 
-Basics:
-
+- A proper UI
 - Email templates
-- Subscribe email
-- Unsubscribe email
-- Newsletter email cron job
-- Cookiebot
-- Google Analytics
-- SEO
+- Captcha?
+- Tests
 
 ## Vercel basics
 

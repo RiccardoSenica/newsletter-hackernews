@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import NewsletterEmail from '../../../components/emails/newsletter';
 import prisma from '../../../prisma/prisma';
-import { NewsSchema } from '../../utils/types';
-import { singleNews, topNews } from '../../utils/urls';
+import { sendEmail } from '../../../utils/sender';
+import { NewsSchema } from '../../../utils/types';
+import { singleNews, topNews } from '../../../utils/urls';
 
 export async function GET(request: Request) {
   if (
@@ -11,47 +13,22 @@ export async function GET(request: Request) {
     return new Response('Unauthorized', { status: 401 });
   }
 
-  const response = await hackernewsApi();
-
-  return new NextResponse(JSON.stringify(response), {
-    status: 200
-  });
-}
-
-async function hackernewsApi() {
   const topstories: number[] = await fetch(topNews).then(res => res.json());
-
-  console.log('topstories', topstories);
 
   const newsPromises = topstories
     .splice(0, Number(process.env.NEWS_LIMIT))
     .map(async id => {
-      console.log('id', id);
       const sourceNews: z.infer<typeof NewsSchema> = await fetch(
         singleNews(id)
       ).then(res => res.json());
 
-      console.log('sourceNews', sourceNews);
-
       return await prisma.news.upsert({
         create: {
-          id,
-          title: sourceNews.title,
-          text: sourceNews.text,
-          type: sourceNews.type,
-          by: sourceNews.by,
-          time: sourceNews.time,
-          url: sourceNews.url,
-          score: sourceNews.score
+          ...sourceNews,
+          id
         },
         update: {
-          title: sourceNews.title,
-          text: sourceNews.text,
-          type: sourceNews.type,
-          by: sourceNews.by,
-          time: sourceNews.time,
-          url: sourceNews.url,
-          score: sourceNews.score
+          ...sourceNews
         },
         where: {
           id
@@ -64,5 +41,30 @@ async function hackernewsApi() {
 
   const newsIds = await Promise.all(newsPromises);
 
-  return newsIds.map(news => news.id);
+  const users = await prisma.user.findMany({
+    where: {
+      email: 'riccardo.s@hey.com',
+      confirmed: true,
+      deleted: false
+    },
+    select: {
+      email: true
+    }
+  });
+
+  if (!users) {
+    return new NextResponse('No users.', {
+      status: 200
+    });
+  }
+
+  await sendEmail(
+    users.map(user => user.email),
+    `What's new from Hackernews?`,
+    NewsletterEmail(newsIds.map(news => news.id))
+  );
+
+  return new NextResponse(`Newsletter sent to ${users.length} addresses.`, {
+    status: 200
+  });
 }
