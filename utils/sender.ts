@@ -1,9 +1,13 @@
 import { Resend } from 'resend';
 
+type EmailTemplate = {
+  subject: string;
+  template: JSX.Element;
+};
+
 export async function sendEmail(
   to: string[],
-  subject: string,
-  template: JSX.Element
+  { subject, template }: EmailTemplate
 ) {
   const resend = new Resend(process.env.RESEND_KEY);
 
@@ -21,4 +25,6 @@ export async function sendEmail(
   } catch (error) {
     console.log(error);
   }
+
+  console.log('Email sent', subject, to.length);
 }

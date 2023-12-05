@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     });
 
     const message: z.infer<typeof ResponseSchema> = {
-      message: `Thank you for confirming the subscripion!`
+      message: `Thank you for confirming the subscription, ${user.email}!`
     };
 
     return ApiResponse(200, JSON.stringify(message));
