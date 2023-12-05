@@ -1,6 +1,6 @@
 import * as crypto from 'crypto';
 import { z } from 'zod';
-import SubscribeEmail from '../../../components/emails/subscribe';
+import SubscribeTemplate from '../../../components/emails/subscribe';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
 import { sendEmail } from '../../../utils/sender';
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
     }
   });
 
-  await sendEmail([email], 'Welcome!', SubscribeEmail(code));
+  await sendEmail([email], SubscribeTemplate(code));
 
   const message: z.infer<typeof ResponseSchema> = {
     message: `Thank you! You will now receive an email to ${email} to confirm the subscription.`

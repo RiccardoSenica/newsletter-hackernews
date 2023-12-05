@@ -1,9 +1,8 @@
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter as FontSans } from 'next/font/google';
+import { cn } from '../utils/utils';
 import './globals.css';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Hacker News newsletter',
@@ -11,14 +10,25 @@ export const metadata: Metadata = {
   keywords: 'newsletter, hackernews, technology, coding, programming, news'
 };
 
+export const fontSans = FontSans({
+  subsets: ['latin'],
+  variable: '--font-sans'
+});
+
 export default function RootLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
-      <body className={inter.className}>
+    <html lang='en' suppressHydrationWarning>
+      <head />
+      <body
+        className={cn(
+          'flex min-h-screen items-center justify-center bg-background font-sans antialiased',
+          fontSans.variable
+        )}
+      >
         {children}
         <Analytics />
       </body>

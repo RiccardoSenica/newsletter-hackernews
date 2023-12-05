@@ -2,8 +2,7 @@
 
 ## To do
 
-- A proper UI
-- Email templates
+- Polish the UI
 - Captcha?
 - Tests
 
@@ -37,4 +36,10 @@ Generate Prisma client
 
 ```bash
 yarn prisma:generate
+```
+
+Reset Prisma database
+
+```bash
+yarn db:reset
 ```

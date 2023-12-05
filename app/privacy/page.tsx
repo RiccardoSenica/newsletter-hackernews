@@ -1,8 +1,9 @@
+'use client';
+import { CustomCard } from '../../components/custom/card';
+
 export default function Privacy() {
-  return (
+  const body = (
     <div>
-      <h1>Privacy Policy</h1>
-      <p>Last updated: December 03, 2023</p>
       <p>
         This Privacy Policy describes Our policies and procedures on the
         collection, use and disclosure of Your information when You use the
@@ -410,5 +411,14 @@ export default function Privacy() {
         </li>
       </ul>
     </div>
+  );
+
+  return (
+    <CustomCard
+      title='Privacy Policy'
+      description='Last updated: December 03, 2023'
+      content={body}
+      style='w-2/3'
+    />
   );
 }

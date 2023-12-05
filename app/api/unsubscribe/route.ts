@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import UnsubscribeEmail from '../../../components/emails/unsubscribe';
+import UnsubscribeTemplate from '../../../components/emails/unsubscribe';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
 import { sendEmail } from '../../../utils/sender';
@@ -31,11 +31,11 @@ export async function POST(request: Request) {
       }
     });
 
-    sendEmail([email], 'Unsubscribe confirmation', UnsubscribeEmail());
+    await sendEmail([email], UnsubscribeTemplate());
   }
 
   const message: z.infer<typeof ResponseSchema> = {
-    message: `${email} unsubscribed!`
+    message: `${email} unsubscribed.`
   };
 
   return ApiResponse(200, JSON.stringify(message));

@@ -1,19 +1,13 @@
-import { Container } from '@react-email/container';
-import { Html } from '@react-email/html';
-import { Section } from '@react-email/section';
-import { Text } from '@react-email/text';
-import { container, main, paragraph } from './utils/styling';
+import Email from './template';
 
-export default function UnsubscribeEmail() {
-  return (
-    <Html>
-      <Section style={main}>
-        <Container style={container}>
-          <Text style={paragraph}>
-            You have unsubscribed from the newsletter.
-          </Text>
-        </Container>
-      </Section>
-    </Html>
-  );
+export default function UnsubscribeTemplate() {
+  return {
+    subject: 'Unsubscribe confirmation',
+    template: (
+      <Email
+        title="We're sad you're leaving :("
+        body={<>You have unsubscribed from the newsletter.</>}
+      />
+    ),
+  };
 }

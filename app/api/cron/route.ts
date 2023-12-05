@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import NewsletterEmail from '../../../components/emails/newsletter';
+import NewsletterTemplate from '../../../components/emails/newsletter';
 import prisma from '../../../prisma/prisma';
 import { sendEmail } from '../../../utils/sender';
-import { NewsSchema } from '../../../utils/types';
+import { NewsDatabaseSchema, NewsSchema } from '../../../utils/types';
 import { singleNews, topNews } from '../../../utils/urls';
 
 export async function GET(request: Request) {
@@ -18,28 +18,28 @@ export async function GET(request: Request) {
   const newsPromises = topstories
     .splice(0, Number(process.env.NEWS_LIMIT))
     .map(async id => {
-      const sourceNews: z.infer<typeof NewsSchema> = await fetch(
-        singleNews(id)
-      ).then(res => res.json());
+      const sourceNews = await fetch(singleNews(id)).then(res => res.json());
+      const validation = NewsDatabaseSchema.safeParse(sourceNews);
 
-      return await prisma.news.upsert({
-        create: {
-          ...sourceNews,
-          id
-        },
-        update: {
-          ...sourceNews
-        },
-        where: {
-          id
-        },
-        select: {
-          id: true
-        }
-      });
+      if (validation.success) {
+        const result = await prisma.news.upsert({
+          create: {
+            ...validation.data,
+            id
+          },
+          update: {
+            ...validation.data
+          },
+          where: {
+            id
+          }
+        });
+
+        return result;
+      }
     });
 
-  const newsIds = await Promise.all(newsPromises);
+  const news = await Promise.all(newsPromises);
 
   const users = await prisma.user.findMany({
     where: {
@@ -58,10 +58,13 @@ export async function GET(request: Request) {
     });
   }
 
+  const validRankedNews = news
+    .filter((item): item is z.infer<typeof NewsSchema> => item !== undefined)
+    .sort((a, b) => b.score - a.score);
+
   await sendEmail(
     users.map(user => user.email),
-    `What's new from Hackernews?`,
-    NewsletterEmail(newsIds.map(news => news.id))
+    NewsletterTemplate(validRankedNews)
   );
 
   return new NextResponse(`Newsletter sent to ${users.length} addresses.`, {
