@@ -37,7 +37,13 @@ export default function NewsletterTemplate(
                         }}
                       />
                     )}
-                    {story.url && <a href={story.url}>Read more</a>}
+                    {story.url && (
+                      <p>
+                        <a href={story.url} style={{ textAlign: 'right' }}>
+                          Read more
+                        </a>
+                      </p>
+                    )}
                   </div>
                 );
               })}
