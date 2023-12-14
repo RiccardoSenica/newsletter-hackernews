@@ -39,7 +39,7 @@ export async function GET(request: Request) {
       }
     });
 
-  const news = await Promise.all(newsPromises);
+  await Promise.all(newsPromises);
 
   const users = await prisma.user.findMany({
     where: {
@@ -56,6 +56,14 @@ export async function GET(request: Request) {
       status: 200
     });
   }
+
+  const news = await prisma.news.findMany({
+    where: {
+      createdAt: {
+        gt: new Date(Date.now() - 1000 * 60 * 60)
+      }
+    }
+  });
 
   const validRankedNews = news
     .filter((item): item is z.infer<typeof NewsSchema> => item !== undefined)
