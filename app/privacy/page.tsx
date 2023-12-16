@@ -434,7 +434,7 @@ export default function Privacy() {
       title='Privacy Policy'
       description='Last updated: December 03, 2023'
       content={body}
-      style='w-2/3'
+      style='w-2/3 overflow-auto h-[90vh]'
     />
   );
 }

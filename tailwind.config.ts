@@ -18,12 +18,6 @@ module.exports = {
       }
     },
     extend: {
-      backgroundImage: {
-        'custom-background': "url('/background.jpg')"
-      },
-      backgroundSize: {
-        'size-cover': '100% auto'
-      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -72,11 +66,21 @@ module.exports = {
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: 0 }
+        },
+        rotate: {
+          '0%': { transform: 'rotateY(0deg)' },
+          '100%': { transform: 'rotateY(180deg)' }
+        },
+        'rotate-inverse': {
+          '0%': { transform: 'rotateY(180deg)' },
+          '100%': { transform: 'rotateY(0deg)' }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out'
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        rotate: 'rotate 0.5s linear both',
+        'rotate-inverse': 'rotate-inverse 0.5s linear both'
       },
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans]

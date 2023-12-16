@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
+import { Background } from '../components/custom/background/background';
 import { cn } from '../utils/utils';
 import './globals.css';
 
@@ -29,7 +30,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        {children}
+        <Background>{children}</Background>
         <Analytics />
       </body>
     </html>

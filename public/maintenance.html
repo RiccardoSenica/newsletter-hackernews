@@ -1,16 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
+    <script>
+      window.onload = function () {
+        var body = document.getElementsByTagName('body')[0];
+        var size = 160; // size of each square
+        var squaresPerRow = Math.ceil(window.innerWidth / size);
+        var squaresPerColumn = Math.ceil(window.innerHeight / size);
+
+        for (var i = 0; i < squaresPerRow; i++) {
+          for (var j = 0; j < squaresPerColumn; j++) {
+            var square = document.createElement('div');
+            square.style.width = size + 'px';
+            square.style.height = size + 'px';
+            square.style.backgroundColor = getRandomColor();
+            square.style.position = 'absolute';
+            square.style.left = i * size + 'px';
+            square.style.top = j * size + 'px';
+            body.appendChild(square);
+          }
+        }
+      };
+
+      function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Maintenance</title>
+    <title>Maintenance :)</title>
     <style>
       body {
-        background: url('/background.jpg') no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+        background-size: 60px 60px;
+        background-position:
+          0 0,
+          30px 30px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -25,6 +54,7 @@
         padding: 20px;
         font-family: Arial, sans-serif;
         background-color: rgba(255, 255, 255, 0.8);
+        z-index: 1;
       }
       .card h1 {
         font-size: 2em;
@@ -38,7 +68,7 @@
   </head>
   <body>
     <div class="card">
-      <h1>Maintenance</h1>
+      <h1>Maintenance :)</h1>
       <p>We are doing stuff. Please come back later...</p>
     </div>
   </body>

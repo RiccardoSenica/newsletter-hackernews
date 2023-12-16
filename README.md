@@ -1,9 +1,5 @@
 # Hackernews newsletter
 
-## To do
-
-- Polish the UI
-
 ## Vercel basics
 
 Install vercel cli
