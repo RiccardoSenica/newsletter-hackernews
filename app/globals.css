@@ -75,3 +75,15 @@
     @apply bg-custom-background bg-size-cover;
   }
 }
+
+.styledH2 {
+  @apply text-xl font-bold;
+}
+
+.styledH3 {
+  @apply text-lg font-semibold;
+}
+
+.styledH4 {
+  @apply text-base font-medium;
+}

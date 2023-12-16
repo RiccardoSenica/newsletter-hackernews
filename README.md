@@ -3,8 +3,6 @@
 ## To do
 
 - Polish the UI
-- Captcha?
-- Tests
 
 ## Vercel basics
 
