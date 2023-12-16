@@ -2,7 +2,7 @@ import { z } from 'zod';
 import UnsubscribeTemplate from '../../../components/emails/unsubscribe';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
-import { sendEmail } from '../../../utils/sender';
+import { sender } from '../../../utils/sender';
 import { ResponseSchema, UnsubscribeFormSchema } from '../../../utils/types';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
@@ -31,7 +31,11 @@ export async function POST(request: Request) {
       }
     });
 
-    await sendEmail([email], UnsubscribeTemplate());
+    const sent = await sender([email], UnsubscribeTemplate());
+
+    if (!sent) {
+      return ApiResponse(500, 'Internal server error');
+    }
   }
 
   const message: z.infer<typeof ResponseSchema> = {

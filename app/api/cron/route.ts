@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import NewsletterTemplate from '../../../components/emails/newsletter';
 import prisma from '../../../prisma/prisma';
-import { sendEmail } from '../../../utils/sender';
+import { sender } from '../../../utils/sender';
 import { NewsDatabaseSchema, NewsSchema } from '../../../utils/types';
 import { singleNews, topNews } from '../../../utils/urls';
 
@@ -69,10 +69,16 @@ export async function GET(request: Request) {
     .filter((item): item is z.infer<typeof NewsSchema> => item !== undefined)
     .sort((a, b) => b.score - a.score);
 
-  await sendEmail(
+  const sent = await sender(
     users.map(user => user.email),
     NewsletterTemplate(validRankedNews)
   );
+
+  if (!sent) {
+    return new NextResponse('Internal server error', {
+      status: 500
+    });
+  }
 
   return new NextResponse(`Newsletter sent to ${users.length} addresses.`, {
     status: 200

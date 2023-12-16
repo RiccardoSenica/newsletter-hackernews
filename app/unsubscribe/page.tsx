@@ -62,7 +62,6 @@ export default function Unsubscribe() {
       setMessage(formResponse.message);
       setCompleted(true);
     } catch (error) {
-      console.log('Unsubscribe error', error);
       setError(true);
     }
   }

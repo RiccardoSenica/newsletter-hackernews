@@ -62,7 +62,6 @@ export default function Home() {
       setMessage(formResponse.message);
       setCompleted(true);
     } catch (error) {
-      console.log('Subscribe error', error);
       setError(true);
     }
   }

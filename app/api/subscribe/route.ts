@@ -3,7 +3,7 @@ import { z } from 'zod';
 import SubscribeTemplate from '../../../components/emails/subscribe';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
-import { sendEmail } from '../../../utils/sender';
+import { sender } from '../../../utils/sender';
 import { ResponseSchema, SubscribeFormSchema } from '../../../utils/types';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
@@ -60,7 +60,11 @@ export async function POST(request: Request) {
     }
   });
 
-  await sendEmail([email], SubscribeTemplate(code));
+  const sent = await sender([email], SubscribeTemplate(code));
+
+  if (!sent) {
+    return ApiResponse(500, 'Internal server error');
+  }
 
   const message: z.infer<typeof ResponseSchema> = {
     message: `Thank you! You will now receive an email to ${email} to confirm the subscription.`
