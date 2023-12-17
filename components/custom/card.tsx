@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import {
   Card,
   CardContent,
@@ -24,15 +25,37 @@ export const CustomCard = ({
   style,
   footer = true
 }: CustomCardProps) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+
+  if (isMobile) {
+    console.log(isMobile);
+    return (
+      <Card className={`max-h-[90vh] w-[90%] p-4`}>
+        <CardHeader className='text-center'>
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
+        </CardHeader>
+        <CardContent className='max-h-[60vh] overflow-auto'>
+          {content}
+        </CardContent>
+        {footer && (
+          <CardFooter className='flex justify-center p-4'>
+            <Footer />
+          </CardFooter>
+        )}
+      </Card>
+    );
+  }
+
   return (
-    <Card
-      className={`${style ?? 'w-full sm:w-2/3 md:w-2/5 lg:w-1/3 xl:w-1/4'} p-4`}
-    >
+    <Card className={`${style ?? 'sm:w-2/3 md:w-2/5 lg:w-1/3 xl:w-1/4'} p-4`}>
       <CardHeader className='text-center'>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
-      <CardContent className='h-[80%] overflow-auto'>{content}</CardContent>
+      <CardContent className='h-[80%] flex-grow overflow-auto'>
+        {content}
+      </CardContent>
       {footer && (
         <CardFooter className=' flex justify-center p-4'>
           <Footer />
