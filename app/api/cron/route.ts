@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import NewsletterTemplate from '../../../components/emails/newsletter';
 import prisma from '../../../prisma/prisma';
+import { NewsDatabaseSchema, NewsSchema } from '../../../utils/schemas';
 import { sender } from '../../../utils/sender';
-import { NewsDatabaseSchema, NewsSchema } from '../../../utils/types';
 import { singleNews, topNews } from '../../../utils/urls';
 
 export async function GET(request: Request) {

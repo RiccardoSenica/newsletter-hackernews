@@ -14,7 +14,7 @@ import {
   FormMessage
 } from '../components/ui/form';
 import { Input } from '../components/ui/input';
-import { ResponseSchema, SubscribeFormSchema } from '../utils/types';
+import { ResponseSchema, SubscribeFormSchema } from '../utils/schemas';
 
 export default function Home() {
   const [completed, setCompleted] = useState(false);

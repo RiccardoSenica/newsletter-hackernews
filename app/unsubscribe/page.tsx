@@ -14,7 +14,7 @@ import {
   FormMessage
 } from '../../components/ui/form';
 import { Input } from '../../components/ui/input';
-import { ResponseSchema, UnsubscribeFormSchema } from '../../utils/types';
+import { ResponseSchema, UnsubscribeFormSchema } from '../../utils/schemas';
 
 export default function Unsubscribe() {
   const [completed, setCompleted] = useState(false);

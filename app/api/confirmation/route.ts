@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
-import { ConfirmationSchema, ResponseSchema } from '../../../utils/types';
+import { ConfirmationSchema, ResponseSchema } from '../../../utils/schemas';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
 export async function POST(request: Request) {

@@ -1,10 +1,10 @@
 import * as crypto from 'crypto';
 import { z } from 'zod';
-import SubscribeTemplate from '../../../components/emails/subscribe';
+import ConfirmationTemplate from '../../../components/emails/confirmation';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
+import { ResponseSchema, SubscribeFormSchema } from '../../../utils/schemas';
 import { sender } from '../../../utils/sender';
-import { ResponseSchema, SubscribeFormSchema } from '../../../utils/types';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
 export async function POST(request: Request) {
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
     }
   });
 
-  const sent = await sender([email], SubscribeTemplate(code));
+  const sent = await sender([email], ConfirmationTemplate(code));
 
   if (!sent) {
     return ApiResponse(500, 'Internal server error');

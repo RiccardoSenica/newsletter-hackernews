@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { z } from 'zod';
-import { NewsSchema } from '../../../../utils/types';
+import { NewsSchema } from '../../../../utils/schemas';
 
 type CardContentProps = {
   story: z.infer<typeof NewsSchema>;
@@ -18,7 +18,7 @@ function getRandomColor() {
   return color;
 }
 
-export function CardContent({ story, width, height, side }: CardContentProps) {
+export function TileContent({ story, width, height, side }: CardContentProps) {
   const [firstColor, setFirstColor] = useState(getRandomColor());
   const [secondColor, setSecondColor] = useState(getRandomColor());
   const [switched, setSwitched] = useState(true);

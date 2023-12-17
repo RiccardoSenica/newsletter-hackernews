@@ -2,8 +2,8 @@ import { z } from 'zod';
 import UnsubscribeTemplate from '../../../components/emails/unsubscribe';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
+import { ResponseSchema, UnsubscribeFormSchema } from '../../../utils/schemas';
 import { sender } from '../../../utils/sender';
-import { ResponseSchema, UnsubscribeFormSchema } from '../../../utils/types';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
 export async function POST(request: Request) {

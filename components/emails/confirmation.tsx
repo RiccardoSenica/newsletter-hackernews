@@ -1,6 +1,6 @@
 import Email from './template';
 
-export default function ConfirmationEmail(code: string) {
+export default function ConfirmationTemplate(code: string) {
   return {
     subject: 'Welcome!',
     template: (

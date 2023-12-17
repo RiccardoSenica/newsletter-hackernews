@@ -3,8 +3,8 @@
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
-import { NewsSchema } from '../../../../utils/types';
-import { Card } from './card';
+import { NewsSchema } from '../../../../utils/schemas';
+import { Tile } from './tile';
 
 type TilesProps = {
   children: React.ReactNode;
@@ -74,7 +74,7 @@ export const Tiles = ({ children }: TilesProps) => {
           width: `${baseWidth * 4}px`
         }}
       >
-        <Card
+        <Tile
           newsA={news[randomA]}
           newsB={news[randomB]}
           width={baseHeight}
@@ -110,5 +110,5 @@ export const Tiles = ({ children }: TilesProps) => {
     );
   }
 
-  return <div className='flex flex-col justify-between'>{renderGrid()}</div>;
+  return <div className='flex h-[100vh] overflow-hidden'>{renderGrid()}</div>;
 };

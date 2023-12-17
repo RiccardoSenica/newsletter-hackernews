@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { CustomCard } from '../../components/custom/card';
-import { ResponseSchema } from '../../utils/types';
+import { ResponseSchema } from '../../utils/schemas';
 
 export default function Confirmation() {
   const router = useRouter();

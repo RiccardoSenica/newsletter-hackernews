@@ -3,7 +3,7 @@ import { Html } from '@react-email/html';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import { z } from 'zod';
-import { NewsSchema } from '../../utils/types';
+import { NewsSchema } from '../../utils/schemas';
 
 export default function NewsletterTemplate(
   stories: z.infer<typeof NewsSchema>[]

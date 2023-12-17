@@ -1,4 +1,4 @@
-import { Tiles } from './components/tiles';
+import { Tiles } from './tile/tiles';
 
 type BackgroundProps = {
   children: React.ReactNode;
