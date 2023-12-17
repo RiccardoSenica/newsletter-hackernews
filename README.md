@@ -1,9 +1,5 @@
 # Hackernews newsletter
 
-## To do
-
-- Email layout (must contain link to newsletter page)
-
 ## Vercel basics
 
 Install vercel cli
