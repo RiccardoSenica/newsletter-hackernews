@@ -32,9 +32,9 @@ export const CustomCard = ({
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
-      <CardContent>{content}</CardContent>
+      <CardContent className='h-[80%] overflow-auto'>{content}</CardContent>
       {footer && (
-        <CardFooter className='flex justify-center space-x-4'>
+        <CardFooter className=' flex justify-center p-4'>
           <Footer />
         </CardFooter>
       )}
