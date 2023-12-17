@@ -5,8 +5,9 @@
       window.onload = function () {
         var body = document.getElementsByTagName('body')[0];
         var size = 160; // size of each square
-        var squaresPerRow = Math.ceil(window.innerWidth / size);
-        var squaresPerColumn = Math.ceil(window.innerHeight / size);
+        var margin = 8; // margin between squares
+        var squaresPerRow = Math.ceil(window.innerWidth / (size + margin));
+        var squaresPerColumn = Math.ceil(window.innerHeight / (size + margin));
 
         for (var i = 0; i < squaresPerRow; i++) {
           for (var j = 0; j < squaresPerColumn; j++) {
@@ -15,8 +16,8 @@
             square.style.height = size + 'px';
             square.style.backgroundColor = getRandomColor();
             square.style.position = 'absolute';
-            square.style.left = i * size + 'px';
-            square.style.top = j * size + 'px';
+            square.style.left = i * (size + margin) + 'px';
+            square.style.top = j * (size + margin) + 'px';
             body.appendChild(square);
           }
         }
