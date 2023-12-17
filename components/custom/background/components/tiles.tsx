@@ -10,9 +10,6 @@ type TilesProps = {
   children: React.ReactNode;
 };
 
-const baseWidth = 40;
-const baseHeight = 40;
-
 export const Tiles = ({ children }: TilesProps) => {
   const pathname = usePathname();
   const [windowSize, setWindowSize] = useState<{
@@ -23,6 +20,9 @@ export const Tiles = ({ children }: TilesProps) => {
     height: 0
   });
   const [news, setNews] = useState<z.infer<typeof NewsSchema>[]>();
+
+  const baseWidth = 40;
+  const baseHeight = 40;
 
   useEffect(() => {
     async function getNews() {

@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '../../components/ui/card';
 import Footer from './footer';
 
@@ -22,17 +22,19 @@ export const CustomCard = ({
   description,
   content,
   style,
-  footer = true,
+  footer = true
 }: CustomCardProps) => {
   return (
-    <Card className={style ?? 'w-full sm:w-2/3 md:w-2/5 lg:w-1/3 xl:w-1/4'}>
-      <CardHeader className="text-center">
+    <Card
+      className={`${style ?? 'w-full sm:w-2/3 md:w-2/5 lg:w-1/3 xl:w-1/4'} p-4`}
+    >
+      <CardHeader className='text-center'>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>{content}</CardContent>
       {footer && (
-        <CardFooter className="flex justify-center space-x-4">
+        <CardFooter className='flex justify-center space-x-4'>
           <Footer />
         </CardFooter>
       )}
