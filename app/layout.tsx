@@ -6,7 +6,7 @@ import { cn } from '../utils/utils';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Hacker News newsletter',
+  title: 'Hacker News newsletter by FromPixels',
   description: 'Newsletter delivering the best posts from Hacker News',
   keywords: 'newsletter, hackernews, technology, coding, programming, news'
 };
