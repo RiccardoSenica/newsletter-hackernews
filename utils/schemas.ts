@@ -1,21 +1,22 @@
 import { z } from 'zod';
 
 export const ResponseSchema = z.object({
-  message: z.string(),
+  success: z.boolean(),
+  message: z.string()
 });
 
 export const SubscribeFormSchema = z.object({
   email: z.string().email(),
-  name: z.string().optional(),
+  name: z.string().optional()
 });
 
 export const ConfirmationSchema = z.object({
-  code: z.string(),
+  code: z.string()
 });
 
 export const UnsubscribeFormSchema = z.object({
   email: z.string().email(),
-  name: z.string().optional(),
+  name: z.string().optional()
 });
 
 export const NewsDatabaseSchema = z.object({
@@ -26,7 +27,7 @@ export const NewsDatabaseSchema = z.object({
   by: z.string(),
   time: z.number(),
   url: z.string().optional(),
-  score: z.number(),
+  score: z.number()
 });
 
 export const NewsSchema = z.object({
@@ -38,5 +39,5 @@ export const NewsSchema = z.object({
   time: z.number(),
   url: z.string().nullable(),
   score: z.number(),
-  createdAt: z.date(),
+  createdAt: z.date()
 });

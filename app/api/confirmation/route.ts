@@ -28,6 +28,7 @@ export async function POST(request: Request) {
     });
 
     const message: z.infer<typeof ResponseSchema> = {
+      success: true,
       message: `Thank you for confirming the subscription, ${user.email}!`
     };
 
@@ -35,7 +36,8 @@ export async function POST(request: Request) {
   }
 
   const message: z.infer<typeof ResponseSchema> = {
-    message: `Nothing to see here...`
+    success: false,
+    message: `It was not possible to confirm the subscription.`
   };
 
   return ApiResponse(200, JSON.stringify(message));

@@ -39,6 +39,7 @@ export async function POST(request: Request) {
   }
 
   const message: z.infer<typeof ResponseSchema> = {
+    success: true,
     message: `${email} unsubscribed.`
   };
 

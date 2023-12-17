@@ -31,7 +31,13 @@ export default function Confirmation() {
         if (!res.ok) {
           router.push('/');
         }
+
         const response: z.infer<typeof ResponseSchema> = await res.json();
+
+        if (!response.success) {
+          router.push('/');
+        }
+
         return response;
       })
       .then(response => {

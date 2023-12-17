@@ -59,6 +59,10 @@ export default function Unsubscribe() {
       const formResponse: z.infer<typeof ResponseSchema> =
         await response.json();
 
+      if (!formResponse.success) {
+        throw Error(formResponse.message);
+      }
+
       setMessage(formResponse.message);
       setCompleted(true);
     } catch (error) {

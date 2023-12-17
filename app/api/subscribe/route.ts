@@ -36,6 +36,7 @@ export async function POST(request: Request) {
     }
 
     const message: z.infer<typeof ResponseSchema> = {
+      success: true,
       message: `Thank you for subscribing!`
     };
 
@@ -67,6 +68,7 @@ export async function POST(request: Request) {
   }
 
   const message: z.infer<typeof ResponseSchema> = {
+    success: true,
     message: `Thank you! You will now receive an email to ${email} to confirm the subscription.`
   };
 
