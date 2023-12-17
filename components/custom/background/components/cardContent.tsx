@@ -2,7 +2,14 @@ import { useState } from 'react';
 import { z } from 'zod';
 import { NewsSchema } from '../../../../utils/types';
 
-export function Story(story: z.infer<typeof NewsSchema>, side: boolean) {
+type CardContentProps = {
+  story: z.infer<typeof NewsSchema>;
+  side: boolean;
+  width: number;
+  height: number;
+};
+
+export function CardContent({ story, width, height, side }: CardContentProps) {
   const backgroundColors = [
     'bg-red-300',
     'bg-blue-300',
@@ -47,7 +54,7 @@ export function Story(story: z.infer<typeof NewsSchema>, side: boolean) {
 
   return (
     <div
-      className={`h-40 w-40 overflow-hidden p-6 shadow-sm ${backgroundColors[colorIndex]}`}
+      className={`h-${height} w-${width} overflow-hidden p-6 shadow-sm ${backgroundColors[colorIndex]}`}
     >
       <h1 className='font-semibold'>{story.title}</h1>
       <p className='italic'>{story.by}</p>

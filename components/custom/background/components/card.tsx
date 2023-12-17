@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { NewsSchema } from '../../../../utils/types';
-import { Story } from './story';
+import { CardContent } from './cardContent';
 
 type CardProps = {
   newsA?: z.infer<typeof NewsSchema>;
   newsB?: z.infer<typeof NewsSchema>;
+  width: number;
+  height: number;
 };
 
-export function Card({ newsA, newsB }: CardProps) {
+export function Card({ newsA, newsB, width, height }: CardProps) {
   const [switched, setSwitched] = useState(false);
   const [active, setActive] = useState(Math.random() < 0.5);
   const [delayed, setDelayed] = useState(true);
@@ -38,7 +40,9 @@ export function Card({ newsA, newsB }: CardProps) {
     <div className={`transform ${switched ? 'animate-rotate' : ''}`}>
       <div className='transform-gpu'>
         <div className={`absolute left-0 top-0 w-full ${''}`}>
-          {active ? Story(newsA, true) : Story(newsB, false)}
+          {active
+            ? CardContent({ story: newsA, width, height, side: true })
+            : CardContent({ story: newsB, width, height, side: false })}
         </div>
       </div>
     </div>

@@ -1,5 +1,11 @@
 # Hackernews newsletter
 
+## To do
+
+- Check breakpoint for background: on mobile there are white bars
+- Email layout (must contain link to newsletter page)
+- Ico file
+
 ## Vercel basics
 
 Install vercel cli
