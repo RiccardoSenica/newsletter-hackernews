@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import {
   Card,
@@ -25,7 +25,16 @@ export const CustomCard = ({
   style,
   footer = true
 }: CustomCardProps) => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  if (!isLoaded) {
+    return null;
+  }
 
   if (isMobile) {
     console.log(isMobile);
