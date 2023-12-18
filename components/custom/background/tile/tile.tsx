@@ -6,11 +6,9 @@ import { TileContent } from './tileContent';
 type CardProps = {
   newsA?: z.infer<typeof NewsSchema>;
   newsB?: z.infer<typeof NewsSchema>;
-  width: number;
-  height: number;
 };
 
-export function Tile({ newsA, newsB, width, height }: CardProps) {
+export function Tile({ newsA, newsB }: CardProps) {
   const [switched, setSwitched] = useState(false);
   const [active, setActive] = useState(Math.random() < 0.5);
   const [delayed, setDelayed] = useState(true);
@@ -41,8 +39,8 @@ export function Tile({ newsA, newsB, width, height }: CardProps) {
       <div className='transform-gpu'>
         <div className={`absolute left-0 top-0 w-full ${''}`}>
           {active
-            ? TileContent({ story: newsA, width, height, side: true })
-            : TileContent({ story: newsB, width, height, side: false })}
+            ? TileContent({ story: newsA, side: true })
+            : TileContent({ story: newsB, side: false })}
         </div>
       </div>
     </div>

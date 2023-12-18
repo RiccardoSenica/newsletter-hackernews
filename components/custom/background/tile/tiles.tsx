@@ -21,9 +21,6 @@ export const Tiles = ({ children }: TilesProps) => {
   });
   const [news, setNews] = useState<z.infer<typeof NewsSchema>[]>();
 
-  const baseWidth = 40;
-  const baseHeight = 40;
-
   useEffect(() => {
     async function getNews() {
       const news = await fetch('/api/news').then(res => res.json());
@@ -66,20 +63,8 @@ export const Tiles = ({ children }: TilesProps) => {
     );
 
     return (
-      <div
-        key={key}
-        className={`m-1`}
-        style={{
-          height: `${baseHeight * 4}px`,
-          width: `${baseWidth * 4}px`
-        }}
-      >
-        <Tile
-          newsA={news[randomA]}
-          newsB={news[randomB]}
-          width={baseHeight}
-          height={baseHeight}
-        />
+      <div key={key} className={`m-1 h-40 w-40`}>
+        <Tile newsA={news[randomA]} newsB={news[randomB]} />
       </div>
     );
   }
@@ -93,8 +78,8 @@ export const Tiles = ({ children }: TilesProps) => {
   }
 
   function renderGrid() {
-    const columns = Math.ceil(windowSize.width / (baseWidth * 4));
-    const rows = Math.ceil(windowSize.height / (baseHeight * 4));
+    const columns = Math.ceil(windowSize.width / (40 * 4));
+    const rows = Math.ceil(windowSize.height / (40 * 4));
 
     return (
       <div>

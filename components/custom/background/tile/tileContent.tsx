@@ -5,8 +5,6 @@ import { NewsSchema } from '../../../../utils/schemas';
 type CardContentProps = {
   story: z.infer<typeof NewsSchema>;
   side: boolean;
-  width: number;
-  height: number;
 };
 
 function getRandomColor() {
@@ -18,7 +16,7 @@ function getRandomColor() {
   return color;
 }
 
-export function TileContent({ story, width, height, side }: CardContentProps) {
+export function TileContent({ story, side }: CardContentProps) {
   const [firstColor, setFirstColor] = useState(getRandomColor());
   const [secondColor, setSecondColor] = useState(getRandomColor());
   const [switched, setSwitched] = useState(true);
@@ -34,11 +32,9 @@ export function TileContent({ story, width, height, side }: CardContentProps) {
 
   return (
     <div
-      className={`overflow-hidden p-6 shadow-sm`}
+      className={`h-40 w-40 overflow-hidden p-6 shadow-sm`}
       style={{
-        backgroundColor: `${color}`,
-        height: `${height * 4}px`,
-        width: `${width * 4}px`
+        backgroundColor: `${color}`
       }}
     >
       <h1 className='overflow-auto font-semibold'>{story.title}</h1>

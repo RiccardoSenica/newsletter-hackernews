@@ -27,7 +27,7 @@ export default function NewsletterTemplate(
     subject: `What's new from Hackernews?`,
     template: (
       <Html>
-        <Section style={main}>
+        <Section className='bg-white'>
           <div className='mx-auto w-full max-w-2xl overflow-hidden rounded-lg bg-white shadow-lg'>
             <div className='text-center '>
               <h1 className='my-4 text-3xl font-bold'>Good day!</h1>
@@ -36,7 +36,13 @@ export default function NewsletterTemplate(
                 {sayings[Math.floor(Math.random() * sayings.length)]}:
               </p>
             </div>
-            <Container style={container}>
+            <Container
+              style={{
+                margin: '0 auto',
+                padding: '20px 0 48px',
+                width: '580px'
+              }}
+            >
               <Text>
                 {stories.map(story => {
                   return (
@@ -88,13 +94,3 @@ export default function NewsletterTemplate(
     )
   };
 }
-
-const main = {
-  backgroundColor: '#ffffff'
-};
-
-const container = {
-  margin: '0 auto',
-  padding: '20px 0 48px',
-  width: '580px'
-};
