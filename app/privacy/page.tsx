@@ -54,20 +54,22 @@ export default function Privacy() {
         </li>
         <li>
           <p>
-            <strong>Application</strong> refers to FromPixels, the software
-            program provided by the Company.
+            <strong>Application</strong> refers to{' '}
+            {process.env.NEXT_PUBLIC_BRAND_NAME}, the software program provided
+            by the Company.
           </p>
         </li>
         <li>
           <p>
             <strong>Company</strong> (referred to as either &quot;the
             Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in
-            this Agreement) refers to FromPixels.
+            this Agreement) refers to {process.env.NEXT_PUBLIC_BRAND_NAME}.
           </p>
         </li>
         <li>
           <p>
-            <strong>Country</strong> refers to: Italy
+            <strong>Country</strong> refers to:{' '}
+            {process.env.NEXT_PUBLIC_BRAND_COUNTRY}
           </p>
         </li>
         <li>
