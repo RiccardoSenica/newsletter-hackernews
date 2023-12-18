@@ -5,10 +5,14 @@ type EmailTemplate = {
   template: JSX.Element;
 };
 
-async function sendEmail(to: string[], { subject, template }: EmailTemplate) {
+export async function sender(
+  to: string[],
+  { subject, template }: EmailTemplate
+) {
   const resend = new Resend(process.env.RESEND_KEY);
 
   try {
+    // TODO: adjust code once Resend supports batch sending
     const { error } = await resend.emails.send({
       from: process.env.RESEND_FROM!,
       to,
@@ -33,23 +37,4 @@ async function sendEmail(to: string[], { subject, template }: EmailTemplate) {
   console.log('Email sent', subject, to.length);
 
   return true;
-}
-
-export async function sender(
-  to: string[],
-  { subject, template }: EmailTemplate
-) {
-  let success = false;
-  let i = 5;
-
-  while (i < 5) {
-    const sent = await sendEmail(to, { subject, template });
-    if (sent) {
-      success = true;
-      break;
-    }
-    i++;
-  }
-
-  return success;
 }

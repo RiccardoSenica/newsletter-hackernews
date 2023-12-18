@@ -2,9 +2,8 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import NewsletterTemplate from '../../../components/emails/newsletter';
 import prisma from '../../../prisma/prisma';
-import { NewsDatabaseSchema, NewsSchema } from '../../../utils/schemas';
+import { NewsSchema } from '../../../utils/schemas';
 import { sender } from '../../../utils/sender';
-import { singleNews, topNews } from '../../../utils/urls';
 
 export async function GET(request: Request) {
   if (
@@ -13,40 +12,19 @@ export async function GET(request: Request) {
     return new Response('Unauthorized', { status: 401 });
   }
 
-  const topstories: number[] = await fetch(topNews).then(res => res.json());
-
-  const newsPromises = topstories
-    .splice(0, Number(process.env.NEWS_LIMIT))
-    .map(async id => {
-      const sourceNews = await fetch(singleNews(id)).then(res => res.json());
-      const validation = NewsDatabaseSchema.safeParse(sourceNews);
-
-      if (validation.success) {
-        const result = await prisma.news.upsert({
-          create: {
-            ...validation.data,
-            id
-          },
-          update: {
-            ...validation.data
-          },
-          where: {
-            id
-          }
-        });
-
-        return result;
-      }
-    });
-
-  await Promise.all(newsPromises);
-
+  // send newsletter to users who didn't get it in the last 23h 50m, assuming a cron job every 10 minutes
+  // this is to avoid sending the newsletter to the same users multiple times
+  // this is not a perfect solution, but it's good enough for now
   const users = await prisma.user.findMany({
     where: {
       confirmed: true,
-      deleted: false
+      deleted: false,
+      lastMail: {
+        lt: new Date(Date.now() - 1000 * 60 * 60 * 24 + 1000 * 10 * 60) // 24h - 10m
+      }
     },
     select: {
+      id: true,
       email: true
     }
   });
@@ -79,6 +57,18 @@ export async function GET(request: Request) {
       status: 500
     });
   }
+
+  // update users so they don't get the newsletter again
+  await prisma.user.updateMany({
+    where: {
+      id: {
+        in: users.map(user => user.id)
+      }
+    },
+    data: {
+      lastMail: new Date()
+    }
+  });
 
   return new NextResponse(`Newsletter sent to ${users.length} addresses.`, {
     status: 200

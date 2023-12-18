@@ -15,6 +15,7 @@ model User {
   confirmed Boolean  @default(false)
   deleted   Boolean  @default(false)
   createdAt DateTime @default(now()) @map(name: "created_at")
+  lastMail DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   @@map(name: "users")
 }
