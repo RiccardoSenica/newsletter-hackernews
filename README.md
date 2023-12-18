@@ -1,5 +1,11 @@
 # Hackernews newsletter
 
+## Next up
+
+- Batch email (Resend: ETA early 2024)
+- Custom url shortener for links in the newsletter
+- Cron every 10 minutes: people are more likely to open the newsletter if delivered around the time when they subscribed (if cron becomes not enough, then the cost of sending all the emails might be a bigger issue)
+
 ## Vercel basics
 
 Install vercel cli

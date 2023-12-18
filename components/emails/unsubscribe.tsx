@@ -9,8 +9,8 @@ export default function UnsubscribeTemplate() {
       <Email
         title="We're sad you're leaving :("
         body={
-          <div className='mt-8'>
-            <p className='mt-2 text-base text-gray-700 dark:text-gray-400'>
+          <div className='text-base text-gray-700 dark:text-gray-400'>
+            <p className='mt-2 '>
               You have been successfully unsubscribed from our newsletter. You
               won&apos;t receive any further communications from us unless you
               explicitly opt-in again.

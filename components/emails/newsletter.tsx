@@ -1,10 +1,7 @@
-import { Container } from '@react-email/container';
-import { Html } from '@react-email/html';
-import { Section } from '@react-email/section';
-import { Text } from '@react-email/text';
 import { z } from 'zod';
+import { getRandomColor } from '../../utils/getRandomColor';
 import { NewsSchema } from '../../utils/schemas';
-import { Footer } from './components/footer';
+import Email from './template';
 
 export default function NewsletterTemplate(
   stories: z.infer<typeof NewsSchema>[]
@@ -26,71 +23,52 @@ export default function NewsletterTemplate(
   return {
     subject: `What's new from Hackernews?`,
     template: (
-      <Html>
-        <Section className='bg-white'>
-          <div className='mx-auto w-full max-w-2xl overflow-hidden rounded-lg bg-white shadow-lg'>
-            <div className='text-center '>
-              <h1 className='my-4 text-3xl font-bold'>Good day!</h1>
-              <p>
-                Here is something{' '}
-                {sayings[Math.floor(Math.random() * sayings.length)]}:
-              </p>
-            </div>
-            <Container
-              style={{
-                margin: '0 auto',
-                padding: '20px 0 48px',
-                width: '580px'
-              }}
-            >
-              <Text>
-                {stories.map(story => {
-                  return (
-                    <div
-                      key={story.id}
-                      className='mt-8 rounded-lg border bg-card text-card-foreground shadow-sm'
-                      data-v0-t='card'
-                    >
-                      <div className='flex flex-col space-y-1.5 p-6'>
-                        <h2 className='text-2xl font-semibold'>
-                          {story.title}
-                        </h2>
-                        <p>{story.by}</p>
-                      </div>
-                      {story.text && (
-                        <div className='px-6'>
-                          <p
-                            className='mb-4'
-                            dangerouslySetInnerHTML={{
-                              __html:
-                                story.text.length > 500
-                                  ? story.text.substring(0, 500) + '...'
-                                  : story.text
-                            }}
-                          />
-                        </div>
-                      )}
-                      {story.url && (
-                        <div className='p-4 text-right'>
-                          <p>
-                            <a
-                              href={story.url}
-                              className='inline-flex h-10 items-center justify-center rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-blue-700/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
-                            >
-                              Read more
-                            </a>
-                          </p>
-                        </div>
-                      )}
+      <Email
+        title='Good day!'
+        body={
+          <div className='text-base text-gray-700 dark:text-gray-400'>
+            <p className='flex justify-center'>
+              Here is something{' '}
+              {sayings[Math.floor(Math.random() * sayings.length)]}:
+            </p>
+            {stories.map(story => {
+              const background = getRandomColor();
+
+              return (
+                <div
+                  key={story.id}
+                  className='mt-8 rounded-lg border bg-card text-card-foreground shadow-sm'
+                  data-v0-t='card'
+                  style={{ backgroundColor: `${background}` }}
+                >
+                  <div className='flex flex-col space-y-1.5 px-6 pb-2 pt-6'>
+                    <h2 className='text-2xl font-semibold'>{story.title}</h2>
+                    <p className='italic'>by {story.by}</p>
+                  </div>
+                  {story.text && (
+                    <div className='px-6'>
+                      <p
+                        className='mb-4'
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            story.text.length > 500
+                              ? story.text.substring(0, 500) + '...'
+                              : story.text
+                        }}
+                      />
                     </div>
-                  );
-                })}
-              </Text>
-            </Container>
-            <Footer />
+                  )}
+                  {story.url && (
+                    <div className='p-6 text-right font-bold'>
+                      <a href={story.url}>Read more</a>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
-        </Section>
-      </Html>
+        }
+      />
     )
   };
 }

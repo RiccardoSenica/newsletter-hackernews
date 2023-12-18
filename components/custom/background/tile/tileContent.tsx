@@ -1,20 +1,12 @@
 import { useState } from 'react';
 import { z } from 'zod';
+import { getRandomColor } from '../../../../utils/getRandomColor';
 import { NewsSchema } from '../../../../utils/schemas';
 
 type CardContentProps = {
   story: z.infer<typeof NewsSchema>;
   side: boolean;
 };
-
-function getRandomColor() {
-  const letters = '456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 12)];
-  }
-  return color;
-}
 
 export function TileContent({ story, side }: CardContentProps) {
   const [firstColor, setFirstColor] = useState(getRandomColor());
@@ -32,14 +24,15 @@ export function TileContent({ story, side }: CardContentProps) {
 
   return (
     <div
-      className={`h-40 w-40 overflow-hidden p-6 shadow-sm`}
+      className={`h-40 w-40 overflow-hidden rounded-lg p-6 shadow-sm`}
       style={{
         backgroundColor: `${color}`
       }}
     >
       <h1 className='overflow-auto font-semibold'>{story.title}</h1>
-      <p className='overflow-auto italic'>{story.by}</p>
+      <p className='overflow-auto italic'>by {story.by}</p>
       <div
+        className='rounded-lg'
         style={{
           position: 'absolute',
           left: 0,

@@ -9,15 +9,13 @@ export default function ConfirmationTemplate(code: string) {
       <Email
         title={'Welcome!'}
         body={
-          <div className='mt-8'>
-            <p className='text-base text-gray-700 dark:text-gray-400'>
-              Dear subscriber,
-            </p>
-            <p className='mt-2 text-base text-gray-700 dark:text-gray-400'>
+          <div className='text-base text-gray-700 dark:text-gray-400'>
+            <p>Dear subscriber,</p>
+            <p className='mt-2 '>
               thank you for subscribing to our newsletter! Please click the
               button below to confirm your subscription.
             </p>
-            <div className='mt-8 flex justify-center'>
+            <div className='my-8 flex justify-center'>
               <Link
                 path={`${process.env.HOME_URL}/confirmation?code=${code}`}
                 text='Confirm Subscription'

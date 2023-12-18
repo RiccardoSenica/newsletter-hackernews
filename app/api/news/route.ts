@@ -6,10 +6,10 @@ export async function GET() {
     orderBy: {
       createdAt: 'desc'
     },
-    take: 50
+    take: 100
   });
 
-  if (news && news.length === 50) {
+  if (news && news.length === 100) {
     return ApiResponse(200, JSON.stringify(news));
   }
 

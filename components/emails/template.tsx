@@ -1,7 +1,6 @@
-import { Container } from '@react-email/container';
 import { Html } from '@react-email/html';
 import { Section } from '@react-email/section';
-import { Text } from '@react-email/text';
+import { getRandomColor } from '../../utils/getRandomColor';
 import { Footer } from './components/footer';
 
 type EmailProps = {
@@ -10,26 +9,18 @@ type EmailProps = {
 };
 
 export default function Email({ title, body }: EmailProps) {
+  const titleBackground = getRandomColor();
+
   return (
     <Html>
-      <Section className='mx-auto w-full max-w-2xl overflow-hidden rounded-lg bg-white shadow-lg'>
-        <Container
-          style={{
-            margin: '0 auto',
-            padding: '20px 0 48px',
-            width: '580px'
-          }}
+      <Section className='max-w-2xl overflow-hidden rounded-lg bg-white shadow-lg'>
+        <h1
+          className='p-8 text-center text-3xl font-bold text-black'
+          style={{ backgroundColor: `${titleBackground}` }}
         >
-          <h1 className='mt-4 text-center text-3xl font-bold'>{title}</h1>
-          <Text
-            style={{
-              fontSize: '16px',
-              marginBottom: '16px'
-            }}
-          >
-            {body}
-          </Text>
-        </Container>
+          {title}
+        </h1>
+        <div className='m-8 p-8'>{body}</div>
         <Footer />
       </Section>
     </Html>
