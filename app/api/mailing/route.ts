@@ -29,7 +29,7 @@ export async function GET(request: Request) {
     }
   });
 
-  if (!users) {
+  if (users.length === 0) {
     return new NextResponse('No users.', {
       status: 200
     });
