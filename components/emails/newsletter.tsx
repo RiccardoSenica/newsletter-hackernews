@@ -1,54 +1,61 @@
 import { z } from 'zod';
-import { getRandomColor } from '../../utils/getRandomColor';
 import { NewsSchema } from '../../utils/schemas';
-import Email from './template';
+import { sayings } from './helpers/newsletterSayings';
+import Template from './template';
 
 export default function NewsletterTemplate(
   stories: z.infer<typeof NewsSchema>[]
 ) {
-  const sayings = [
-    'hot off the press',
-    'straight from the oven',
-    "straight from the horse's mouth",
-    'brand spanking new',
-    'fresh as a daisy',
-    'straight out of the box',
-    'straight off the assembly line',
-    'hot out of the kitchen',
-    'just minted',
-    'freshly brewed',
-    'just off the production line'
-  ];
 
   return {
-    subject: `What's new from Hackernews?`,
+    subject: `What's new from the Hackernews forum?`,
     template: (
-      <Email
-        title='Good day!'
+      <Template
+        title={`Here is something 
+              ${sayings[Math.floor(Math.random() * sayings.length)]}!`}
         body={
-          <div className='text-base text-gray-700 dark:text-gray-400'>
-            <p className='flex justify-center'>
-              Here is something{' '}
-              {sayings[Math.floor(Math.random() * sayings.length)]}:
-            </p>
+          <div>
             {stories.map(story => {
-              const background = getRandomColor();
-
               return (
                 <div
                   key={story.id}
-                  className='mt-8 rounded-lg border bg-card text-card-foreground shadow-sm'
+                  style={{
+                    marginTop: '2rem',
+                    marginBottom: '2rem',
+                    borderRadius: '0.5rem',
+                    border: '1px solid #e5e7eb',
+                    backgroundColor: `white`,
+                    color: '#111827',
+                    boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.05)'
+                  }}
                   data-v0-t='card'
-                  style={{ backgroundColor: `${background}` }}
                 >
-                  <div className='flex flex-col space-y-1.5 px-6 pb-2 pt-6'>
-                    <h2 className='text-2xl font-semibold'>{story.title}</h2>
-                    <p className='italic'>by {story.by}</p>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.375rem',
+                      paddingTop: '1.5rem',
+                      paddingLeft: '1.5rem',
+                      paddingRight: '1.5rem'
+                    }}
+                  >
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: '600' }}>
+                      {story.title}
+                    </h2>
+                    <p style={{ fontSize: '1rem', fontStyle: 'italic' }}>
+                      by {story.by}
+                    </p>
                   </div>
                   {story.text && (
-                    <div className='px-6'>
+                    <div
+                      style={{
+                        paddingLeft: '1.5rem',
+                        fontSize: '1rem',
+                        paddingRight: '1.5rem'
+                      }}
+                    >
                       <p
-                        className='mb-4'
                         dangerouslySetInnerHTML={{
                           __html:
                             story.text.length > 500
@@ -59,7 +66,15 @@ export default function NewsletterTemplate(
                     </div>
                   )}
                   {story.url && (
-                    <div className='p-6 text-right font-bold'>
+                    <div
+                      style={{
+                        paddingBottom: '1.5rem',
+                        paddingLeft: '1.5rem',
+                        paddingRight: '1.5rem',
+                        textAlign: 'right',
+                        fontWeight: 'bold'
+                      }}
+                    >
                       <a href={story.url}>Read more</a>
                     </div>
                   )}

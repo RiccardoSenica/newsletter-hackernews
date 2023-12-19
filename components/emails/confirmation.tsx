@@ -1,24 +1,30 @@
 import { Link } from '../custom/link';
 import { Note } from './components/note';
-import Email from './template';
+import Template from './template';
 
 export default function ConfirmationTemplate(code: string) {
   return {
     subject: 'Welcome!',
     template: (
-      <Email
-        title={'Welcome!'}
+      <Template
+        title='Welcome!'
         body={
-          <div className='text-base text-gray-700 dark:text-gray-400'>
+          <div style={{ fontSize: '1rem', color: '#4a5568' }}>
             <p>Dear subscriber,</p>
-            <p className='mt-2 '>
-              thank you for subscribing to our newsletter! Please click the
-              button below to confirm your subscription.
+            <p style={{ marginTop: '0.5rem' }}>
+              thank you for subscribing to our newsletter! Please click the link
+              below to confirm your subscription.
             </p>
-            <div className='my-8 flex justify-center'>
+            <div
+              style={{
+                margin: '2rem 0',
+                display: 'flex',
+                justifyContent: 'center'
+              }}
+            >
               <Link
                 path={`${process.env.HOME_URL}/confirmation?code=${code}`}
-                text='Confirm Subscription'
+                text='Confirm subscription'
               />
             </div>
             <Note>

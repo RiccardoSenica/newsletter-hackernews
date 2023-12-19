@@ -460,16 +460,6 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-compose-refs" "1.0.1"
 
-"@react-email/container@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@react-email/container/-/container-0.0.10.tgz#1f9e883d77cb1b1cbd3cbbe271a545ed1ce622be"
-  integrity sha512-goishY7ocq+lord0043/LZK268bqvMFW/sxpUt/dSCPJyrrZZNCbpW2t8w8HztU38cYj0qGQLxO5Qvpn/RER3w==
-
-"@react-email/html@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@react-email/html/-/html-0.0.6.tgz#a54b51849b21ec131c491b16f7695867bbe7ac81"
-  integrity sha512-8Fo20VOqxqc087gGEPjT8uos06fTXIC8NSoiJxpiwAkwiKtQnQH/jOdoLv6XaWh5Zt2clj1uokaoklnaM5rY1w==
-
 "@react-email/render@0.0.9":
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/@react-email/render/-/render-0.0.9.tgz#145d3c3fcbc9c4277234e44a58214bb48e8f79bb"
@@ -479,16 +469,6 @@
     pretty "2.0.0"
     react "18.2.0"
     react-dom "18.2.0"
-
-"@react-email/section@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@react-email/section/-/section-0.0.10.tgz#69e0d9956f74a804ad6c5077b7a26e1e8c07edcc"
-  integrity sha512-x9B2KYFqj+d8I1fK9bgeVm/3mLE4Qgn4mm/GbDtcJeSzKU/G7bTb7/3+BMDk9SARPGkg5XAuZm1XgcqQQutt2A==
-
-"@react-email/text@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@react-email/text/-/text-0.0.6.tgz#c28a2b70f3e17de8e93e3fbdf9a18afff3623a29"
-  integrity sha512-PDUTAD1PjlzXFOIUrR1zuV2xxguL62yne5YLcn1k+u/dVUyzn6iU/5lFShxCfzuh3QDWCf4+JRNnXN9rmV6jzw==
 
 "@rushstack/eslint-patch@^1.3.3":
   version "1.6.1"

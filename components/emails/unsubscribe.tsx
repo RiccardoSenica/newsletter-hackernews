@@ -1,26 +1,35 @@
 import { Link } from '../custom/link';
 import { Note } from './components/note';
-import Email from './template';
+import Template from './template';
 
 export default function UnsubscribeTemplate() {
   return {
     subject: 'Unsubscribe confirmation',
     template: (
-      <Email
-        title="We're sad you're leaving :("
+      <Template
+        title="We're sad to see you go :("
         body={
-          <div className='text-base text-gray-700 dark:text-gray-400'>
-            <p className='mt-2 '>
+          <div style={{ fontSize: '1rem', color: '#4a5568' }}>
+            <p style={{ marginTop: '0.5rem' }}>
               You have been successfully unsubscribed from our newsletter. You
               won&apos;t receive any further communications from us unless you
               explicitly opt-in again.
             </p>
-            <div className='my-8 flex justify-center'>
+            <div
+              style={{
+                margin: '2rem 0',
+                display: 'flex',
+                justifyContent: 'center'
+              }}
+            >
               <Link path='/' text='Re-subscribe' />
             </div>
             <Note>
               If you have any questions or concerns, please feel free to{' '}
-              <a className='text-blue-500 underline' href='#'>
+              <a
+                style={{ color: '#3b82f6', textDecoration: 'underline' }}
+                href={`mailto:${process.env.NEXT_PUBLIC_BRAND_EMAIL}`}
+              >
                 contact us
               </a>
               .

@@ -47,7 +47,11 @@ export async function GET(request: Request) {
       createdAt: {
         gt: new Date(Date.now() - 1000 * 60 * 60 * 24)
       }
-    }
+    },
+    orderBy: {
+      score: 'desc'
+    },
+    take: 25
   });
 
   const validRankedNews = news

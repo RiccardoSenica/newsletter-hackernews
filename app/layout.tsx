@@ -2,7 +2,7 @@ import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 import { Background } from '../components/custom/background/background';
-import { cn } from '../utils/utils';
+import { cn } from '../utils/ui';
 import './globals.css';
 
 export const metadata: Metadata = {
