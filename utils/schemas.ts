@@ -41,3 +41,11 @@ export const NewsSchema = z.object({
   score: z.number(),
   createdAt: z.date()
 });
+
+export const NewsTileSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  by: z.string()
+});
+
+export type NewsTile = z.infer<typeof NewsTileSchema>;

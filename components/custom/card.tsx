@@ -1,16 +1,16 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import {
-  Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
+  Card as CardUI
 } from '../../components/ui/card';
 import Footer from './footer';
 
-type CustomCardProps = {
+type CardProps = {
   title: string;
   description?: string;
   content: ReactNode;
@@ -18,13 +18,13 @@ type CustomCardProps = {
   footer?: boolean;
 };
 
-export const CustomCard = ({
+export const Card = ({
   title,
   description,
   content,
   style,
   footer = true
-}: CustomCardProps) => {
+}: CardProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
@@ -39,7 +39,7 @@ export const CustomCard = ({
   if (isMobile) {
     console.log(isMobile);
     return (
-      <Card className={`max-h-[90vh] w-[90%] p-4`}>
+      <CardUI className={`max-h-[90vh] w-[90%] p-4`}>
         <CardHeader className='text-center'>
           <CardTitle>{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
@@ -52,12 +52,16 @@ export const CustomCard = ({
             <Footer />
           </CardFooter>
         )}
-      </Card>
+      </CardUI>
     );
   }
 
   return (
-    <Card className={`${style ?? 'sm:w-2/3 md:w-2/5 lg:w-1/3 xl:w-1/4'} p-4`}>
+    <CardUI
+      className={`${
+        style ?? 'sm:w-2/3 md:w-2/5 lg:w-1/3 xl:w-1/4'
+      } p-4 shadow-2xl`}
+    >
       <CardHeader className='text-center'>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
@@ -70,6 +74,6 @@ export const CustomCard = ({
           <Footer />
         </CardFooter>
       )}
-    </Card>
+    </CardUI>
   );
 };

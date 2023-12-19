@@ -1,4 +1,3 @@
-import NextLink from 'next/link';
 import { Button } from '../ui/button';
 
 type LinkProps = {
@@ -9,7 +8,7 @@ type LinkProps = {
 export function Link({ path, text }: LinkProps) {
   return (
     <Button asChild>
-      <NextLink href={path}>{text}</NextLink>
+      <a href={path}>{text}</a>
     </Button>
   );
 }

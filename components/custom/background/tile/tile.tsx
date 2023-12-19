@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
-import { NewsSchema } from '../../../../utils/schemas';
+import { NewsTileSchema } from '../../../../utils/schemas';
 import { TileContent } from './tileContent';
 
 type CardProps = {
-  newsA?: z.infer<typeof NewsSchema>;
-  newsB?: z.infer<typeof NewsSchema>;
+  newsA?: z.infer<typeof NewsTileSchema>;
+  newsB?: z.infer<typeof NewsTileSchema>;
 };
 
 export function Tile({ newsA, newsB }: CardProps) {

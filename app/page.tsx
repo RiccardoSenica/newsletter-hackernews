@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { CustomCard } from '../components/custom/card';
+import { Card } from '../components/custom/card';
 import ErrorMessage from '../components/custom/error';
 import { Button } from '../components/ui/button';
 import {
@@ -108,7 +108,7 @@ export default function Home() {
   }
 
   return (
-    <CustomCard
+    <Card
       style='text-center'
       title='Hackernews + newsletter'
       description='Top stories from Hackernews. Once a day. Every day.'

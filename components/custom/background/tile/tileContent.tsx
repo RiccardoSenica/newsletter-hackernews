@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { z } from 'zod';
 import { getRandomColor } from '../../../../utils/getRandomColor';
-import { NewsSchema } from '../../../../utils/schemas';
+import { NewsTileSchema } from '../../../../utils/schemas';
 
 type CardContentProps = {
-  story: z.infer<typeof NewsSchema>;
+  story: z.infer<typeof NewsTileSchema>;
   side: boolean;
 };
 

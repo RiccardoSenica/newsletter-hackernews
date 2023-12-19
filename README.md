@@ -6,7 +6,7 @@
 - Custom url shortener for links in the newsletter
 - Cron every 10 minutes: people are more likely to open the newsletter if delivered around the time when they subscribed (if cron becomes not enough, then the cost of sending all the emails might be a bigger issue)
 
-## Vercel basics
+## Commands
 
 Install vercel cli
 
@@ -42,4 +42,10 @@ Reset Prisma database
 
 ```bash
 yarn db:reset
+```
+
+Run on Docker
+
+```bash
+docker-compose up --build
 ```

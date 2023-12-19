@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
-import { NewsSchema } from '../../../../utils/schemas';
+import { NewsTile, NewsTileSchema } from '../../../../utils/schemas';
 import { Tile } from './tile';
 
 type TilesProps = {
@@ -19,11 +19,11 @@ export const Tiles = ({ children }: TilesProps) => {
     width: 0,
     height: 0
   });
-  const [news, setNews] = useState<z.infer<typeof NewsSchema>[]>();
+  const [news, setNews] = useState<z.infer<typeof NewsTileSchema>[]>();
 
   useEffect(() => {
     async function getNews() {
-      const news = await fetch('/api/news').then(res => res.json());
+      const news: NewsTile[] = await fetch('/api/news').then(res => res.json());
 
       if (news) {
         setNews(news);
@@ -83,7 +83,7 @@ export const Tiles = ({ children }: TilesProps) => {
 
     return (
       <div>
-        <div className='flex flex-col justify-between'>
+        <div className='-ml-12 -mt-10 flex flex-col justify-between'>
           {Array.from({ length: rows }).map((_, index) =>
             renderRow(columns, index)
           )}

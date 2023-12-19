@@ -2,7 +2,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
-import { CustomCard } from '../../components/custom/card';
+import { Card } from '../../components/custom/card';
 import { ResponseSchema } from '../../utils/schemas';
 
 export default function Confirmation() {
@@ -55,7 +55,7 @@ export default function Confirmation() {
   }
 
   return (
-    <CustomCard
+    <Card
       style='text-center'
       title={loading ? 'Verifying' : 'Confirmed!'}
       content={render()}

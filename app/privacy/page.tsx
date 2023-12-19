@@ -1,5 +1,5 @@
 'use client';
-import { CustomCard } from '../../components/custom/card';
+import { Card } from '../../components/custom/card';
 
 export default function Privacy() {
   const body = (
@@ -25,7 +25,6 @@ export default function Privacy() {
       </p>
       <br />
       <h2 className='styledH2'>Interpretation and Definitions</h2>
-      <br />
       <h3 className='styledH3'>Interpretation</h3>
       <p>
         The words of which the initial letter is capitalized have meanings
@@ -116,9 +115,7 @@ export default function Privacy() {
       </ul>
       <br />
       <h2 className='styledH2'>Collecting and Using Your Personal Data</h2>
-      <br />
       <h3 className='styledH3'>Types of Data Collected</h3>
-      <br />
       <h4 className='styledH4'>Personal Data</h4>
       <p>
         While using Our Service, We may ask You to provide Us with certain
@@ -432,7 +429,7 @@ export default function Privacy() {
   );
 
   return (
-    <CustomCard
+    <Card
       title='Privacy Policy'
       description='Last updated: December 03, 2023'
       content={body}

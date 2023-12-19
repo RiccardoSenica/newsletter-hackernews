@@ -19,9 +19,16 @@ export async function GET(request: Request) {
     where: {
       confirmed: true,
       deleted: false,
-      lastMail: {
-        lt: new Date(Date.now() - 1000 * 60 * 60 * 24 + 1000 * 10 * 60) // 24h - 10m
-      }
+      OR: [
+        {
+          lastMail: {
+            lt: new Date(Date.now() - 1000 * 60 * 60 * 24 + 1000 * 10 * 60) // 24h - 10m
+          }
+        },
+        {
+          lastMail: null
+        }
+      ]
     },
     select: {
       id: true,
@@ -38,7 +45,7 @@ export async function GET(request: Request) {
   const news = await prisma.news.findMany({
     where: {
       createdAt: {
-        gt: new Date(Date.now() - 1000 * 60 * 60)
+        gt: new Date(Date.now() - 1000 * 60 * 60 * 24)
       }
     }
   });
