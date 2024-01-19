@@ -30,7 +30,9 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Background>{children}</Background>
+        <Background>
+          <div style={{ zIndex: 2 }}>{children}</div>
+        </Background>
         <Analytics />
       </body>
     </html>

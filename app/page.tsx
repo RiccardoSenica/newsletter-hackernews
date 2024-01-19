@@ -80,21 +80,21 @@ export default function Home() {
     }
 
     return (
-      <div className='h-12 align-top'>
+      <div className='h-32 align-top'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className='flex space-x-4'
+            className='flex flex-col space-y-4'
           >
             <FormField
               control={form.control}
               name='email'
               render={({ field }) => (
                 <FormItem>
+                  <FormMessage />
                   <FormControl>
                     <Input placeholder='example@example.com' {...field} />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -103,6 +103,10 @@ export default function Home() {
             </div>
           </form>
         </Form>
+        <p className='py-1 text-center text-xs text-gray-600'>
+          You can rest assured that we will fill your inbox with spam. We
+          don&apos;t like it either! 🙂
+        </p>
       </div>
     );
   }
@@ -110,8 +114,9 @@ export default function Home() {
   return (
     <Card
       style='text-center'
-      title='Hackernews + newsletter'
-      description='Top stories from Hackernews. Once a day. Every day.'
+      overtitle='Hackernews + newsletter'
+      title='Interested in keeping up with the latest from the tech world? 👩‍💻'
+      description='Subscribe to our newsletter! The top stories from Hackernews for you. Once a day. Every day.'
       content={render()}
     />
   );
