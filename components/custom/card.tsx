@@ -58,9 +58,10 @@ export const Card = ({
 
   return (
     <CardUI
-      className={`${
-        style ?? 'sm:w-2/3 md:w-2/5 lg:w-1/3 xl:w-1/4'
-      } p-4 shadow-2xl`}
+      style={{
+        boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
+      }}
+      className={`${style ?? 'sm:w-2/3 md:w-2/5 lg:w-1/3 xl:w-1/4'} p-4`}
     >
       <CardHeader className='text-center'>
         <CardTitle>{title}</CardTitle>
