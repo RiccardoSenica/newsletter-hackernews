@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { z } from 'zod';
-import { getRandomColor } from '../../../../utils/getRandomColor';
+import { getRandomGrey } from '../../../../utils/getRandomGrey';
 import { NewsTileSchema } from '../../../../utils/schemas';
 
 type CardContentProps = {
@@ -9,13 +9,13 @@ type CardContentProps = {
 };
 
 export function TileContent({ story, side }: CardContentProps) {
-  const [firstColor, setFirstColor] = useState(getRandomColor());
-  const [secondColor, setSecondColor] = useState(getRandomColor());
+  const [firstColor, setFirstColor] = useState(getRandomGrey());
+  const [secondColor, setSecondColor] = useState(getRandomGrey());
   const [switched, setSwitched] = useState(true);
 
   if (switched !== side) {
-    setFirstColor(getRandomColor());
-    setSecondColor(getRandomColor());
+    setFirstColor(getRandomGrey());
+    setSecondColor(getRandomGrey());
 
     setSwitched(side);
   }
@@ -26,7 +26,8 @@ export function TileContent({ story, side }: CardContentProps) {
     <div
       className={`h-40 w-40 overflow-hidden rounded-lg p-6 shadow-sm`}
       style={{
-        backgroundColor: `${color}`
+        backgroundColor: `${color}`,
+        color: '#808080'
       }}
     >
       <h1 className='overflow-auto font-semibold'>{story.title}</h1>

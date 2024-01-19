@@ -14,7 +14,7 @@
             var square = document.createElement('div');
             square.style.width = size + 'px';
             square.style.height = size + 'px';
-            square.style.backgroundColor = getRandomColor();
+            square.style.backgroundColor = getRandomGrey();
             square.style.position = 'absolute';
             square.style.left = i * (size + margin) + 'px';
             square.style.top = j * (size + margin) + 'px';
@@ -23,11 +23,12 @@
         }
       };
 
-      function getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-          color += letters[Math.floor(Math.random() * 16)];
+      function getRandomGrey() {
+        const letters = 'ABCDEF';
+        let color = '#';
+        const greyShade = Math.floor(Math.random() * 6);
+        for (let i = 0; i < 6; i++) {
+          color += letters[greyShade];
         }
         return color;
       }

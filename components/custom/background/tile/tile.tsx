@@ -14,7 +14,7 @@ export function Tile({ newsA, newsB }: CardProps) {
   const [delayed, setDelayed] = useState(true);
 
   useEffect(() => {
-    const randomDelay = Math.floor(Math.random() * 5000);
+    const randomDelay = Math.floor(Math.random() * 10000);
 
     const interval = setInterval(
       () => {
@@ -26,7 +26,7 @@ export function Tile({ newsA, newsB }: CardProps) {
           setDelayed(false);
         }, 500 / 2);
       },
-      delayed ? randomDelay : randomDelay + 3000
+      delayed ? randomDelay : randomDelay + 10000
     );
 
     return () => clearInterval(interval);
