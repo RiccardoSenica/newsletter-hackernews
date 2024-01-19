@@ -80,21 +80,21 @@ export default function Unsubscribe() {
     }
 
     return (
-      <div className='h-12 align-top'>
+      <div className='h-32 align-top'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className='flex space-x-4'
+            className='flex flex-col space-y-4'
           >
             <FormField
               control={form.control}
               name='email'
               render={({ field }) => (
                 <FormItem>
+                  <FormMessage />
                   <FormControl>
                     <Input placeholder='example@example.com' {...field} />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
