@@ -91,7 +91,7 @@ export default function Unsubscribe() {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormMessage />
+                  <FormMessage className='text-center' />
                   <FormControl>
                     <Input placeholder='example@example.com' {...field} />
                   </FormControl>
@@ -109,7 +109,7 @@ export default function Unsubscribe() {
 
   return (
     <Card
-      style='text-center'
+      style='max-w-96'
       title='Unsubscribe'
       description='You sure you want to leave? :('
       content={render()}

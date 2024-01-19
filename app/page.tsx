@@ -91,7 +91,7 @@ export default function Home() {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormMessage />
+                  <FormMessage className='text-center' />
                   <FormControl>
                     <Input
                       placeholder='example@example.com'
@@ -117,7 +117,7 @@ export default function Home() {
 
   return (
     <Card
-      style='text-center max-w-96'
+      style='max-w-96'
       overtitle='Hackernews + newsletter'
       title='Interested in keeping up with the latest from the tech world? 👩‍💻'
       description='Subscribe to our newsletter! The top stories from Hackernews for you. Once a day. Every day.'

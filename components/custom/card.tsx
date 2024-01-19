@@ -39,14 +39,13 @@ export const Card = ({
   }
 
   if (isMobile) {
-    console.log(isMobile);
     return (
       <div className='gradient-border'>
         <CardUI
           style={{
             boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
           }}
-          className={`max-h-[90vh] w-[90%] p-4`}
+          className={`max-h-[90vh] w-[90vw] p-4 text-center ${style}`}
         >
           <CardHeader className='text-center'>
             {overtitle && (
@@ -74,7 +73,7 @@ export const Card = ({
         style={{
           boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
         }}
-        className={`${style ?? 'sm:w-2/3 md:w-2/5 lg:w-1/3 xl:w-1/4'} p-4`}
+        className={`p-4 text-center ${style}`}
       >
         <CardHeader className='text-center'>
           {overtitle && (
