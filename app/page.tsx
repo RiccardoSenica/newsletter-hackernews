@@ -93,7 +93,11 @@ export default function Home() {
                 <FormItem>
                   <FormMessage />
                   <FormControl>
-                    <Input placeholder='example@example.com' {...field} />
+                    <Input
+                      placeholder='example@example.com'
+                      className='text-center'
+                      {...field}
+                    />
                   </FormControl>
                 </FormItem>
               )}

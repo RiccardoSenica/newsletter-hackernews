@@ -41,9 +41,14 @@ export const Card = ({
   if (isMobile) {
     console.log(isMobile);
     return (
-      <CardUI className={`max-h-[90vh] w-[90%] p-4`}>
+      <CardUI
+        style={{
+          boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
+        }}
+        className={`max-h-[90vh] w-[90%] p-4`}
+      >
+        <p className='text-xs uppercase'>{overtitle ?? 'TEST'}</p>
         <CardHeader className='text-center'>
-          <p className='text-xs uppercase'>{overtitle}</p>
           <CardTitle>{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
@@ -68,6 +73,9 @@ export const Card = ({
         className={`${style ?? 'sm:w-2/3 md:w-2/5 lg:w-1/3 xl:w-1/4'} p-4`}
       >
         <CardHeader className='w-80 text-center'>
+          {overtitle && (
+            <p className='text-xs uppercase text-gray-500'>{overtitle}</p>
+          )}
           <CardTitle>{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
