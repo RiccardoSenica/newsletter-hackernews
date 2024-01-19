@@ -1,11 +1,11 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { z } from 'zod';
 import { Card } from '../../components/custom/card';
 import { ResponseSchema } from '../../utils/schemas';
 
-export default function Confirmation() {
+function ConfirmationPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
@@ -61,5 +61,13 @@ export default function Confirmation() {
       content={render()}
       footer={false}
     />
+  );
+}
+
+export default function Confirmation() {
+  return (
+    <Suspense>
+      <ConfirmationPage />
+    </Suspense>
   );
 }
