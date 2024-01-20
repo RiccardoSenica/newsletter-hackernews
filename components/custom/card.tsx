@@ -11,7 +11,6 @@ import {
 import Footer from './footer';
 
 type CardProps = {
-  overtitle?: string;
   title: string;
   description?: string;
   content: ReactNode;
@@ -20,7 +19,6 @@ type CardProps = {
 };
 
 export const Card = ({
-  overtitle,
   title,
   description,
   content,
@@ -38,55 +36,30 @@ export const Card = ({
     return null;
   }
 
-  if (isMobile) {
-    return (
-      <div className='gradient-border'>
-        <CardUI
-          style={{
-            boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
-          }}
-          className={`max-h-[90vh] max-w-[90vw] p-4 ${style}`}
-        >
-          <CardHeader className='text-center'>
-            {overtitle && (
-              <p className='text-xs uppercase text-gray-500'>{overtitle}</p>
-            )}
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
-          </CardHeader>
-          <CardContent className='max-h-[60vh] overflow-auto'>
-            {content}
-          </CardContent>
-          {footer && (
-            <CardFooter className='flex justify-center p-4'>
-              <Footer />
-            </CardFooter>
-          )}
-        </CardUI>
-      </div>
-    );
-  }
-
   return (
     <div className='gradient-border'>
       <CardUI
         style={{
           boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
         }}
-        className={`max-h-[90vh] max-w-[90vw] p-4 ${style}`}
+        className={`max-h-[90vh] w-[90vw] p-8 ${style}`}
       >
-        <CardHeader className='text-center'>
-          {overtitle && (
-            <p className='text-xs uppercase text-gray-500'>{overtitle}</p>
-          )}
+        <CardHeader>
+          <p className='text-xs uppercase text-gray-500'>
+            Hackernews + newsletter
+          </p>
           <CardTitle>{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
-        <CardContent className='flex max-h-[60vh] flex-grow  justify-center overflow-auto'>
-          {content}
-        </CardContent>
+        {isMobile ? (
+          <CardContent>{content}</CardContent>
+        ) : (
+          <CardContent className='flex max-h-[60vh] flex-grow  justify-center overflow-auto'>
+            {content}
+          </CardContent>
+        )}
         {footer && (
-          <CardFooter className=' flex justify-center p-4'>
+          <CardFooter>
             <Footer />
           </CardFooter>
         )}

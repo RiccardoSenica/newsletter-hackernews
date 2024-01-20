@@ -80,7 +80,7 @@ export default function Home() {
     }
 
     return (
-      <div className='h-40 align-top'>
+      <div className='h-44'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -117,8 +117,7 @@ export default function Home() {
 
   return (
     <Card
-      style='text-center w-96'
-      overtitle='Hackernews + newsletter'
+      style='text-center max-w-96'
       title='Interested in keeping up with the latest from the tech world? 👩‍💻'
       description='Subscribe to our newsletter! The top stories from Hackernews for you. Once a day. Every day.'
       content={render()}

@@ -3,7 +3,7 @@ import { Card } from '../../components/custom/card';
 
 export default function Privacy() {
   const body = (
-    <div>
+    <div className='my-2 max-h-[60vh] overflow-auto'>
       <p>
         This Privacy Policy describes Our policies and procedures on the
         collection, use and disclosure of Your information when You use the

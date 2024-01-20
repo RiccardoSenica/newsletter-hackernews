@@ -80,7 +80,7 @@ export default function Unsubscribe() {
     }
 
     return (
-      <div className='h-32 align-top'>
+      <div className='h-32'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
