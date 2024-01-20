@@ -80,7 +80,7 @@ export default function Unsubscribe() {
     }
 
     return (
-      <div className='h-32'>
+      <div className='mb-5 h-32'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -91,7 +91,9 @@ export default function Unsubscribe() {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormMessage className='text-center' />
+                  <div className='h-4'>
+                    <FormMessage className='text-center' />
+                  </div>
                   <FormControl>
                     <Input placeholder='example@example.com' {...field} />
                   </FormControl>
@@ -109,7 +111,7 @@ export default function Unsubscribe() {
 
   return (
     <Card
-      style='text-center max-w-96'
+      style='text-center max-w-80'
       title='Unsubscribe'
       description='You sure you want to leave? :('
       content={render()}

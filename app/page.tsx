@@ -80,7 +80,7 @@ export default function Home() {
     }
 
     return (
-      <div className='h-44'>
+      <div className='mx-2 h-44'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -91,7 +91,9 @@ export default function Home() {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormMessage className='text-center' />
+                  <div className='h-4'>
+                    <FormMessage className='text-center' />
+                  </div>
                   <FormControl>
                     <Input
                       placeholder='example@example.com'
