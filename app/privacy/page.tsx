@@ -430,7 +430,7 @@ export default function Privacy() {
 
   return (
     <Card
-      style='h-[90vh] max-w-[90vw]'
+      style='max-h-[90vh] max-w-[90vw]'
       title='Privacy Policy'
       description='Last updated: December 03, 2023'
       content={body}

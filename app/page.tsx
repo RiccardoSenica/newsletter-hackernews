@@ -117,7 +117,7 @@ export default function Home() {
 
   return (
     <Card
-      style='max-w-96'
+      style='text-center w-96'
       overtitle='Hackernews + newsletter'
       title='Interested in keeping up with the latest from the tech world? 👩‍💻'
       description='Subscribe to our newsletter! The top stories from Hackernews for you. Once a day. Every day.'

@@ -45,7 +45,7 @@ export const Card = ({
           style={{
             boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
           }}
-          className={`max-h-[90vh] w-[90vw] p-4 text-center ${style}`}
+          className={`max-h-[90vh] max-w-[90vw] p-4 ${style}`}
         >
           <CardHeader className='text-center'>
             {overtitle && (
@@ -73,7 +73,7 @@ export const Card = ({
         style={{
           boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
         }}
-        className={`p-4 text-center ${style}`}
+        className={`max-h-[90vh] max-w-[90vw] p-4 ${style}`}
       >
         <CardHeader className='text-center'>
           {overtitle && (
@@ -82,7 +82,7 @@ export const Card = ({
           <CardTitle>{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
-        <CardContent className='flex h-[80%] flex-grow items-center justify-center overflow-auto'>
+        <CardContent className='flex max-h-[60vh] flex-grow  justify-center overflow-auto'>
           {content}
         </CardContent>
         {footer && (

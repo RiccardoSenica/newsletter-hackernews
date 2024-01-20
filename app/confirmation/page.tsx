@@ -56,6 +56,7 @@ function ConfirmationPage() {
 
   return (
     <Card
+      style='text-center'
       title={loading ? 'Verifying' : 'Confirmed!'}
       content={render()}
       footer={false}

@@ -109,7 +109,7 @@ export default function Unsubscribe() {
 
   return (
     <Card
-      style='max-w-96'
+      style='text-center max-w-96'
       title='Unsubscribe'
       description='You sure you want to leave? :('
       content={render()}
