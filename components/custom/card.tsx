@@ -36,45 +36,34 @@ export const Card = ({
     return null;
   }
 
-  if (isMobile) {
-    console.log(isMobile);
-    return (
-      <CardUI className={`max-h-[90vh] w-[90%] p-4`}>
-        <CardHeader className='text-center'>
+  return (
+    <div className='gradient-border'>
+      <CardUI
+        style={{
+          boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
+        }}
+        className={`max-h-[90vh] w-[90vw] p-8 ${style}`}
+      >
+        <CardHeader>
+          <p className='text-xs uppercase text-gray-500'>
+            Hackernews + newsletter
+          </p>
           <CardTitle>{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
-        <CardContent className='max-h-[60vh] overflow-auto'>
-          {content}
-        </CardContent>
+        {isMobile ? (
+          <CardContent>{content}</CardContent>
+        ) : (
+          <CardContent className='flex max-h-[60vh] flex-grow  justify-center overflow-auto'>
+            {content}
+          </CardContent>
+        )}
         {footer && (
-          <CardFooter className='flex justify-center p-4'>
+          <CardFooter>
             <Footer />
           </CardFooter>
         )}
       </CardUI>
-    );
-  }
-
-  return (
-    <CardUI
-      style={{
-        boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
-      }}
-      className={`${style ?? 'sm:w-2/3 md:w-2/5 lg:w-1/3 xl:w-1/4'} p-4`}
-    >
-      <CardHeader className='text-center'>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <CardContent className='h-[80%] flex-grow overflow-auto'>
-        {content}
-      </CardContent>
-      {footer && (
-        <CardFooter className=' flex justify-center p-4'>
-          <Footer />
-        </CardFooter>
-      )}
-    </CardUI>
+    </div>
   );
 };

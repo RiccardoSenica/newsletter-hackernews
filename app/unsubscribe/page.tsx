@@ -80,21 +80,23 @@ export default function Unsubscribe() {
     }
 
     return (
-      <div className='h-12 align-top'>
+      <div className='mb-5 h-32'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className='flex space-x-4'
+            className='flex flex-col space-y-4'
           >
             <FormField
               control={form.control}
               name='email'
               render={({ field }) => (
                 <FormItem>
+                  <div className='h-4'>
+                    <FormMessage className='text-center' />
+                  </div>
                   <FormControl>
                     <Input placeholder='example@example.com' {...field} />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -109,7 +111,7 @@ export default function Unsubscribe() {
 
   return (
     <Card
-      style='text-center'
+      style='text-center max-w-80'
       title='Unsubscribe'
       description='You sure you want to leave? :('
       content={render()}

@@ -3,7 +3,7 @@ import { Card } from '../../components/custom/card';
 
 export default function Privacy() {
   const body = (
-    <div>
+    <div className='my-2 max-h-[60vh] overflow-auto'>
       <p>
         This Privacy Policy describes Our policies and procedures on the
         collection, use and disclosure of Your information when You use the
@@ -430,10 +430,10 @@ export default function Privacy() {
 
   return (
     <Card
+      style='max-h-[90vh] max-w-[90vw]'
       title='Privacy Policy'
       description='Last updated: December 03, 2023'
       content={body}
-      style='w-2/3 h-[90vh]'
     />
   );
 }
