@@ -12,16 +12,19 @@ export async function sender(
   const resend = new Resend(process.env.RESEND_KEY);
 
   try {
-    // TODO: adjust code once Resend supports batch sending
-    const { error } = await resend.emails.send({
-      from: process.env.RESEND_FROM!,
-      to,
-      subject,
-      react: template,
-      headers: {
-        'List-Unsubscribe': `<${process.env.HOME_URL}/unsubscribe>`
-      }
-    });
+    const { error } = await resend.batch.send(
+      to.map(t => {
+        return {
+          from: process.env.RESEND_FROM!,
+          to: t,
+          subject,
+          react: template,
+          headers: {
+            'List-Unsubscribe': `<${process.env.HOME_URL}/unsubscribe>`
+          }
+        };
+      })
+    );
 
     if (error) {
       console.log(error);
