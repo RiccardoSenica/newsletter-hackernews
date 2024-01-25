@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { Card } from '../../components/custom/card';
 
 export default function Privacy() {
@@ -15,12 +16,12 @@ export default function Privacy() {
         the Service, You agree to the collection and use of information in
         accordance with this Privacy Policy. This Privacy Policy has been
         created with the help of the{' '}
-        <a
+        <Link
           href='https://www.termsfeed.com/privacy-policy-generator/'
           target='_blank'
         >
           Privacy Policy Generator
-        </a>
+        </Link>
         .
       </p>
       <br />
@@ -420,9 +421,13 @@ export default function Privacy() {
       <ul>
         <li>
           By visiting this page on our website:{' '}
-          <a href={'/privacy'} rel='external nofollow noopener' target='_blank'>
+          <Link
+            href={'/privacy'}
+            rel='external nofollow noopener'
+            target='_blank'
+          >
             Privacy Policy
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

@@ -1,4 +1,4 @@
-import { Link } from '../custom/link';
+import { CustomLink } from '../custom/customLink';
 import { Note } from './components/note';
 import Template from './template';
 
@@ -22,7 +22,7 @@ export default function ConfirmationTemplate(code: string) {
                 justifyContent: 'center'
               }}
             >
-              <Link
+              <CustomLink
                 path={`${process.env.HOME_URL}/confirmation?code=${code}`}
                 text='Confirm subscription'
               />

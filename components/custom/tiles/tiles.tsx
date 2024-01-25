@@ -3,8 +3,8 @@
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
-import { NewsTile, NewsTileSchema } from '../../../../utils/schemas';
-import { Tile } from './tile';
+import { NewsTile, NewsTileSchema } from '../../../utils/schemas';
+import { Tile } from './components/tile';
 
 type TilesProps = {
   children: React.ReactNode;

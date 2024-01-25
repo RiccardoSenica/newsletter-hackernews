@@ -3,8 +3,13 @@
 ## Next up
 
 - Adjust card size
-- Custom url shortener for links in the newsletter?
+- Tweak email templates
 - Cron every 10 minutes: people are more likely to open the newsletter if delivered around the time when they subscribed (if cron becomes not enough, then the cost of sending all the emails might be a bigger issue)
+
+## Some resources used
+
+https://gradientbuttons.colorion.co/
+https://codepen.io/alphardex/pen/vYEYGzp
 
 ## Commands
 

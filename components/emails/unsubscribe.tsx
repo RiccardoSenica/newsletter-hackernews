@@ -1,4 +1,4 @@
-import { Link } from '../custom/link';
+import { CustomLink } from '../custom/customLink';
 import { Note } from './components/note';
 import Template from './template';
 
@@ -22,7 +22,7 @@ export default function UnsubscribeTemplate() {
                 justifyContent: 'center'
               }}
             >
-              <Link path='/' text='Re-subscribe' />
+              <CustomLink path='/' text='Re-subscribe' />
             </div>
             <Note>
               If you have any questions or concerns, please feel free to{' '}

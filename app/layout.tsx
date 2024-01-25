@@ -1,7 +1,7 @@
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
-import { Background } from '../components/custom/background/background';
+import { Tiles } from '../components/custom/tiles/tiles';
 import { cn } from '../utils/ui';
 import './globals.css';
 
@@ -30,9 +30,9 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Background>
+        <Tiles>
           <div style={{ zIndex: 2 }}>{children}</div>
-        </Background>
+        </Tiles>
         <Analytics />
       </body>
     </html>
