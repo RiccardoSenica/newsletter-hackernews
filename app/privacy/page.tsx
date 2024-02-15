@@ -423,17 +423,17 @@ export default function Privacy() {
             {process.env.NEXT_PUBLIC_BRAND_EMAIL}
           </a>
         }{' '}
-        or by visiting this page on our{' '}
+        or by visiting{' '}
         {
           <Link
             href={'/privacy'}
             rel='external nofollow noopener'
             target='_blank'
           >
-            website
+            this
           </Link>
-        }
-        .
+        }{' '}
+        page on our website.
       </p>
     </div>
   );
