@@ -416,20 +416,25 @@ export default function Privacy() {
       <br />
       <h2 className='styledH2'>Contact Us</h2>
       <p>
-        If you have any questions about this Privacy Policy, You can contact us:
-      </p>
-      <ul>
-        <li>
-          By visiting this page on our website:{' '}
+        If you have any questions about this Privacy Policy, You can contact us
+        by writing to{' '}
+        {
+          <a href={`mailto:${process.env.NEXT_PUBLIC_BRAND_EMAIL}`}>
+            {process.env.NEXT_PUBLIC_BRAND_EMAIL}
+          </a>
+        }{' '}
+        or by visiting this page on our{' '}
+        {
           <Link
             href={'/privacy'}
             rel='external nofollow noopener'
             target='_blank'
           >
-            Privacy Policy
+            website
           </Link>
-        </li>
-      </ul>
+        }
+        .
+      </p>
     </div>
   );
 
