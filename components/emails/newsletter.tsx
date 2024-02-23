@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { NewsSchema } from '../../utils/schemas';
+import { textTruncate } from '../../utils/textTruncate';
 import { sayings } from './helpers/sayings';
 import Template from './template';
 
@@ -58,7 +59,7 @@ export default function NewsletterTemplate(
                         dangerouslySetInnerHTML={{
                           __html:
                             story.text.length > 500
-                              ? story.text.substring(0, 500) + '...'
+                              ? textTruncate(story.text, 500) + '...'
                               : story.text
                         }}
                       />
