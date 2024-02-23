@@ -1,4 +1,3 @@
-import { CustomLink } from '../custom/customLink';
 import { Note } from './components/note';
 import Template from './template';
 
@@ -22,10 +21,9 @@ export default function ConfirmationTemplate(code: string) {
                 justifyContent: 'center'
               }}
             >
-              <CustomLink
-                path={`${process.env.HOME_URL}/confirmation?code=${code}`}
-                text='Confirm subscription'
-              />
+              <a href={`${process.env.HOME_URL}/confirmation?code=${code}`}>
+                {'Confirm subscription'}
+              </a>
             </div>
             <Note>
               If you didn&apos;t subscribe to our newsletter, please ignore this

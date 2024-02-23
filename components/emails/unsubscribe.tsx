@@ -1,4 +1,3 @@
-import { CustomLink } from '../custom/customLink';
 import { Note } from './components/note';
 import Template from './template';
 
@@ -22,7 +21,7 @@ export default function UnsubscribeTemplate() {
                 justifyContent: 'center'
               }}
             >
-              <CustomLink path='/' text='Re-subscribe' />
+              <a href={`${process.env.HOME_URL}/`}>{'Re-subscribe'}</a>
             </div>
             <Note>
               If you have any questions or concerns, please feel free to{' '}
