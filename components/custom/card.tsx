@@ -42,7 +42,7 @@ export const Card = ({
         style={{
           boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
         }}
-        className={`max-h-[90vh] w-[90vw] p-8 ${style}`}
+        className={`max-h-[90vh] max-w-[90vw] p-8 ${style}`}
       >
         <CardHeader>
           <p className='text-xs uppercase text-gray-500'>
