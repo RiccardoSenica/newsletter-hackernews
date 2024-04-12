@@ -20,7 +20,7 @@ export default function Unsubscribe() {
   const [completed, setCompleted] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
-  const honeypotRef = useRef<HTMLInputElement | null>(null);
+  const ref = useRef<HTMLInputElement | null>(null);
 
   const form = useForm<z.infer<typeof UnsubscribeFormSchema>>({
     resolver: zodResolver(UnsubscribeFormSchema),
@@ -31,8 +31,8 @@ export default function Unsubscribe() {
   });
 
   useEffect(() => {
-    if (honeypotRef.current) {
-      honeypotRef.current.style.display = 'none';
+    if (ref.current) {
+      ref.current.style.display = 'none';
     }
   }, []);
 

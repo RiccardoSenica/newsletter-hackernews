@@ -6,17 +6,17 @@ type EmailTemplate = {
 };
 
 export async function sender(
-  to: string[],
+  recipients: string[],
   { subject, template }: EmailTemplate
 ) {
   const resend = new Resend(process.env.RESEND_KEY);
 
   try {
     const { error } = await resend.batch.send(
-      to.map(t => {
+      recipients.map(recipient => {
         return {
           from: process.env.RESEND_FROM!,
-          to: t,
+          to: recipient,
           subject,
           react: template,
           headers: {
@@ -31,7 +31,7 @@ export async function sender(
       return false;
     }
 
-    console.log('Email sent', subject, to.length);
+    console.log('Email sent', subject, recipients.length);
     return true;
   } catch (error) {
     console.error(error);

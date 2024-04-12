@@ -74,7 +74,7 @@ function ConfirmationPage() {
 
 export default function Confirmation() {
   return (
-    <Suspense>
+    <Suspense fallback={<>Loading...</>}>
       <ConfirmationPage />
     </Suspense>
   );
