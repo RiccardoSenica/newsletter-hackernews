@@ -8,14 +8,14 @@ type CardProps = {
   newsB?: z.infer<typeof NewsTileSchema>;
 };
 
-const randomDelay = Math.floor(Math.random() * 10000);
-
 export default function Tile({ newsA, newsB }: CardProps) {
   const [switched, setSwitched] = useState(false);
   const [active, setActive] = useState(Math.random() < 0.5);
   const [delayed, setDelayed] = useState(true);
 
   useEffect(() => {
+    const randomDelay = Math.floor(Math.random() * 10000);
+
     const interval = setInterval(
       () => {
         setSwitched(true);
