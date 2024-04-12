@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { NewsTileSchema } from '../../../../utils/schemas';
-import { TileContent } from './tileContent';
+import TileContent from './tileContent';
 
 type CardProps = {
   newsA?: z.infer<typeof NewsTileSchema>;
   newsB?: z.infer<typeof NewsTileSchema>;
 };
 
-export function Tile({ newsA, newsB }: CardProps) {
+const randomDelay = Math.floor(Math.random() * 10000);
+
+export default function Tile({ newsA, newsB }: CardProps) {
   const [switched, setSwitched] = useState(false);
   const [active, setActive] = useState(Math.random() < 0.5);
   const [delayed, setDelayed] = useState(true);
 
   useEffect(() => {
-    const randomDelay = Math.floor(Math.random() * 10000);
-
     const interval = setInterval(
       () => {
         setSwitched(true);

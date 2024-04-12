@@ -27,17 +27,14 @@ export async function sender(
     );
 
     if (error) {
-      console.log(error);
-
+      console.error(error);
       return false;
     }
-  } catch (error) {
-    console.log(error);
 
+    console.log('Email sent', subject, to.length);
+    return true;
+  } catch (error) {
+    console.error(error);
     return false;
   }
-
-  console.log('Email sent', subject, to.length);
-
-  return true;
 }

@@ -7,7 +7,7 @@ type LinkProps = {
   text: string;
 };
 
-export function CustomLink({ path, text }: LinkProps) {
+export default function CustomLink({ path, text }: LinkProps) {
   return (
     <Button asChild>
       <Link href={path}>{text}</Link>

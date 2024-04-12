@@ -1,11 +1,11 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { CustomLink } from './customLink';
+import CustomLink from './customLink';
 
 const links = [{ name: 'Subscribe', path: '/' }];
 
-function Footer() {
+export default function Footer() {
   const pathname = usePathname();
 
   return (
@@ -38,5 +38,3 @@ function Footer() {
     </div>
   );
 }
-
-export default Footer;

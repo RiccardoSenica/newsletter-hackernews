@@ -1,4 +1,4 @@
-import { Note } from './components/note';
+import Note from './components/note';
 import Template from './template';
 
 export default function ConfirmationTemplate(code: string) {

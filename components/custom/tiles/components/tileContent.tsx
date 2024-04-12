@@ -8,7 +8,7 @@ type CardContentProps = {
   side: boolean;
 };
 
-export function TileContent({ story, side }: CardContentProps) {
+export default function TileContent({ story, side }: CardContentProps) {
   const [firstColor, setFirstColor] = useState(getRandomGrey());
   const [secondColor, setSecondColor] = useState(getRandomGrey());
   const [switched, setSwitched] = useState(true);

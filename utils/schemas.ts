@@ -30,6 +30,8 @@ export const NewsDatabaseSchema = z.object({
   score: z.number()
 });
 
+export type NewsType = z.infer<typeof NewsDatabaseSchema>;
+
 export const NewsSchema = z.object({
   id: z.number(),
   title: z.string(),

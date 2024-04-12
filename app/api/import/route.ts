@@ -1,50 +1,57 @@
-import { NextResponse } from 'next/server';
 import prisma from '../../../prisma/prisma';
-import { NewsDatabaseSchema } from '../../../utils/schemas';
+import { ApiResponse } from '../../../utils/apiResponse';
+import { NewsDatabaseSchema, NewsType } from '../../../utils/schemas';
+import {
+  STATUS_INTERNAL_SERVER_ERROR,
+  STATUS_OK,
+  STATUS_UNAUTHORIZED
+} from '../../../utils/statusCodes';
 import { singleNews, topNews } from '../../../utils/urls';
 
 export async function GET(request: Request) {
   if (
     request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`
   ) {
-    return new Response('Unauthorized', { status: 401 });
+    return new Response('Unauthorized', { status: STATUS_UNAUTHORIZED });
   }
 
   try {
-    const topstories: number[] = await fetch(topNews).then(res => res.json());
+    const topStories: number[] = await fetch(topNews).then(res => res.json());
 
-    const newsPromises = topstories
-      .splice(0, Number(process.env.NEWS_LIMIT))
-      .map(async id => {
-        const sourceNews = await fetch(singleNews(id)).then(res => res.json());
-        const validation = NewsDatabaseSchema.safeParse(sourceNews);
+    const newsPromises = topStories
+      .slice(0, Number(process.env.NEWS_LIMIT))
+      .map(id => fetch(singleNews(id)).then(res => res.json()));
 
-        if (validation.success) {
-          const result = await prisma.news.upsert({
-            create: {
-              ...validation.data,
-              id
-            },
-            update: {
-              ...validation.data
-            },
-            where: {
-              id
-            }
-          });
+    const news: NewsType[] = await Promise.all(newsPromises);
 
-          return result;
-        }
-      });
+    const upsertPromises = news.map(async singleNews => {
+      const validation = NewsDatabaseSchema.safeParse(singleNews);
 
-    await Promise.all(newsPromises);
+      if (validation.success) {
+        const result = await prisma.news.upsert({
+          create: {
+            ...validation.data,
+            id: singleNews.id
+          },
+          update: {
+            ...validation.data
+          },
+          where: {
+            id: singleNews.id
+          }
+        });
 
-    return new NextResponse(`Imported ${newsPromises.length} news.`, {
-      status: 200
+        return result;
+      } else {
+        console.error(validation.error);
+      }
     });
-  } catch {
-    return new NextResponse(`Import failed.`, {
-      status: 500
-    });
+
+    await Promise.all(upsertPromises);
+
+    return ApiResponse(STATUS_OK, `Imported ${newsPromises.length} news.`);
+  } catch (error) {
+    console.error(error);
+    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, 'Import failed');
   }
 }

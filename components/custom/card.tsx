@@ -18,13 +18,13 @@ type CardProps = {
   footer?: boolean;
 };
 
-export const Card = ({
+export default function Card({
   title,
   description,
   content,
   style,
   footer = true
-}: CardProps) => {
+}: CardProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
@@ -66,4 +66,4 @@ export const Card = ({
       </CardUI>
     </div>
   );
-};
+}
