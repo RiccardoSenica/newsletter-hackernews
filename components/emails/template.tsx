@@ -1,4 +1,4 @@
-import { Footer } from './components/footer';
+import Footer from './components/footer';
 
 type TemplateProps = {
   title: string;
@@ -12,7 +12,7 @@ export default function Template({ title, body }: TemplateProps) {
         maxWidth: '720px',
         alignContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F9FBFB',
+        backgroundColor: '#F9FBFB'
       }}
     >
       <h1
@@ -22,7 +22,7 @@ export default function Template({ title, body }: TemplateProps) {
           fontSize: '24px',
           fontWeight: 'bold',
           color: 'white',
-          backgroundColor: `#8230CC`,
+          backgroundColor: `#8230CC`
         }}
       >
         {title}

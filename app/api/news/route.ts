@@ -1,22 +1,29 @@
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
+import {
+  STATUS_INTERNAL_SERVER_ERROR,
+  STATUS_OK
+} from '../../../utils/statusCodes';
 
 export async function GET() {
-  const news = await prisma.news.findMany({
-    orderBy: {
-      createdAt: 'desc'
-    },
-    take: 50,
-    select: {
-      id: true,
-      title: true,
-      by: true
+  try {
+    const news = await prisma.news.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      },
+      take: 50,
+      select: {
+        id: true,
+        title: true,
+        by: true
+      }
+    });
+
+    if (news) {
+      return ApiResponse(STATUS_OK, news);
     }
-  });
-
-  if (news) {
-    return ApiResponse(200, JSON.stringify(news));
+  } catch (error) {
+    console.error(error);
+    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, 'Internal server error');
   }
-
-  return ApiResponse(500, 'Internal server error');
 }

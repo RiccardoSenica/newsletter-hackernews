@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Card } from '../../components/custom/card';
+import Card from '../../components/custom/card';
 import ErrorMessage from '../../components/custom/error';
 import { Button } from '../../components/ui/button';
 import {
@@ -20,7 +20,7 @@ export default function Unsubscribe() {
   const [completed, setCompleted] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
-  const honeypotRef = useRef<HTMLInputElement | null>(null);
+  const ref = useRef<HTMLInputElement | null>(null);
 
   const form = useForm<z.infer<typeof UnsubscribeFormSchema>>({
     resolver: zodResolver(UnsubscribeFormSchema),
@@ -31,8 +31,8 @@ export default function Unsubscribe() {
   });
 
   useEffect(() => {
-    if (honeypotRef.current) {
-      honeypotRef.current.style.display = 'none';
+    if (ref.current) {
+      ref.current.style.display = 'none';
     }
   }, []);
 

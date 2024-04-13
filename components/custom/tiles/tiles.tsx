@@ -1,16 +1,16 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { z } from 'zod';
 import { NewsTile, NewsTileSchema } from '../../../utils/schemas';
-import { Tile } from './components/tile';
+import Tile from './components/tile';
 
 type TilesProps = {
   children: React.ReactNode;
 };
 
-export const Tiles = ({ children }: TilesProps) => {
+export default function Tiles({ children }: TilesProps) {
   const pathname = usePathname();
   const [windowSize, setWindowSize] = useState<{
     width: number;
@@ -52,32 +52,36 @@ export const Tiles = ({ children }: TilesProps) => {
     };
   }, [setWindowSize, news]);
 
-  if (pathname === '/maintenance') return <div>{children}</div>;
+  const renderTile = useCallback(
+    (key: number) => {
+      if (!news) return <div key={key}></div>;
 
-  function renderTile(key: number) {
-    if (!news) return <div key={key}></div>;
+      const randomA = Math.floor(Math.random() * news?.length);
+      const randomB = Math.floor(
+        Math.random() * news?.filter((_, index) => index !== randomA)?.length
+      );
 
-    const randomA = Math.floor(Math.random() * news?.length);
-    const randomB = Math.floor(
-      Math.random() * news?.filter((_, index) => index !== randomA)?.length
-    );
+      return (
+        <div key={key} className={`m-1 h-40 w-40`}>
+          <Tile newsA={news[randomA]} newsB={news[randomB]} />
+        </div>
+      );
+    },
+    [news]
+  );
 
-    return (
-      <div key={key} className={`m-1 h-40 w-40`}>
-        <Tile newsA={news[randomA]} newsB={news[randomB]} />
-      </div>
-    );
-  }
+  const renderRow = useCallback(
+    (columns: number, key: number) => {
+      return (
+        <div key={key} className='flex justify-between'>
+          {Array.from({ length: columns }).map((_, index) => renderTile(index))}
+        </div>
+      );
+    },
+    [renderTile]
+  );
 
-  function renderRow(columns: number, key: number) {
-    return (
-      <div key={key} className='flex justify-between'>
-        {Array.from({ length: columns }).map((_, index) => renderTile(index))}
-      </div>
-    );
-  }
-
-  function renderGrid() {
+  const renderGrid = useCallback(() => {
     const columns = Math.ceil(windowSize.width / (40 * 4));
     const rows = Math.ceil(windowSize.height / (40 * 4));
 
@@ -93,7 +97,9 @@ export const Tiles = ({ children }: TilesProps) => {
         </div>
       </div>
     );
-  }
+  }, [children, renderRow, windowSize]);
+
+  if (pathname === '/maintenance') return <div>{children}</div>;
 
   return <div className='flex h-[100vh] overflow-hidden'>{renderGrid()}</div>;
-};
+}

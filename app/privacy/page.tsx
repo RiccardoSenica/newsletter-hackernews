@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { Card } from '../../components/custom/card';
+import Card from '../../components/custom/card';
 
 export default function Privacy() {
   const body = (

@@ -1,3 +1,4 @@
 export const topNews = 'https://hacker-news.firebaseio.com/v0/topstories.json';
-export const singleNews = (id: number) =>
-  `https://hacker-news.firebaseio.com/v0/item/${id}.json`;
+export function singleNews(id: number) {
+  return `https://hacker-news.firebaseio.com/v0/item/${id}.json`;
+}
