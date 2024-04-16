@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { z } from 'zod';
-import { NewsTileSchema } from '../../../../utils/schemas';
+import { getRandomGrey } from '../../../../utils/getRandomGrey';
+import { NewsTileType } from '../../../../utils/validationSchemas';
 import TileContent from './tileContent';
 
 type CardProps = {
-  newsA?: z.infer<typeof NewsTileSchema>;
-  newsB?: z.infer<typeof NewsTileSchema>;
+  newsA?: NewsTileType;
+  newsB?: NewsTileType;
 };
 
 const TEN_SECONDS = 10000;
@@ -15,8 +15,12 @@ export default function Tile({ newsA, newsB }: CardProps) {
   const [switched, setSwitched] = useState(false);
   const [active, setActive] = useState(false);
   const [delayed, setDelayed] = useState(true);
+  const [colorA, setColorA] = useState(getRandomGrey());
+  const [colorB, setColorB] = useState(getRandomGrey());
 
   useEffect(() => {
+    setColorA(getRandomGrey());
+    setColorB(getRandomGrey());
     const randomDelay = Math.floor(Math.random() * TEN_SECONDS);
 
     const interval = setInterval(
@@ -42,8 +46,18 @@ export default function Tile({ newsA, newsB }: CardProps) {
       <div className='transform-gpu'>
         <div className={`absolute left-0 top-0 w-full ${''}`}>
           {active
-            ? TileContent({ story: newsA, side: true })
-            : TileContent({ story: newsB, side: false })}
+            ? TileContent({
+                story: newsA,
+                side: true,
+                firstColor: colorA,
+                secondColor: colorB
+              })
+            : TileContent({
+                story: newsB,
+                side: false,
+                firstColor: colorB,
+                secondColor: colorA
+              })}
         </div>
       </div>
     </div>

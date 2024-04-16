@@ -1,9 +1,8 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
-import { z } from 'zod';
 import Card from '../../components/custom/card';
-import { ResponseSchema } from '../../utils/schemas';
+import { ResponseType } from '../../utils/validationSchemas';
 
 function ConfirmationPage() {
   const router = useRouter();
@@ -36,7 +35,7 @@ function ConfirmationPage() {
           return;
         }
 
-        const response: z.infer<typeof ResponseSchema> = await res.json();
+        const response: ResponseType = await res.json();
 
         if (!response.success) {
           router.push('/');

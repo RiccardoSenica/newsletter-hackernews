@@ -1,10 +1,9 @@
-import { z } from 'zod';
 import NewsletterTemplate from '../../../components/emails/newsletter';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
-import { NewsSchema } from '../../../utils/schemas';
 import { sender } from '../../../utils/sender';
 import {
+  INTERNAL_SERVER_ERROR,
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK,
   STATUS_UNAUTHORIZED
@@ -61,9 +60,7 @@ export async function GET(request: Request) {
       take: 25
     });
 
-    const validRankedNews = news
-      .filter((item): item is z.infer<typeof NewsSchema> => item !== undefined)
-      .sort((a, b) => b.score - a.score);
+    const validRankedNews = news.sort((a, b) => b.score - a.score);
 
     const sent = await sender(
       users.map(user => user.email),
@@ -71,7 +68,7 @@ export async function GET(request: Request) {
     );
 
     if (!sent) {
-      return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, 'Internal server error');
+      return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
     }
 
     // update users so they don't get the newsletter again
@@ -92,6 +89,6 @@ export async function GET(request: Request) {
     );
   } catch (error) {
     console.error(error);
-    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, 'Internal server error');
+    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
   }
 }
