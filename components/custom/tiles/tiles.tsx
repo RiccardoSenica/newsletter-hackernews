@@ -2,8 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import { z } from 'zod';
-import { NewsTile, NewsTileSchema } from '../../../utils/schemas';
+import { NewsTileType } from '../../../utils/validationSchemas';
 import Tile from './components/tile';
 
 type TilesProps = {
@@ -19,15 +18,15 @@ export default function Tiles({ children }: TilesProps) {
     width: 0,
     height: 0
   });
-  const [news, setNews] = useState<z.infer<typeof NewsTileSchema>[]>();
+  const [news, setNews] = useState<NewsTileType[]>();
 
   useEffect(() => {
     async function getNews() {
-      const news: NewsTile[] = await fetch('/api/news').then(res => res.json());
+      const news: NewsTileType[] = await fetch('/api/news').then(res =>
+        res.json()
+      );
 
-      if (news) {
-        setNews(news);
-      }
+      setNews(news);
     }
 
     if (!news) {
@@ -50,7 +49,7 @@ export default function Tiles({ children }: TilesProps) {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [setWindowSize, news]);
+  }, [news]);
 
   const renderTile = useCallback(
     (key: number) => {

@@ -2,7 +2,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import Card from '../components/custom/card';
 import ErrorMessage from '../components/custom/error';
 import { Button } from '../components/ui/button';
@@ -14,7 +13,11 @@ import {
   FormMessage
 } from '../components/ui/form';
 import { Input } from '../components/ui/input';
-import { ResponseSchema, SubscribeFormSchema } from '../utils/schemas';
+import {
+  ResponseType,
+  SubscribeFormSchema,
+  SubscribeFormType
+} from '../utils/validationSchemas';
 
 export default function Home() {
   const [completed, setCompleted] = useState(false);
@@ -22,11 +25,10 @@ export default function Home() {
   const [error, setError] = useState(false);
   const ref = useRef<HTMLInputElement | null>(null);
 
-  const form = useForm<z.infer<typeof SubscribeFormSchema>>({
+  const form = useForm<SubscribeFormType>({
     resolver: zodResolver(SubscribeFormSchema),
     defaultValues: {
-      email: '',
-      name: ''
+      email: ''
     }
   });
 
@@ -36,11 +38,7 @@ export default function Home() {
     }
   }, []);
 
-  async function handleSubmit(values: z.infer<typeof SubscribeFormSchema>) {
-    if (values.name) {
-      return;
-    }
-
+  async function handleSubmit(values: SubscribeFormType) {
     try {
       const response = await fetch('/api/subscribe', {
         method: 'POST',
@@ -56,8 +54,7 @@ export default function Home() {
         throw new Error(`Invalid response: ${response.status}`);
       }
 
-      const formResponse: z.infer<typeof ResponseSchema> =
-        await response.json();
+      const formResponse: ResponseType = await response.json();
 
       if (!formResponse.success) {
         throw Error(formResponse.message);

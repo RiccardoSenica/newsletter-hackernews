@@ -1,25 +1,18 @@
-import { useState } from 'react';
-import { z } from 'zod';
-import { getRandomGrey } from '../../../../utils/getRandomGrey';
-import { NewsTileSchema } from '../../../../utils/schemas';
+import { NewsTileType } from '../../../../utils/validationSchemas';
 
 type CardContentProps = {
-  story: z.infer<typeof NewsTileSchema>;
+  story: NewsTileType;
   side: boolean;
+  firstColor: string;
+  secondColor: string;
 };
 
-export default function TileContent({ story, side }: CardContentProps) {
-  const [firstColor, setFirstColor] = useState(getRandomGrey());
-  const [secondColor, setSecondColor] = useState(getRandomGrey());
-  const [switched, setSwitched] = useState(true);
-
-  if (switched !== side) {
-    setFirstColor(getRandomGrey());
-    setSecondColor(getRandomGrey());
-
-    setSwitched(side);
-  }
-
+export default function TileContent({
+  story,
+  side,
+  firstColor,
+  secondColor
+}: CardContentProps) {
   const color = side ? firstColor : secondColor;
 
   return (

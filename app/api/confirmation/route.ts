@@ -1,12 +1,16 @@
-import { z } from 'zod';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
-import { ConfirmationSchema, ResponseSchema } from '../../../utils/schemas';
 import {
+  BAD_REQUEST,
+  INTERNAL_SERVER_ERROR,
   STATUS_BAD_REQUEST,
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK
 } from '../../../utils/statusCodes';
+import {
+  ConfirmationSchema,
+  ResponseType
+} from '../../../utils/validationSchemas';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
 
@@ -15,7 +19,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const validation = ConfirmationSchema.safeParse(body);
     if (!validation.success || !validation.data.code) {
-      return ApiResponse(STATUS_BAD_REQUEST, STATUS_BAD_REQUEST);
+      return ApiResponse(STATUS_BAD_REQUEST, BAD_REQUEST);
     }
 
     const user = await prisma.user.findUnique({
@@ -34,7 +38,7 @@ export async function POST(request: Request) {
         }
       });
 
-      const message: z.infer<typeof ResponseSchema> = {
+      const message: ResponseType = {
         success: true,
         message: `Thank you for confirming the subscription, ${user.email}!`
       };
@@ -42,7 +46,7 @@ export async function POST(request: Request) {
       return ApiResponse(STATUS_OK, message);
     }
 
-    const message: z.infer<typeof ResponseSchema> = {
+    const message: ResponseType = {
       success: false,
       message: `It was not possible to confirm the subscription.`
     };
@@ -50,6 +54,6 @@ export async function POST(request: Request) {
     return ApiResponse(STATUS_OK, message);
   } catch (error) {
     console.error(error);
-    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, 'Internal server error');
+    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
   }
 }

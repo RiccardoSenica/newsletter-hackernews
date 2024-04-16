@@ -1,14 +1,18 @@
-import { z } from 'zod';
 import UnsubscribeTemplate from '../../../components/emails/unsubscribe';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
-import { ResponseSchema, UnsubscribeFormSchema } from '../../../utils/schemas';
 import { sender } from '../../../utils/sender';
 import {
+  BAD_REQUEST,
+  INTERNAL_SERVER_ERROR,
   STATUS_BAD_REQUEST,
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK
 } from '../../../utils/statusCodes';
+import {
+  ResponseType,
+  UnsubscribeFormSchema
+} from '../../../utils/validationSchemas';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
 
@@ -17,7 +21,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const validation = UnsubscribeFormSchema.safeParse(body);
     if (!validation.success) {
-      return ApiResponse(STATUS_BAD_REQUEST, 'Bad request');
+      return ApiResponse(STATUS_BAD_REQUEST, BAD_REQUEST);
     }
 
     const { email } = validation.data;
@@ -48,7 +52,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const message: z.infer<typeof ResponseSchema> = {
+    const message: ResponseType = {
       success: true,
       message: `${email} unsubscribed.`
     };
@@ -56,6 +60,6 @@ export async function POST(request: Request) {
     return ApiResponse(STATUS_OK, message);
   } catch (error) {
     console.error(error);
-    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, 'Internal server error');
+    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
   }
 }

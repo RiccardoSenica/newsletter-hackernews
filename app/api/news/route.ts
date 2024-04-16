@@ -1,6 +1,7 @@
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
 import {
+  INTERNAL_SERVER_ERROR,
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK
 } from '../../../utils/statusCodes';
@@ -24,6 +25,6 @@ export async function GET() {
     }
   } catch (error) {
     console.error(error);
-    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, 'Internal server error');
+    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
   }
 }
