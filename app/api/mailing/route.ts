@@ -16,7 +16,7 @@ export async function GET(request: Request) {
   if (
     request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`
   ) {
-    return new Response('Unauthorized', { status: STATUS_UNAUTHORIZED });
+    return ApiResponse(STATUS_UNAUTHORIZED, 'Unauthorized');
   }
 
   try {
