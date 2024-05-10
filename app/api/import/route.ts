@@ -22,16 +22,10 @@ export async function GET(request: Request) {
   try {
     const topStories: number[] = await fetch(topNews).then(res => res.json());
 
-    const newsPromises = topStories
-      .slice(0, Number(process.env.NEWS_LIMIT))
-      .map(id => fetch(singleNews(id)).then(res => res.json()));
-
-    const news: NewsDatabaseType[] = await Promise.all(newsPromises);
-
     const existingNews = await prisma.news.findMany({
       where: {
         id: {
-          in: news.map(singleNews => singleNews.id)
+          in: topStories
         }
       },
       select: {
@@ -40,8 +34,22 @@ export async function GET(request: Request) {
     });
 
     console.info(
-      `Found ${news.length} news, of which ${existingNews.length} are already in the database.`
+      `Found ${topStories.length} news, of which ${existingNews.length} are already in the database.`
     );
+
+    if (topStories.length === existingNews.length) {
+      return ApiResponse(STATUS_OK, `All new news existed already.`);
+    }
+
+    const existingNewsIds = existingNews.map(news => news.id);
+
+    const newsToImport = topStories.filter(id => !existingNewsIds.includes(id));
+
+    const newsPromises = newsToImport
+      .slice(0, Number(process.env.NEWS_LIMIT))
+      .map(id => fetch(singleNews(id)).then(res => res.json()));
+
+    const news: NewsDatabaseType[] = await Promise.all(newsPromises);
 
     const upsertPromises = news.map(async singleNews => {
       const validation = NewsDatabaseSchema.safeParse(singleNews);
