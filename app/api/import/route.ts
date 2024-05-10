@@ -28,7 +28,20 @@ export async function GET(request: Request) {
 
     const news: NewsDatabaseType[] = await Promise.all(newsPromises);
 
-    console.info(`Found ${news.length} news.`);
+    const existingNews = await prisma.news.findMany({
+      where: {
+        id: {
+          in: news.map(singleNews => singleNews.id)
+        }
+      },
+      select: {
+        id: true
+      }
+    });
+
+    console.info(
+      `Found ${news.length} news, of which ${existingNews.length} are already in the database.`
+    );
 
     const upsertPromises = news.map(async singleNews => {
       const validation = NewsDatabaseSchema.safeParse(singleNews);
