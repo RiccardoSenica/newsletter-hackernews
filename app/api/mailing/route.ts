@@ -62,6 +62,10 @@ export async function GET(request: Request) {
       take: 25
     });
 
+    if (news.length === 0) {
+      return ApiResponse(STATUS_OK, 'No news to include in newsletter.');
+    }
+
     console.info(`Found ${news.length} news to include in the newsletter.`);
 
     const validRankedNews = news.sort((a, b) => b.score - a.score);
