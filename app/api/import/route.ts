@@ -28,10 +28,13 @@ export async function GET(request: Request) {
 
     const news: NewsDatabaseType[] = await Promise.all(newsPromises);
 
+    console.info(`Found ${news.length} news.`);
+
     const upsertPromises = news.map(async singleNews => {
       const validation = NewsDatabaseSchema.safeParse(singleNews);
 
       if (validation.success) {
+        console.info(`Importing N° ${singleNews.id} - ${singleNews.title}`);
         const result = await prisma.news.upsert({
           create: {
             ...validation.data,
@@ -51,7 +54,9 @@ export async function GET(request: Request) {
       }
     });
 
-    await Promise.all(upsertPromises);
+    const result = await Promise.all(upsertPromises);
+
+    console.info(`Imported ${result.length} news.`);
 
     return ApiResponse(STATUS_OK, `Imported ${newsPromises.length} news.`);
   } catch (error) {

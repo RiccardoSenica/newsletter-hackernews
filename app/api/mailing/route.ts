@@ -44,6 +44,8 @@ export async function GET(request: Request) {
       }
     });
 
+    console.info(`Found ${users.length} users to mail to.`);
+
     if (users.length === 0) {
       return ApiResponse(STATUS_OK, 'No user to mail to.');
     }
@@ -59,6 +61,8 @@ export async function GET(request: Request) {
       },
       take: 25
     });
+
+    console.info(`Found ${news.length} news to include in the newsletter.`);
 
     const validRankedNews = news.sort((a, b) => b.score - a.score);
 
