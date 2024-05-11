@@ -440,7 +440,7 @@ export default function Privacy() {
 
   return (
     <CustomCard
-      style='max-h-[90vh] max-w-[90vw]'
+      style='max-90vh max-90vw'
       title='Privacy Policy'
       description='Last updated: December 03, 2023'
       content={body}

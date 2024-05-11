@@ -63,7 +63,7 @@ function ConfirmationPage() {
 
   return (
     <CustomCard
-      style='text-center'
+      style='text-center w-96 max-90vw'
       title={loading ? 'Verifying' : 'Confirmed!'}
       content={render()}
       footer={false}

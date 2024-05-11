@@ -113,7 +113,7 @@ export default function Home() {
 
   return (
     <CustomCard
-      style='text-center max-w-96'
+      style='text-center w-96 max-90vw'
       title='Interested in keeping up with the latest from the tech world? 👩‍💻'
       description='Subscribe to our newsletter! The top stories from Hackernews for you. Once a day. Every day.'
       content={render()}
