@@ -1,8 +1,8 @@
 'use client';
 
+import { NewsTileType } from '@utils/validationSchemas';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import { NewsTileType } from '../../../utils/validationSchemas';
 import Tile from './components/Tile';
 
 interface TilesProps {

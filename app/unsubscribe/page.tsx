@@ -1,20 +1,20 @@
 'use client';
+import Card from '@components/custom/Card';
+import ErrorMessage from '@components/custom/Error';
+import { Button } from '@components/ui/Button';
+import { FormControl } from '@components/ui/form/FormControl';
+import { FormMessage } from '@components/ui/form/FormMessage';
+import { Input } from '@components/ui/Input';
+import { FormField } from '@contexts/FormField/FormFieldProvider';
+import { FormItem } from '@contexts/FormItem/FormItemProvider';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useRef, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import Card from '../../components/custom/Card';
-import ErrorMessage from '../../components/custom/Error';
-import { Button } from '../../components/ui/Button';
-import { FormControl } from '../../components/ui/form/FormControl';
-import { FormMessage } from '../../components/ui/form/FormMessage';
-import { Input } from '../../components/ui/Input';
-import { FormField } from '../../contexts/FormField/FormFieldProvider';
-import { FormItem } from '../../contexts/FormItem/FormItemProvider';
 import {
   ResponseType,
   UnsubscribeFormSchema,
   UnsubscribeFormType
-} from '../../utils/validationSchemas';
+} from '@utils/validationSchemas';
+import { useEffect, useRef, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 
 export default function Unsubscribe() {
   const [completed, setCompleted] = useState(false);

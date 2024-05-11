@@ -1,6 +1,6 @@
+import { useFormField } from '@hooks/useFormField';
+import { cn } from '@utils/ui';
 import * as React from 'react';
-import { useFormField } from '../../../hooks/useFormField';
-import { cn } from '../../../utils/ui';
 
 export const FormDescription = React.forwardRef<
   HTMLParagraphElement,

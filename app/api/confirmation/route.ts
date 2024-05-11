@@ -1,16 +1,13 @@
-import prisma from '../../../prisma/prisma';
-import { ApiResponse } from '../../../utils/apiResponse';
+import prisma from '@prisma/prisma';
+import { ApiResponse } from '@utils/apiResponse';
 import {
   BAD_REQUEST,
   INTERNAL_SERVER_ERROR,
   STATUS_BAD_REQUEST,
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK
-} from '../../../utils/statusCodes';
-import {
-  ConfirmationSchema,
-  ResponseType
-} from '../../../utils/validationSchemas';
+} from '@utils/statusCodes';
+import { ConfirmationSchema, ResponseType } from '@utils/validationSchemas';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
 

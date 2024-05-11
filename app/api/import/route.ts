@@ -1,16 +1,13 @@
-import prisma from '../../../prisma/prisma';
-import { ApiResponse } from '../../../utils/apiResponse';
+import prisma from '@prisma/prisma';
+import { ApiResponse } from '@utils/apiResponse';
 import {
   INTERNAL_SERVER_ERROR,
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK,
   STATUS_UNAUTHORIZED
-} from '../../../utils/statusCodes';
-import { singleNews, topNews } from '../../../utils/urls';
-import {
-  NewsDatabaseSchema,
-  NewsDatabaseType
-} from '../../../utils/validationSchemas';
+} from '@utils/statusCodes';
+import { singleNews, topNews } from '@utils/urls';
+import { NewsDatabaseSchema, NewsDatabaseType } from '@utils/validationSchemas';
 
 export async function GET(request: Request) {
   if (

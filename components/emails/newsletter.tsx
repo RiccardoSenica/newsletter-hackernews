@@ -1,6 +1,6 @@
-import { sayings } from '../../utils/sayings';
-import { textTruncate } from '../../utils/textTruncate';
-import { NewsType } from '../../utils/validationSchemas';
+import { sayings } from '@utils/sayings';
+import { textTruncate } from '@utils/textTruncate';
+import { NewsType } from '@utils/validationSchemas';
 import Template from './Template';
 
 export default function NewsletterTemplate(stories: NewsType[]) {

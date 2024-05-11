@@ -1,13 +1,13 @@
-import NewsletterTemplate from '../../../components/emails/Newsletter';
-import prisma from '../../../prisma/prisma';
-import { ApiResponse } from '../../../utils/apiResponse';
-import { sender } from '../../../utils/sender';
+import NewsletterTemplate from '@components/emails/Newsletter';
+import prisma from '@prisma/prisma';
+import { ApiResponse } from '@utils/apiResponse';
+import { sender } from '@utils/sender';
 import {
   INTERNAL_SERVER_ERROR,
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK,
   STATUS_UNAUTHORIZED
-} from '../../../utils/statusCodes';
+} from '@utils/statusCodes';
 
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
 const TEN_MINUTES_IN_MS = 1000 * 10 * 60;

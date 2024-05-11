@@ -1,10 +1,10 @@
-import prisma from '../../../prisma/prisma';
-import { ApiResponse } from '../../../utils/apiResponse';
+import prisma from '@prisma/prisma';
+import { ApiResponse } from '@utils/apiResponse';
 import {
   INTERNAL_SERVER_ERROR,
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK
-} from '../../../utils/statusCodes';
+} from '@utils/statusCodes';
 
 export async function GET() {
   try {

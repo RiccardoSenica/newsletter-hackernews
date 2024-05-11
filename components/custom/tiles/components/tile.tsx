@@ -1,6 +1,6 @@
+import { getRandomGrey } from '@utils/getRandomGrey';
+import { NewsTileType } from '@utils/validationSchemas';
 import { useEffect, useState } from 'react';
-import { getRandomGrey } from '../../../../utils/getRandomGrey';
-import { NewsTileType } from '../../../../utils/validationSchemas';
 import TileContent from './TileContent';
 
 interface CardProps {

@@ -1,19 +1,16 @@
-import * as crypto from 'crypto';
-import ConfirmationTemplate from '../../../components/emails/Confirmation';
-import prisma from '../../../prisma/prisma';
-import { ApiResponse } from '../../../utils/apiResponse';
-import { sender } from '../../../utils/sender';
+import ConfirmationTemplate from '@components/emails/Confirmation';
+import prisma from '@prisma/prisma';
+import { ApiResponse } from '@utils/apiResponse';
+import { sender } from '@utils/sender';
 import {
   BAD_REQUEST,
   INTERNAL_SERVER_ERROR,
   STATUS_BAD_REQUEST,
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK
-} from '../../../utils/statusCodes';
-import {
-  ResponseType,
-  SubscribeFormSchema
-} from '../../../utils/validationSchemas';
+} from '@utils/statusCodes';
+import { ResponseType, SubscribeFormSchema } from '@utils/validationSchemas';
+import * as crypto from 'crypto';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
 

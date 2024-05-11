@@ -1,18 +1,15 @@
-import UnsubscribeTemplate from '../../../components/emails/Unsubscribe';
-import prisma from '../../../prisma/prisma';
-import { ApiResponse } from '../../../utils/apiResponse';
-import { sender } from '../../../utils/sender';
+import UnsubscribeTemplate from '@components/emails/Unsubscribe';
+import prisma from '@prisma/prisma';
+import { ApiResponse } from '@utils/apiResponse';
+import { sender } from '@utils/sender';
 import {
   BAD_REQUEST,
   INTERNAL_SERVER_ERROR,
   STATUS_BAD_REQUEST,
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK
-} from '../../../utils/statusCodes';
-import {
-  ResponseType,
-  UnsubscribeFormSchema
-} from '../../../utils/validationSchemas';
+} from '@utils/statusCodes';
+import { ResponseType, UnsubscribeFormSchema } from '@utils/validationSchemas';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
 
