@@ -1,5 +1,5 @@
 'use client';
-import Card from '@components/custom/Card';
+import CustomCard from '@components/custom/CustomCard';
 import Link from 'next/link';
 
 export default function Privacy() {
@@ -439,7 +439,7 @@ export default function Privacy() {
   );
 
   return (
-    <Card
+    <CustomCard
       style='max-h-[90vh] max-w-[90vw]'
       title='Privacy Policy'
       description='Last updated: December 03, 2023'

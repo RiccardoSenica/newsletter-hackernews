@@ -1,5 +1,5 @@
 'use client';
-import Card from '@components/custom/Card';
+import CustomCard from '@components/custom/CustomCard';
 import { ResponseType } from '@utils/validationSchemas';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
@@ -62,7 +62,7 @@ function ConfirmationPage() {
   }
 
   return (
-    <Card
+    <CustomCard
       style='text-center'
       title={loading ? 'Verifying' : 'Confirmed!'}
       content={render()}

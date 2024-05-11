@@ -1,6 +1,6 @@
 'use client';
-import Card from '@components/custom/Card';
-import ErrorMessage from '@components/custom/Error';
+import CustomCard from '@components/custom/CustomCard';
+import ErrorMessage from '@components/custom/ErrorMessage';
 import { Button } from '@components/ui/Button';
 import { FormControl } from '@components/ui/form/FormControl';
 import { FormMessage } from '@components/ui/form/FormMessage';
@@ -112,7 +112,7 @@ export default function Home() {
   }
 
   return (
-    <Card
+    <CustomCard
       style='text-center max-w-96'
       title='Interested in keeping up with the latest from the tech world? 👩‍💻'
       description='Subscribe to our newsletter! The top stories from Hackernews for you. Once a day. Every day.'

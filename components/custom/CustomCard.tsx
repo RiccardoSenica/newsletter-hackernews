@@ -1,12 +1,12 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import {
+  Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
-  Card as CardUI
+  CardTitle
 } from '../ui/Card';
 import Footer from './Footer';
 
@@ -18,7 +18,7 @@ interface CardProps {
   footer?: boolean;
 }
 
-export default function Card({
+export default function CustomCard({
   title,
   description,
   content,
@@ -38,7 +38,7 @@ export default function Card({
 
   return (
     <div className='gradient-border'>
-      <CardUI
+      <Card
         style={{
           boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
         }}
@@ -63,7 +63,7 @@ export default function Card({
             <Footer />
           </CardFooter>
         )}
-      </CardUI>
+      </Card>
     </div>
   );
 }

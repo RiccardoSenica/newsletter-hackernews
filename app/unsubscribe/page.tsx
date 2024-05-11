@@ -1,6 +1,6 @@
 'use client';
-import Card from '@components/custom/Card';
-import ErrorMessage from '@components/custom/Error';
+import CustomCard from '@components/custom/CustomCard';
+import ErrorMessage from '@components/custom/ErrorMessage';
 import { Button } from '@components/ui/Button';
 import { FormControl } from '@components/ui/form/FormControl';
 import { FormMessage } from '@components/ui/form/FormMessage';
@@ -104,7 +104,7 @@ export default function Unsubscribe() {
   }
 
   return (
-    <Card
+    <CustomCard
       style='text-center max-w-80'
       title='Unsubscribe'
       description='You sure you want to leave? :('
