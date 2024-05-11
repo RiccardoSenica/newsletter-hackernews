@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle
-} from '../ui/Card';
+} from './Card';
 import Footer from './Footer';
 
 interface CardProps {

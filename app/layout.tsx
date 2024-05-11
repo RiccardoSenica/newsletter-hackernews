@@ -1,4 +1,4 @@
-import Tiles from '@components/custom/tiles/Tiles';
+import Tiles from '@components/tiles/Tiles';
 import { cn } from '@utils/ui';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';

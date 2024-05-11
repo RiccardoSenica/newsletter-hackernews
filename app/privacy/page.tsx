@@ -1,5 +1,5 @@
 'use client';
-import CustomCard from '@components/custom/CustomCard';
+import CustomCard from '@components/CustomCard';
 import Link from 'next/link';
 
 export default function Privacy() {

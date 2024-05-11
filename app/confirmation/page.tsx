@@ -1,5 +1,5 @@
 'use client';
-import CustomCard from '@components/custom/CustomCard';
+import CustomCard from '@components/CustomCard';
 import { ResponseType } from '@utils/validationSchemas';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';

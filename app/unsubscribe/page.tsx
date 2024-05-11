@@ -1,10 +1,10 @@
 'use client';
-import CustomCard from '@components/custom/CustomCard';
-import ErrorMessage from '@components/custom/ErrorMessage';
-import { Button } from '@components/ui/Button';
-import { FormControl } from '@components/ui/form/FormControl';
-import { FormMessage } from '@components/ui/form/FormMessage';
-import { Input } from '@components/ui/Input';
+import { Button } from '@components/Button';
+import CustomCard from '@components/CustomCard';
+import ErrorMessage from '@components/ErrorMessage';
+import { FormControl } from '@components/form/FormControl';
+import { FormMessage } from '@components/form/FormMessage';
+import { Input } from '@components/Input';
 import { FormField } from '@contexts/FormField/FormFieldProvider';
 import { FormItem } from '@contexts/FormItem/FormItemProvider';
 import { zodResolver } from '@hookform/resolvers/zod';
