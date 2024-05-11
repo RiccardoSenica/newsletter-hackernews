@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { NewsTileType } from '../../../utils/validationSchemas';
-import Tile from './components/tile';
+import Tile from './components/Tile';
 
 interface TilesProps {
   children: React.ReactNode;

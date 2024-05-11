@@ -1,7 +1,7 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
-import Card from '../../components/custom/card';
+import Card from '../../components/custom/Card';
 import { ResponseType } from '../../utils/validationSchemas';
 
 function ConfirmationPage() {

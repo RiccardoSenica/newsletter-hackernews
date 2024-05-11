@@ -7,8 +7,8 @@ import {
   CardHeader,
   CardTitle,
   Card as CardUI
-} from '../../components/ui/card';
-import Footer from './footer';
+} from '../ui/Card';
+import Footer from './Footer';
 
 interface CardProps {
   title: string;

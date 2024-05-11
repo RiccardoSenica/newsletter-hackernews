@@ -1,18 +1,15 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import Card from '../../components/custom/card';
-import ErrorMessage from '../../components/custom/error';
-import { Button } from '../../components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage
-} from '../../components/ui/form';
-import { Input } from '../../components/ui/input';
+import { FormProvider, useForm } from 'react-hook-form';
+import Card from '../../components/custom/Card';
+import ErrorMessage from '../../components/custom/Error';
+import { Button } from '../../components/ui/Button';
+import { FormControl } from '../../components/ui/form/FormControl';
+import { FormMessage } from '../../components/ui/form/FormMessage';
+import { Input } from '../../components/ui/Input';
+import { FormField } from '../../contexts/FormField/FormFieldProvider';
+import { FormItem } from '../../contexts/FormItem/FormItemProvider';
 import {
   ResponseType,
   UnsubscribeFormSchema,
@@ -78,7 +75,7 @@ export default function Unsubscribe() {
 
     return (
       <div className='mb-5 h-32'>
-        <Form {...form}>
+        <FormProvider {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
             className='flex flex-col space-y-4'
@@ -101,7 +98,7 @@ export default function Unsubscribe() {
               <Button type='submit'>Submit</Button>
             </div>
           </form>
-        </Form>
+        </FormProvider>
       </div>
     );
   }

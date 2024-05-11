@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import CustomLink from './customLink';
+import CustomLink from './CustomLink';
 
 const links = [{ name: 'Subscribe', path: '/' }];
 
