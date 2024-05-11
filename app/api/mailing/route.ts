@@ -1,4 +1,4 @@
-import NewsletterTemplate from '../../../components/emails/newsletter';
+import NewsletterTemplate from '../../../components/emails/Newsletter';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
 import { sender } from '../../../utils/sender';

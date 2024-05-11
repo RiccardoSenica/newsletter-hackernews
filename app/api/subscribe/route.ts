@@ -1,5 +1,5 @@
 import * as crypto from 'crypto';
-import ConfirmationTemplate from '../../../components/emails/confirmation';
+import ConfirmationTemplate from '../../../components/emails/Confirmation';
 import prisma from '../../../prisma/prisma';
 import { ApiResponse } from '../../../utils/apiResponse';
 import { sender } from '../../../utils/sender';
