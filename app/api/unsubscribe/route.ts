@@ -1,4 +1,4 @@
-import UnsubscribeTemplate from '@components/emails/Unsubscribe';
+import UnsubscribeTemplate from '@components/email/Unsubscribe';
 import prisma from '@prisma/prisma';
 import { ApiResponse } from '@utils/apiResponse';
 import { sender } from '@utils/sender';

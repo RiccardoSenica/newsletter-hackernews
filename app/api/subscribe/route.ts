@@ -1,4 +1,4 @@
-import ConfirmationTemplate from '@components/emails/Confirmation';
+import ConfirmationTemplate from '@components/email/Confirmation';
 import prisma from '@prisma/prisma';
 import { ApiResponse } from '@utils/apiResponse';
 import { sender } from '@utils/sender';
