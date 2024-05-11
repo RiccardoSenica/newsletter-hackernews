@@ -1,8 +1,7 @@
 # Hackernews newsletter
 
-## Next up
+## Future improvements
 
-- Tweak email templates
 - Cron every 10 minutes: people are more likely to open the newsletter if delivered around the time when they subscribed (if cron becomes not enough, then the cost of sending all the emails might be a bigger issue)
 
 ## Some resources used

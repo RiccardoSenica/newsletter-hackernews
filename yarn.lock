@@ -1684,13 +1684,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-mediaquery@npm:^0.1.2":
-  version: 0.1.2
-  resolution: "css-mediaquery@npm:0.1.2"
-  checksum: f2f7512daa015f98b82bd65bbdd7c2100b16dddf22784bde2a8085f10f11e8775da57108016fe767f5e400afe64581c15d4e649c47725af7eac5f4094fa7ae43
-  languageName: node
-  linkType: hard
-
 "cssesc@npm:^3.0.0":
   version: 3.0.0
   resolution: "cssesc@npm:3.0.0"
@@ -3011,13 +3004,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hyphenate-style-name@npm:^1.0.0":
-  version: 1.0.4
-  resolution: "hyphenate-style-name@npm:1.0.4"
-  checksum: d37883e6b7e1be62e1ddae29cac83fa59fb93c068bc8eb1561585439adbad91dcf7e264ee2a82c4378fc58049f7bd853544a4a81bf00d4aff717f641052323e7
-  languageName: node
-  linkType: hard
-
 "iconv-lite@npm:^0.6.2":
   version: 0.6.3
   resolution: "iconv-lite@npm:0.6.3"
@@ -3855,15 +3841,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"matchmediaquery@npm:^0.3.0":
-  version: 0.3.1
-  resolution: "matchmediaquery@npm:0.3.1"
-  dependencies:
-    css-mediaquery: "npm:^0.1.2"
-  checksum: 47183f749ecd252f3bad6553ea3d768cb971cdb0c2514e6080c6d9eef4470212eead5050b53604e9700def48ac15829ccf537f17514aa5d801cd7d1b9728ded4
-  languageName: node
-  linkType: hard
-
 "meow@npm:^12.0.1":
   version: 12.1.1
   resolution: "meow@npm:12.1.1"
@@ -4210,7 +4187,6 @@ __metadata:
     react: "npm:^18"
     react-dom: "npm:^18"
     react-hook-form: "npm:^7.48.2"
-    react-responsive: "npm:^9.0.2"
     resend: "npm:^3.1.0"
     tailwind-merge: "npm:^2.1.0"
     tailwindcss: "npm:^3.4.1"
@@ -4837,7 +4813,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.1, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -4901,20 +4877,6 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 5aa564a1cde7d391ac980bedee21202fc90bdea3b399952117f54fb71a932af1e5902020144fb354b4690b2414a0c7aafe798eb617b76a3d441d956db7726fdf
-  languageName: node
-  linkType: hard
-
-"react-responsive@npm:^9.0.2":
-  version: 9.0.2
-  resolution: "react-responsive@npm:9.0.2"
-  dependencies:
-    hyphenate-style-name: "npm:^1.0.0"
-    matchmediaquery: "npm:^0.3.0"
-    prop-types: "npm:^15.6.1"
-    shallow-equal: "npm:^1.2.1"
-  peerDependencies:
-    react: ">=16.8.0"
-  checksum: 10787baa54127200e283768d8a858620f21fd5106b2fd4044f6a84854b6831765a0f97f4d2ad20530ff3c9907230a05b6b8cd739fde9e6b9fd2506889c0aa813
   languageName: node
   linkType: hard
 
@@ -5307,13 +5269,6 @@ __metadata:
     functions-have-names: "npm:^1.2.3"
     has-property-descriptors: "npm:^1.0.0"
   checksum: 4975d17d90c40168eee2c7c9c59d023429f0a1690a89d75656306481ece0c3c1fb1ebcc0150ea546d1913e35fbd037bace91372c69e543e51fc5d1f31a9fa126
-  languageName: node
-  linkType: hard
-
-"shallow-equal@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "shallow-equal@npm:1.2.1"
-  checksum: 4f1645cc516e7754c4438db687e1da439a5f29a7dba2ba90c5f88e5708aeb17bc4355ba45cad805b0e95dc898e37d8bf6d77d854919c7512f89939986cff8cd1
   languageName: node
   linkType: hard
 

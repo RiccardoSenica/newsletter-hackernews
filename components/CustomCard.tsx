@@ -1,5 +1,4 @@
 import { ReactNode, useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import {
   Card,
   CardContent,
@@ -26,7 +25,6 @@ export default function CustomCard({
   footer = true
 }: CardProps) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   useEffect(() => {
     setIsLoaded(true);
@@ -51,13 +49,9 @@ export default function CustomCard({
           <CardTitle>{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
-        {isMobile ? (
-          <CardContent>{content}</CardContent>
-        ) : (
-          <CardContent className='flex max-h-[60vh] flex-grow  justify-center overflow-auto'>
-            {content}
-          </CardContent>
-        )}
+        <CardContent className='flex max-h-[60vh] flex-grow justify-center'>
+          {content}
+        </CardContent>
         {footer && (
           <CardFooter>
             <Footer />

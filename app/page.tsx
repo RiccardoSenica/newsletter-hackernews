@@ -85,7 +85,7 @@ export default function Home() {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <div className='h-4'>
+                  <div className='h-6'>
                     <FormMessage className='text-center' />
                   </div>
                   <FormControl>
