@@ -1,6 +1,6 @@
-type NoteProps = {
+interface NoteProps {
   children: React.ReactNode;
-};
+}
 
 export default function Note({ children }: NoteProps) {
   return (

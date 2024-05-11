@@ -10,13 +10,13 @@ import {
 } from '../../components/ui/card';
 import Footer from './footer';
 
-type CardProps = {
+interface CardProps {
   title: string;
   description?: string;
   content: ReactNode;
   style?: string;
   footer?: boolean;
-};
+}
 
 export default function Card({
   title,

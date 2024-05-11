@@ -3,10 +3,10 @@ import { getRandomGrey } from '../../../../utils/getRandomGrey';
 import { NewsTileType } from '../../../../utils/validationSchemas';
 import TileContent from './tileContent';
 
-type CardProps = {
+interface CardProps {
   newsA?: NewsTileType;
   newsB?: NewsTileType;
-};
+}
 
 const TEN_SECONDS = 10000;
 const HALF_SECOND = 500;

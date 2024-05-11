@@ -1,9 +1,9 @@
 import Footer from './components/footer';
 
-type TemplateProps = {
+interface TemplateProps {
   title: string;
   body: JSX.Element;
-};
+}
 
 export default function Template({ title, body }: TemplateProps) {
   return (

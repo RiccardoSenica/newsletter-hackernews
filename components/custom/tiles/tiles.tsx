@@ -5,9 +5,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { NewsTileType } from '../../../utils/validationSchemas';
 import Tile from './components/tile';
 
-type TilesProps = {
+interface TilesProps {
   children: React.ReactNode;
-};
+}
 
 export default function Tiles({ children }: TilesProps) {
   const pathname = usePathname();

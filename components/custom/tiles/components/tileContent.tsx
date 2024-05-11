@@ -1,11 +1,11 @@
 import { NewsTileType } from '../../../../utils/validationSchemas';
 
-type CardContentProps = {
+interface CardContentProps {
   story: NewsTileType;
   side: boolean;
   firstColor: string;
   secondColor: string;
-};
+}
 
 export default function TileContent({
   story,

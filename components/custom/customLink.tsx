@@ -2,10 +2,10 @@
 import Link from 'next/link';
 import { Button } from '../ui/button';
 
-type LinkProps = {
+interface LinkProps {
   path: string;
   text: string;
-};
+}
 
 export default function CustomLink({ path, text }: LinkProps) {
   return (

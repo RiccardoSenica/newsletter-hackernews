@@ -59,10 +59,10 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.ts": [
+    "*.{ts,tsx}": [
       "eslint --quiet --fix"
     ],
-    "*.{json,ts}": [
+    "*.{json,ts,tsx}": [
       "prettier --write --ignore-unknown"
     ]
   }
