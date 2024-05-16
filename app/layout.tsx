@@ -1,4 +1,5 @@
 import Tiles from '@components/tiles/Tiles';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { cn } from '@utils/ui';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
@@ -24,6 +25,9 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <head />
+      {process.env.GOOGLE_ANALYTICS && (
+        <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS} />
+      )}
       <body
         className={cn(
           'flex min-h-screen items-center justify-center bg-background font-sans antialiased',
