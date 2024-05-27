@@ -17,7 +17,9 @@ export async function GET(request: Request) {
   }
 
   try {
-    const topStories: number[] = await fetch(topNews).then(res => res.json());
+    const topStories: number[] = await fetch(topNews, {
+      cache: 'no-store'
+    }).then(res => res.json());
 
     const newsPromises = topStories
       .slice(0, Number(process.env.NEWS_LIMIT))
