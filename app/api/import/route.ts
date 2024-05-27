@@ -19,9 +19,9 @@ export async function GET(request: Request) {
   try {
     const topStories: number[] = await fetch(topNews).then(res => res.json());
 
-    const newsPromises = topStories.map(id =>
-      fetch(singleNews(id)).then(res => res.json())
-    );
+    const newsPromises = topStories
+      .slice(0, Number(process.env.NEWS_LIMIT))
+      .map(id => fetch(singleNews(id)).then(res => res.json()));
 
     const news: NewsDatabaseType[] = await Promise.all(newsPromises);
 
@@ -29,7 +29,9 @@ export async function GET(request: Request) {
       const validation = NewsDatabaseSchema.safeParse(singleNews);
 
       if (validation.success) {
-        console.info(`Importing N° ${singleNews.id} - ${singleNews.title}`);
+        console.info(
+          `Validated news N° ${singleNews.id} - ${singleNews.title}`
+        );
         const result = await prisma.news.upsert({
           create: {
             ...validation.data,
@@ -42,6 +44,8 @@ export async function GET(request: Request) {
             id: singleNews.id
           }
         });
+
+        console.info(`Imported N° ${singleNews.id} - ${singleNews.title}`);
 
         return result;
       } else {
