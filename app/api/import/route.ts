@@ -19,9 +19,9 @@ export async function GET(request: Request) {
   try {
     const topStories: number[] = await fetch(topNews).then(res => res.json());
 
-    const newsPromises = topStories
-      .slice(0, Number(process.env.NEWS_LIMIT))
-      .map(id => fetch(singleNews(id)).then(res => res.json()));
+    const newsPromises = topStories.map(id =>
+      fetch(singleNews(id)).then(res => res.json())
+    );
 
     const news: NewsDatabaseType[] = await Promise.all(newsPromises);
 
