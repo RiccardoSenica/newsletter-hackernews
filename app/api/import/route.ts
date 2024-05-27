@@ -17,32 +17,11 @@ export async function GET(request: Request) {
   }
 
   try {
-    const topStories: number[] = await fetch(topNews).then(res => res.json());
+    const topStories: number[] = await fetch(topNews, {
+      cache: 'no-store'
+    }).then(res => res.json());
 
-    const existingNews = await prisma.news.findMany({
-      where: {
-        id: {
-          in: topStories
-        }
-      },
-      select: {
-        id: true
-      }
-    });
-
-    console.info(
-      `Found ${topStories.length} news, of which ${existingNews.length} are already in the database.`
-    );
-
-    if (topStories.length === existingNews.length) {
-      return ApiResponse(STATUS_OK, `All new news existed already.`);
-    }
-
-    const existingNewsIds = existingNews.map(news => news.id);
-
-    const newsToImport = topStories.filter(id => !existingNewsIds.includes(id));
-
-    const newsPromises = newsToImport
+    const newsPromises = topStories
       .slice(0, Number(process.env.NEWS_LIMIT))
       .map(id => fetch(singleNews(id)).then(res => res.json()));
 
@@ -52,7 +31,9 @@ export async function GET(request: Request) {
       const validation = NewsDatabaseSchema.safeParse(singleNews);
 
       if (validation.success) {
-        console.info(`Importing N° ${singleNews.id} - ${singleNews.title}`);
+        console.info(
+          `Validated news N° ${singleNews.id} - ${singleNews.title}`
+        );
         const result = await prisma.news.upsert({
           create: {
             ...validation.data,
@@ -65,6 +46,8 @@ export async function GET(request: Request) {
             id: singleNews.id
           }
         });
+
+        console.info(`Imported N° ${singleNews.id} - ${singleNews.title}`);
 
         return result;
       } else {
