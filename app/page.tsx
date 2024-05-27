@@ -13,14 +13,13 @@ import {
   SubscribeFormSchema,
   SubscribeFormType
 } from '@utils/validationSchemas';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 export default function Home() {
   const [completed, setCompleted] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
-  const ref = useRef<HTMLInputElement | null>(null);
 
   const form = useForm<SubscribeFormType>({
     resolver: zodResolver(SubscribeFormSchema),
@@ -28,12 +27,6 @@ export default function Home() {
       email: ''
     }
   });
-
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.style.display = 'none';
-    }
-  }, []);
 
   async function handleSubmit(values: SubscribeFormType) {
     try {

@@ -37,9 +37,7 @@ export default function NewsletterTemplate(stories: NewsType[]) {
                       paddingRight: '1.5rem'
                     }}
                   >
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: '600' }}>
-                      {story.title}
-                    </h2>
+                    <h3>{story.title}</h3>
                     <p style={{ fontSize: '1rem', fontStyle: 'italic' }}>
                       by {story.by}
                     </p>

@@ -15,18 +15,16 @@ export default function Template({ title, body }: TemplateProps) {
         backgroundColor: '#F9FBFB'
       }}
     >
-      <h1
+      <h2
         style={{
           padding: '20px',
           textAlign: 'center',
-          fontSize: '24px',
-          fontWeight: 'bold',
           color: 'white',
           backgroundColor: `#8230CC`
         }}
       >
         {title}
-      </h1>
+      </h2>
       <div style={{ margin: '20px', padding: '20px' }}>{body}</div>
       <Footer />
     </div>

@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang='en'>
       <head />
       {process.env.GOOGLE_ANALYTICS && (
         <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS} />

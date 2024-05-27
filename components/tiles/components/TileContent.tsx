@@ -23,7 +23,7 @@ export default function TileContent({
         color: '#808080'
       }}
     >
-      <h1 className='overflow-auto font-semibold'>{story.title}</h1>
+      <h4 className='overflow-auto'>{story.title}</h4>
       <p className='overflow-auto italic'>by {story.by}</p>
       <div
         className='rounded-lg'
