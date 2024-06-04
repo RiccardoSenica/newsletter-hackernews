@@ -1,12 +1,9 @@
-import { z } from 'zod';
-import { NewsSchema } from '../../utils/schemas';
-import { textTruncate } from '../../utils/textTruncate';
-import { sayings } from './helpers/sayings';
-import Template from './template';
+import { sayings } from '@utils/sayings';
+import { textTruncate } from '@utils/textTruncate';
+import { NewsType } from '@utils/validationSchemas';
+import Template from './Template';
 
-export default function NewsletterTemplate(
-  stories: z.infer<typeof NewsSchema>[]
-) {
+export default function NewsletterTemplate(stories: NewsType[]) {
   return {
     subject: `What's new from the Hackernews forum?`,
     template: (
@@ -40,9 +37,7 @@ export default function NewsletterTemplate(
                       paddingRight: '1.5rem'
                     }}
                   >
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: '600' }}>
-                      {story.title}
-                    </h2>
+                    <h3>{story.title}</h3>
                     <p style={{ fontSize: '1rem', fontStyle: 'italic' }}>
                       by {story.by}
                     </p>

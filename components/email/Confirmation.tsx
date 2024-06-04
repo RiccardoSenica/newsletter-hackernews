@@ -1,5 +1,5 @@
-import { Note } from './components/note';
-import Template from './template';
+import Note from './components/Note';
+import Template from './Template';
 
 export default function ConfirmationTemplate(code: string) {
   return {

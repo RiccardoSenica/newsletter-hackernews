@@ -1,50 +1,81 @@
-import { NextResponse } from 'next/server';
-import prisma from '../../../prisma/prisma';
-import { NewsDatabaseSchema } from '../../../utils/schemas';
-import { singleNews, topNews } from '../../../utils/urls';
+import prisma from '@prisma/prisma';
+import { ApiResponse } from '@utils/apiResponse';
+import {
+  INTERNAL_SERVER_ERROR,
+  STATUS_INTERNAL_SERVER_ERROR,
+  STATUS_OK,
+  STATUS_UNAUTHORIZED
+} from '@utils/statusCodes';
+import { singleNews, topNews } from '@utils/urls';
+import { NewsDatabaseSchema, NewsDatabaseType } from '@utils/validationSchemas';
+import { Resend } from 'resend';
 
 export async function GET(request: Request) {
   if (
     request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`
   ) {
-    return new Response('Unauthorized', { status: 401 });
+    return ApiResponse(STATUS_UNAUTHORIZED, 'Unauthorized');
   }
 
   try {
-    const topstories: number[] = await fetch(topNews).then(res => res.json());
+    const topStories: number[] = await fetch(topNews, {
+      cache: 'no-store'
+    }).then(res => res.json());
 
-    const newsPromises = topstories
-      .splice(0, Number(process.env.NEWS_LIMIT))
-      .map(async id => {
-        const sourceNews = await fetch(singleNews(id)).then(res => res.json());
-        const validation = NewsDatabaseSchema.safeParse(sourceNews);
+    console.info(`Top stories ids: ${topStories}`);
 
-        if (validation.success) {
-          const result = await prisma.news.upsert({
-            create: {
-              ...validation.data,
-              id
-            },
-            update: {
-              ...validation.data
-            },
-            where: {
-              id
-            }
-          });
+    const newsPromises = topStories
+      .slice(0, Number(process.env.NEWS_LIMIT))
+      .map(id => fetch(singleNews(id)).then(res => res.json()));
 
-          return result;
-        }
+    const news: NewsDatabaseType[] = await Promise.all(newsPromises);
+
+    const upsertPromises = news.map(async singleNews => {
+      const validation = NewsDatabaseSchema.safeParse(singleNews);
+
+      if (validation.success) {
+        console.info(
+          `Validated news N° ${singleNews.id} - ${singleNews.title}`
+        );
+        const result = await prisma.news.upsert({
+          create: {
+            ...validation.data,
+            id: singleNews.id
+          },
+          update: {
+            ...validation.data
+          },
+          where: {
+            id: singleNews.id
+          }
+        });
+
+        console.info(`Imported N° ${singleNews.id} - ${singleNews.title}`);
+
+        return result;
+      } else {
+        console.error(validation.error);
+      }
+    });
+
+    const result = await Promise.all(upsertPromises);
+
+    console.info(`Imported ${result.length} news.`);
+
+    if (process.env.ADMIN_EMAIL && process.env.RESEND_FROM) {
+      const resend = new Resend(process.env.RESEND_KEY);
+
+      await resend.emails.send({
+        from: process.env.RESEND_FROM,
+        to: [process.env.ADMIN_EMAIL],
+        subject: 'Newsletter: import cron job',
+        text: `Found these ids ${topStories.join(', ')} and imported ${result.length} of them.`
       });
+    }
 
-    await Promise.all(newsPromises);
-
-    return new NextResponse(`Imported ${newsPromises.length} news.`, {
-      status: 200
-    });
-  } catch {
-    return new NextResponse(`Import failed.`, {
-      status: 500
-    });
+    return ApiResponse(STATUS_OK, `Imported ${newsPromises.length} news.`);
+  } catch (error) {
+    console.error(error);
+    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
   }
 }

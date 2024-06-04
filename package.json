@@ -1,8 +1,8 @@
 {
   "name": "nextjs-hackernews",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Template for NodeJS APIs with TypeScript, with configurations for linting and testing",
-  "author": "riccardo.s@hey.com",
+  "author": "riccardo@frompixels.com",
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
@@ -13,16 +13,17 @@
     "prepare": "husky install",
     "vercel:link": "vercel link",
     "vercel:env": "vercel env pull .env",
+    "prisma:migrate": "npx prisma migrate dev",
     "prisma:push": "npx prisma db push",
     "prisma:generate": "npx prisma generate",
     "prisma:reset": "npx prisma db push --force-reset"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
+    "@next/third-parties": "^14.2.3",
     "@prisma/client": "^5.6.0",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
-    "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@vercel/analytics": "^1.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -31,7 +32,6 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
-    "react-responsive": "^9.0.2",
     "resend": "^3.1.0",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
@@ -43,6 +43,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "audit-ci": "^6.6.1",
     "autoprefixer": "^10.0.1",
@@ -59,10 +60,10 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.ts": [
+    "*.{ts,tsx}": [
       "eslint --quiet --fix"
     ],
-    "*.{json,ts}": [
+    "*.{json,ts,tsx}": [
       "prettier --write --ignore-unknown"
     ]
   }

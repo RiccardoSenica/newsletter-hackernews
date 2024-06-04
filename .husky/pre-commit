@@ -3,6 +3,6 @@
 
 yarn audit-ci
 yarn format
-yarn lint
+yarn lint-staged
 yarn typecheck
 yarn build

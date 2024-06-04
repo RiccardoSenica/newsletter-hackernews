@@ -35,47 +35,25 @@
     --radius: 0.5rem;
   }
 
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+  h1 {
+    @apply text-3xl font-semibold;
   }
-}
 
-.styledH2 {
-  @apply text-xl font-bold;
-}
+  h2 {
+    @apply text-2xl font-semibold;
+  }
 
-.styledH3 {
-  @apply text-lg font-semibold;
-}
+  h3 {
+    @apply text-xl font-semibold;
+  }
 
-.styledH4 {
-  @apply text-base font-medium;
+  h4 {
+    @apply text-lg font-semibold;
+  }
+
+  h6 {
+    @apply text-lg italic;
+  }
 }
 
 /* Card border gradient */
@@ -102,7 +80,6 @@ body {
     content: '';
     top: calc(-1 * var(--radius));
     left: calc(-1 * var(--radius));
-    z-index: -1;
     width: calc(100% + var(--radius) * 2);
     height: calc(100% + var(--radius) * 2);
     background: linear-gradient(

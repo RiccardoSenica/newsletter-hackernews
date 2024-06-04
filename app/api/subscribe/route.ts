@@ -1,76 +1,123 @@
+import ConfirmationTemplate from '@components/email/Confirmation';
+import prisma from '@prisma/prisma';
+import { ApiResponse } from '@utils/apiResponse';
+import { sender } from '@utils/sender';
+import {
+  BAD_REQUEST,
+  INTERNAL_SERVER_ERROR,
+  STATUS_BAD_REQUEST,
+  STATUS_INTERNAL_SERVER_ERROR,
+  STATUS_OK
+} from '@utils/statusCodes';
+import { ResponseType, SubscribeFormSchema } from '@utils/validationSchemas';
 import * as crypto from 'crypto';
-import { z } from 'zod';
-import ConfirmationTemplate from '../../../components/emails/confirmation';
-import prisma from '../../../prisma/prisma';
-import { ApiResponse } from '../../../utils/apiResponse';
-import { ResponseSchema, SubscribeFormSchema } from '../../../utils/schemas';
-import { sender } from '../../../utils/sender';
+import { Resend } from 'resend';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
+
 export async function POST(request: Request) {
-  const body = await request.json();
-  const validation = SubscribeFormSchema.safeParse(body);
-  if (!validation.success) {
-    return ApiResponse(400, 'Bad request');
-  }
-
-  const { email } = validation.data;
-
-  const userAlreadyConfirmed = await prisma.user.findUnique({
-    where: {
-      email,
-      confirmed: true
+  try {
+    if (!process.env.RESEND_KEY || !process.env.RESEND_AUDIENCE) {
+      throw new Error('RESEND_KEY is not set');
     }
-  });
 
-  if (userAlreadyConfirmed) {
-    if (userAlreadyConfirmed.deleted) {
+    const body = await request.json();
+
+    const validation = SubscribeFormSchema.safeParse(body);
+
+    if (!validation.success) {
+      return ApiResponse(STATUS_BAD_REQUEST, BAD_REQUEST);
+    }
+
+    const { email } = validation.data;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email
+      }
+    });
+
+    const resend = new Resend(process.env.RESEND_KEY);
+
+    const code = crypto
+      .createHash('sha256')
+      .update(`${process.env.SECRET_HASH}${email}}`)
+      .digest('hex');
+
+    if (user && user.confirmed) {
+      if (user.deleted) {
+        await prisma.user.update({
+          where: {
+            email
+          },
+          data: {
+            deleted: false
+          }
+        });
+
+        const contact = await resend.contacts.get({
+          id: user.resendId,
+          audienceId: process.env.RESEND_AUDIENCE
+        });
+
+        if (!contact) {
+          await resend.contacts.update({
+            id: user.resendId,
+            audienceId: process.env.RESEND_AUDIENCE,
+            unsubscribed: true
+          });
+        }
+      }
+
+      const message: ResponseType = {
+        success: true,
+        message: `Thank you for subscribing!`
+      };
+
+      return ApiResponse(STATUS_OK, message);
+    } else if (user && !user.confirmed) {
       await prisma.user.update({
         where: {
           email
         },
         data: {
-          deleted: false
+          code
+        }
+      });
+    } else {
+      const contact = await resend.contacts.create({
+        email: email,
+        audienceId: process.env.RESEND_AUDIENCE,
+        unsubscribed: true
+      });
+
+      if (!contact.data?.id) {
+        throw new Error('Failed to create Resend contact');
+      }
+
+      await prisma.user.create({
+        data: {
+          email,
+          code,
+          resendId: contact.data.id
         }
       });
     }
 
-    const message: z.infer<typeof ResponseSchema> = {
+    const sent = await sender([email], ConfirmationTemplate(code));
+
+    if (!sent) {
+      return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
+    }
+
+    const message: ResponseType = {
       success: true,
-      message: `Thank you for subscribing!`
+      message: `Thank you! You will now receive an email to ${email} to confirm the subscription.`
     };
 
-    return ApiResponse(200, JSON.stringify(message));
+    return ApiResponse(STATUS_OK, message);
+  } catch (error) {
+    console.error(error);
+    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
   }
-
-  const code = crypto
-    .createHash('sha256')
-    .update(`${process.env.SECRET_HASH}${email}}`)
-    .digest('hex');
-
-  await prisma.user.upsert({
-    create: {
-      email,
-      code
-    },
-    update: {
-      code
-    },
-    where: {
-      email
-    }
-  });
-
-  const sent = await sender([email], ConfirmationTemplate(code));
-
-  if (!sent) {
-    return ApiResponse(500, 'Internal server error');
-  }
-
-  const message: z.infer<typeof ResponseSchema> = {
-    success: true,
-    message: `Thank you! You will now receive an email to ${email} to confirm the subscription.`
-  };
-
-  return ApiResponse(200, JSON.stringify(message));
 }

@@ -1,6 +1,7 @@
 'use client';
+
+import CustomCard from '@components/CustomCard';
 import Link from 'next/link';
-import { Card } from '../../components/custom/card';
 
 export default function Privacy() {
   const body = (
@@ -25,8 +26,8 @@ export default function Privacy() {
         .
       </p>
       <br />
-      <h2 className='styledH2'>Interpretation and Definitions</h2>
-      <h3 className='styledH3'>Interpretation</h3>
+      <h2>Interpretation and Definitions</h2>
+      <h3>Interpretation</h3>
       <p>
         The words of which the initial letter is capitalized have meanings
         defined under the following conditions. The following definitions shall
@@ -34,7 +35,7 @@ export default function Privacy() {
         in plural.
       </p>
       <br />
-      <h3 className='styledH3'>Definitions</h3>
+      <h4>Definitions</h4>
       <p>For the purposes of this Privacy Policy:</p>
       <ul>
         <li>
@@ -115,9 +116,9 @@ export default function Privacy() {
         </li>
       </ul>
       <br />
-      <h2 className='styledH2'>Collecting and Using Your Personal Data</h2>
-      <h3 className='styledH3'>Types of Data Collected</h3>
-      <h4 className='styledH4'>Personal Data</h4>
+      <h3>Collecting and Using Your Personal Data</h3>
+      <h4>Types of Data Collected</h4>
+      <h6>Personal Data</h6>
       <p>
         While using Our Service, We may ask You to provide Us with certain
         personally identifiable information that can be used to contact or
@@ -133,7 +134,7 @@ export default function Privacy() {
         </li>
       </ul>
       <br />
-      <h4 className='styledH4'>Usage Data</h4>
+      <h6>Usage Data</h6>
       <p>Usage Data is collected automatically when using the Service.</p>
       <p>
         Usage Data may include information such as Your Device&aposs Internet
@@ -156,7 +157,7 @@ export default function Privacy() {
         device.
       </p>
       <br />
-      <h3 className='styledH3'>Use of Your Personal Data</h3>
+      <h4>Use of Your Personal Data</h4>
       <p>The Company may use Personal Data for the following purposes:</p>
       <ul>
         <li>
@@ -265,7 +266,7 @@ export default function Privacy() {
         </li>
       </ul>
       <br />
-      <h3 className='styledH3'>Retention of Your Personal Data</h3>
+      <h4>Retention of Your Personal Data</h4>
       <p>
         The Company will retain Your Personal Data only for as long as is
         necessary for the purposes set out in this Privacy Policy. We will
@@ -282,7 +283,7 @@ export default function Privacy() {
         data for longer time periods.
       </p>
       <br />
-      <h3 className='styledH3'>Transfer of Your Personal Data</h3>
+      <h4>Transfer of Your Personal Data</h4>
       <p>
         Your information, including Personal Data, is processed at the
         Company&aposs operating offices and in any other places where the
@@ -304,7 +305,7 @@ export default function Privacy() {
         security of Your data and other personal information.
       </p>
       <br />
-      <h3 className='styledH3'>Delete Your Personal Data</h3>
+      <h4>Delete Your Personal Data</h4>
       <p>
         You have the right to delete or request that We assist in deleting the
         Personal Data that We have collected about You.
@@ -325,8 +326,8 @@ export default function Privacy() {
         when we have a legal obligation or lawful basis to do so.
       </p>
       <br />
-      <h3 className='styledH3'>Disclosure of Your Personal Data</h3>
-      <h4 className='styledH4'>Business Transactions</h4>
+      <h4>Disclosure of Your Personal Data</h4>
+      <h6>Business Transactions</h6>
       <p>
         If the Company is involved in a merger, acquisition or asset sale, Your
         Personal Data may be transferred. We will provide notice before Your
@@ -334,14 +335,14 @@ export default function Privacy() {
         Policy.
       </p>
       <br />
-      <h4 className='styledH4'>Law enforcement</h4>
+      <h6>Law enforcement</h6>
       <p>
         Under certain circumstances, the Company may be required to disclose
         Your Personal Data if required to do so by law or in response to valid
         requests by public authorities (e.g. a court or a government agency).
       </p>
       <br />
-      <h4 className='styledH4'>Other legal requirements</h4>
+      <h6>Other legal requirements</h6>
       <p>
         The Company may disclose Your Personal Data in the good faith belief
         that such action is necessary to:
@@ -358,9 +359,8 @@ export default function Privacy() {
         </li>
         <li>Protect against legal liability</li>
       </ul>
-
       <br />
-      <h3 className='styledH3'>Security of Your Personal Data</h3>
+      <h4>Security of Your Personal Data</h4>
       <p>
         The security of Your Personal Data is important to Us, but remember that
         no method of transmission over the Internet, or method of electronic
@@ -369,7 +369,7 @@ export default function Privacy() {
         security.
       </p>
       <br />
-      <h2 className='styledH2'>{"Children's Privacy"}</h2>
+      <h3>{"Children's Privacy"}</h3>
       <p>
         Our Service does not address anyone under the age of 13. We do not
         knowingly collect personally identifiable information from anyone under
@@ -386,7 +386,7 @@ export default function Privacy() {
         information.
       </p>
       <br />
-      <h2 className='styledH2'>Links to Other Websites</h2>
+      <h3>Links to Other Websites</h3>
       <p>
         Our Service may contain links to other websites that are not operated by
         Us. If You click on a third party link, You will be directed to that
@@ -398,7 +398,7 @@ export default function Privacy() {
         privacy policies or practices of any third party sites or services.
       </p>
       <br />
-      <h2 className='styledH2'>Changes to this Privacy Policy</h2>
+      <h3>Changes to this Privacy Policy</h3>
       <p>
         We may update Our Privacy Policy from time to time. We will notify You
         of any changes by posting the new Privacy Policy on this page.
@@ -414,7 +414,7 @@ export default function Privacy() {
         posted on this page.
       </p>
       <br />
-      <h2 className='styledH2'>Contact Us</h2>
+      <h3>Contact Us</h3>
       <p>
         If you have any questions about this Privacy Policy, You can contact us
         by writing to{' '}
@@ -439,8 +439,8 @@ export default function Privacy() {
   );
 
   return (
-    <Card
-      style='max-h-[90vh] max-w-[90vw]'
+    <CustomCard
+      className='max-90vh max-90vw'
       title='Privacy Policy'
       description='Last updated: December 03, 2023'
       content={body}

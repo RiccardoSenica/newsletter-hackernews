@@ -1,46 +1,42 @@
 'use client';
+import { Button } from '@components/Button';
+import { CardDescription } from '@components/Card';
+import CustomCard from '@components/CustomCard';
+import ErrorMessage from '@components/ErrorMessage';
+import { FormControl } from '@components/form/FormControl';
+import { FormMessage } from '@components/form/FormMessage';
+import { Input } from '@components/Input';
+import { FormField } from '@contexts/FormField/FormFieldProvider';
+import { FormItem } from '@contexts/FormItem/FormItemProvider';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Card } from '../../components/custom/card';
-import ErrorMessage from '../../components/custom/error';
-import { Button } from '../../components/ui/button';
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage
-} from '../../components/ui/form';
-import { Input } from '../../components/ui/input';
-import { ResponseSchema, UnsubscribeFormSchema } from '../../utils/schemas';
+  ResponseType,
+  UnsubscribeFormSchema,
+  UnsubscribeFormType
+} from '@utils/validationSchemas';
+import { useEffect, useRef, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 
 export default function Unsubscribe() {
   const [completed, setCompleted] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
-  const honeypotRef = useRef<HTMLInputElement | null>(null);
+  const ref = useRef<HTMLInputElement | null>(null);
 
-  const form = useForm<z.infer<typeof UnsubscribeFormSchema>>({
+  const form = useForm<UnsubscribeFormType>({
     resolver: zodResolver(UnsubscribeFormSchema),
     defaultValues: {
-      email: '',
-      name: ''
+      email: ''
     }
   });
 
   useEffect(() => {
-    if (honeypotRef.current) {
-      honeypotRef.current.style.display = 'none';
+    if (ref.current) {
+      ref.current.style.display = 'none';
     }
   }, []);
 
-  async function handleSubmit(values: z.infer<typeof UnsubscribeFormSchema>) {
-    if (values.name) {
-      return;
-    }
-
+  async function handleSubmit(values: UnsubscribeFormType) {
     try {
       const response = await fetch('/api/unsubscribe', {
         method: 'POST',
@@ -56,8 +52,7 @@ export default function Unsubscribe() {
         throw new Error(`Invalid response: ${response.status}`);
       }
 
-      const formResponse: z.infer<typeof ResponseSchema> =
-        await response.json();
+      const formResponse: ResponseType = await response.json();
 
       if (!formResponse.success) {
         throw Error(formResponse.message);
@@ -76,12 +71,14 @@ export default function Unsubscribe() {
     }
 
     if (completed) {
-      return message;
+      return (
+        <CardDescription className='text-center'>{message}</CardDescription>
+      );
     }
 
     return (
       <div className='mb-5 h-32'>
-        <Form {...form}>
+        <FormProvider {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
             className='flex flex-col space-y-4'
@@ -91,11 +88,15 @@ export default function Unsubscribe() {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <div className='h-4'>
+                  <div className='h-6'>
                     <FormMessage className='text-center' />
                   </div>
                   <FormControl>
-                    <Input placeholder='example@example.com' {...field} />
+                    <Input
+                      placeholder='example@example.com'
+                      className='text-center'
+                      {...field}
+                    />
                   </FormControl>
                 </FormItem>
               )}
@@ -104,14 +105,14 @@ export default function Unsubscribe() {
               <Button type='submit'>Submit</Button>
             </div>
           </form>
-        </Form>
+        </FormProvider>
       </div>
     );
   }
 
   return (
-    <Card
-      style='text-center max-w-80'
+    <CustomCard
+      className='max-90vw w-96'
       title='Unsubscribe'
       description='You sure you want to leave? :('
       content={render()}

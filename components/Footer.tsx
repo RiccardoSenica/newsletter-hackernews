@@ -1,11 +1,11 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { CustomLink } from './customLink';
+import CustomLink from './CustomLink';
 
 const links = [{ name: 'Subscribe', path: '/' }];
 
-function Footer() {
+export default function Footer() {
   const pathname = usePathname();
 
   return (
@@ -22,7 +22,7 @@ function Footer() {
           .
         </p>
       ) : (
-        <ul className='flex justify-center space-x-4'>
+        <div className='flex justify-center space-x-4'>
           {links.map(
             link =>
               pathname !== link.path &&
@@ -33,10 +33,8 @@ function Footer() {
           {pathname === '/privacy' && (
             <CustomLink path='/unsubscribe' text='Unsubscribe' />
           )}
-        </ul>
+        </div>
       )}
     </div>
   );
 }
-
-export default Footer;
