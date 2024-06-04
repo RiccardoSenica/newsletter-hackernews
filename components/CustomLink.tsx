@@ -1,13 +1,13 @@
 'use client';
 import Link from 'next/link';
-import { Button } from '../ui/button';
+import { Button } from './Button';
 
-type LinkProps = {
+interface LinkProps {
   path: string;
   text: string;
-};
+}
 
-export function CustomLink({ path, text }: LinkProps) {
+export default function CustomLink({ path, text }: LinkProps) {
   return (
     <Button asChild>
       <Link href={path}>{text}</Link>

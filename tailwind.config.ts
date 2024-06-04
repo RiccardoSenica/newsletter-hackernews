@@ -54,28 +54,14 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)'
       },
       keyframes: {
-        'accordion-down': {
-          from: { height: 0 },
-          to: { height: 'var(--radix-accordion-content-height)' }
-        },
-        'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: 0 }
-        },
         rotate: {
           '0%': { transform: 'rotateY(0deg)' },
-          '100%': { transform: 'rotateY(180deg)' }
-        },
-        'rotate-inverse': {
-          '0%': { transform: 'rotateY(180deg)' },
+          '50%': { transform: 'rotateY(90deg)' },
           '100%': { transform: 'rotateY(0deg)' }
         }
       },
       animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
-        rotate: 'rotate 0.5s linear both',
-        'rotate-inverse': 'rotate-inverse 0.5s linear both'
+        rotate: 'rotate 0.5s linear both'
       },
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans]

@@ -1,6 +1,6 @@
 import { Slot } from '@radix-ui/react-slot';
+import { cn } from '@utils/ui';
 import * as React from 'react';
-import { cn } from '../../utils/ui';
 
 export type ButtonProps = {
   asChild?: boolean;

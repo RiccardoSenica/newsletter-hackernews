@@ -1,32 +1,30 @@
 import { ReactNode, useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import {
+  Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
-  Card as CardUI
-} from '../../components/ui/card';
-import Footer from './footer';
+  CardTitle
+} from './Card';
+import Footer from './Footer';
 
-type CardProps = {
+interface CardProps {
   title: string;
   description?: string;
   content: ReactNode;
-  style?: string;
+  className?: string;
   footer?: boolean;
-};
+}
 
-export const Card = ({
+export default function CustomCard({
   title,
   description,
   content,
-  style,
+  className,
   footer = true
-}: CardProps) => {
+}: CardProps) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
   useEffect(() => {
     setIsLoaded(true);
@@ -37,13 +35,8 @@ export const Card = ({
   }
 
   return (
-    <div className='gradient-border'>
-      <CardUI
-        style={{
-          boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.6)'
-        }}
-        className={`max-h-[90vh] max-w-[90vw] p-8 ${style}`}
-      >
+    <div className='gradient-border shadow-2xl shadow-black'>
+      <Card className={`z-10 max-w-[90vw] p-8 ${className}`}>
         <CardHeader>
           <p className='text-xs uppercase text-gray-500'>
             Hackernews + newsletter
@@ -51,19 +44,13 @@ export const Card = ({
           <CardTitle>{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
-        {isMobile ? (
-          <CardContent>{content}</CardContent>
-        ) : (
-          <CardContent className='flex max-h-[60vh] flex-grow  justify-center overflow-auto'>
-            {content}
-          </CardContent>
-        )}
+        <CardContent>{content}</CardContent>
         {footer && (
           <CardFooter>
             <Footer />
           </CardFooter>
         )}
-      </CardUI>
+      </Card>
     </div>
   );
-};
+}

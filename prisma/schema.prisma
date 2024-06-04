@@ -9,12 +9,13 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  code      String   @unique
-  confirmed Boolean  @default(false)
-  deleted   Boolean  @default(false)
-  createdAt DateTime @default(now())
+  id        String    @id @default(cuid())
+  resendId  String
+  email     String    @unique
+  code      String    @unique
+  confirmed Boolean   @default(false)
+  deleted   Boolean   @default(false)
+  createdAt DateTime  @default(now())
   lastMail  DateTime?
 
   @@map(name: "users")

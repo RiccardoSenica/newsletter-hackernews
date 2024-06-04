@@ -1,8 +1,8 @@
+import Tiles from '@components/tiles/Tiles';
+import { cn } from '@utils/ui';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
-import { Tiles } from '../components/custom/tiles/tiles';
-import { cn } from '../utils/ui';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -22,16 +22,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang='en'>
       <head />
       <body
         className={cn(
-          'flex min-h-screen items-center justify-center bg-background font-sans antialiased',
+          'flex justify-center bg-background font-sans antialiased',
           fontSans.variable
         )}
       >
         <Tiles>
-          <div style={{ zIndex: 2 }}>{children}</div>
+          <div className='z-10'>{children}</div>
         </Tiles>
         <Analytics />
       </body>

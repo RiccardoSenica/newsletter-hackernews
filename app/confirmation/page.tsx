@@ -1,9 +1,9 @@
 'use client';
+import { CardDescription } from '@components/Card';
+import CustomCard from '@components/CustomCard';
+import { ResponseType } from '@utils/validationSchemas';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
-import { z } from 'zod';
-import { Card } from '../../components/custom/card';
-import { ResponseSchema } from '../../utils/schemas';
 
 function ConfirmationPage() {
   const router = useRouter();
@@ -14,49 +14,59 @@ function ConfirmationPage() {
   const code = searchParams.get('code');
 
   useEffect(() => {
-    if (!code) {
-      router.push('/');
-    }
+    const fetchData = async () => {
+      if (!code) {
+        router.push('/');
+        return;
+      }
 
-    fetch('/api/confirmation', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        code: code
-      })
-    })
-      .then(async res => {
+      try {
+        const res = await fetch('/api/confirmation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            code: code
+          })
+        });
+
         if (!res.ok) {
           router.push('/');
+          return;
         }
 
-        const response: z.infer<typeof ResponseSchema> = await res.json();
+        const response: ResponseType = await res.json();
 
         if (!response.success) {
           router.push('/');
+          return;
         }
 
-        return response;
-      })
-      .then(response => {
         setMessage(response.message);
         setLoading(false);
-      });
+      } catch (error) {
+        console.error(error);
+        router.push('/');
+      }
+    };
+
+    fetchData();
   }, [code, router]);
 
   function render() {
     if (!loading) {
-      return message;
+      return (
+        <CardDescription className='text-center'>{message}</CardDescription>
+      );
     }
 
     return 'Just a second...';
   }
 
   return (
-    <Card
-      style='text-center'
+    <CustomCard
+      className='max-90vw w-96'
       title={loading ? 'Verifying' : 'Confirmed!'}
       content={render()}
       footer={false}
@@ -66,7 +76,7 @@ function ConfirmationPage() {
 
 export default function Confirmation() {
   return (
-    <Suspense>
+    <Suspense fallback={<>Loading...</>}>
       <ConfirmationPage />
     </Suspense>
   );

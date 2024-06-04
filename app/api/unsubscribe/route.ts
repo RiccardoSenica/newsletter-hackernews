@@ -1,47 +1,74 @@
-import { z } from 'zod';
-import UnsubscribeTemplate from '../../../components/emails/unsubscribe';
-import prisma from '../../../prisma/prisma';
-import { ApiResponse } from '../../../utils/apiResponse';
-import { ResponseSchema, UnsubscribeFormSchema } from '../../../utils/schemas';
-import { sender } from '../../../utils/sender';
+import UnsubscribeTemplate from '@components/email/Unsubscribe';
+import prisma from '@prisma/prisma';
+import { ApiResponse } from '@utils/apiResponse';
+import { sender } from '@utils/sender';
+import {
+  BAD_REQUEST,
+  INTERNAL_SERVER_ERROR,
+  STATUS_BAD_REQUEST,
+  STATUS_INTERNAL_SERVER_ERROR,
+  STATUS_OK
+} from '@utils/statusCodes';
+import { ResponseType, UnsubscribeFormSchema } from '@utils/validationSchemas';
+import { Resend } from 'resend';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
+
 export async function POST(request: Request) {
-  const body = await request.json();
-  const validation = UnsubscribeFormSchema.safeParse(body);
-  if (!validation.success) {
-    return ApiResponse(400, 'Bad request');
-  }
-
-  const { email } = validation.data;
-
-  const user = await prisma.user.findUnique({
-    where: {
-      email
+  try {
+    if (!process.env.RESEND_KEY || !process.env.RESEND_AUDIENCE) {
+      throw new Error('RESEND_AUDIENCE is not set');
     }
-  });
+    const body = await request.json();
+    const validation = UnsubscribeFormSchema.safeParse(body);
+    if (!validation.success) {
+      return ApiResponse(STATUS_BAD_REQUEST, BAD_REQUEST);
+    }
 
-  if (user && !user.deleted) {
-    await prisma.user.update({
+    const { email } = validation.data;
+
+    const user = await prisma.user.findUnique({
       where: {
         email
-      },
-      data: {
-        deleted: true
       }
     });
 
-    const sent = await sender([email], UnsubscribeTemplate());
+    if (user && !user.deleted) {
+      await prisma.user.update({
+        where: {
+          email
+        },
+        data: {
+          deleted: true
+        }
+      });
 
-    if (!sent) {
-      return ApiResponse(500, 'Internal server error');
+      const resend = new Resend(process.env.RESEND_KEY);
+
+      await resend.contacts.update({
+        id: user.resendId,
+        audienceId: process.env.RESEND_AUDIENCE,
+        unsubscribed: true
+      });
+
+      const sent = await sender([email], UnsubscribeTemplate());
+
+      if (!sent) {
+        return ApiResponse(
+          STATUS_INTERNAL_SERVER_ERROR,
+          'Internal server error'
+        );
+      }
     }
+
+    const message: ResponseType = {
+      success: true,
+      message: `${email} unsubscribed.`
+    };
+
+    return ApiResponse(STATUS_OK, message);
+  } catch (error) {
+    console.error(error);
+    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
   }
-
-  const message: z.infer<typeof ResponseSchema> = {
-    success: true,
-    message: `${email} unsubscribed.`
-  };
-
-  return ApiResponse(200, JSON.stringify(message));
 }
