@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Newsletter',
     short_name: 'Newsletter',
-    description: 'Newsletter with Hackernews top stories',
+    description: 'Newsletter with top stories from the Hacker News forum',
     start_url: '/',
     display: 'standalone',
     background_color: '#fff',

@@ -1,5 +1,5 @@
 import { useFormField } from '@hooks/useFormField';
-import { cn } from '@utils/ui';
+import { cn } from '@utils/cn';
 import * as React from 'react';
 
 export const FormMessage = React.forwardRef<

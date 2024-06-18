@@ -1,5 +1,5 @@
 import Tiles from '@components/tiles/Tiles';
-import { cn } from '@utils/ui';
+import { cn } from '@utils/cn';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';

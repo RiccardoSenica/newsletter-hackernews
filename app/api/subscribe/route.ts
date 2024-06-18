@@ -13,8 +13,6 @@ import { ResponseType, SubscribeFormSchema } from '@utils/validationSchemas';
 import * as crypto from 'crypto';
 import { Resend } from 'resend';
 
-export const dynamic = 'force-dynamic'; // defaults to force-static
-
 export async function POST(request: Request) {
   try {
     if (!process.env.RESEND_KEY || !process.env.RESEND_AUDIENCE) {

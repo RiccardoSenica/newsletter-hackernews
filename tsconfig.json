@@ -28,5 +28,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", ".yarn", ".next", ".vercel"]
+  "exclude": ["node_modules", ".yarn", ".next", ".vercel", ".vscode"]
 }

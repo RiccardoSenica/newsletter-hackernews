@@ -6,7 +6,7 @@ import {
   STATUS_OK,
   STATUS_UNAUTHORIZED
 } from '@utils/statusCodes';
-import { singleNews, topNews } from '@utils/urls';
+import { getSingleNews, getTopNews } from '@utils/urls';
 import { NewsDatabaseSchema, NewsDatabaseType } from '@utils/validationSchemas';
 import { Resend } from 'resend';
 
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const topStories: number[] = await fetch(topNews, {
+    const topStories: number[] = await fetch(getTopNews, {
       cache: 'no-store'
     }).then(res => res.json());
 
@@ -26,31 +26,33 @@ export async function GET(request: Request) {
 
     const newsPromises = topStories
       .slice(0, Number(process.env.NEWS_LIMIT))
-      .map(id => fetch(singleNews(id)).then(res => res.json()));
+      .map(id => fetch(getSingleNews(id)).then(res => res.json()));
 
     const news: NewsDatabaseType[] = await Promise.all(newsPromises);
 
-    const upsertPromises = news.map(async singleNews => {
-      const validation = NewsDatabaseSchema.safeParse(singleNews);
+    const upsertPromises = news.map(async getSingleNews => {
+      const validation = NewsDatabaseSchema.safeParse(getSingleNews);
 
       if (validation.success) {
         console.info(
-          `Validated news N° ${singleNews.id} - ${singleNews.title}`
+          `Validated news N° ${getSingleNews.id} - ${getSingleNews.title}`
         );
         const result = await prisma.news.upsert({
           create: {
             ...validation.data,
-            id: singleNews.id
+            id: getSingleNews.id
           },
           update: {
             ...validation.data
           },
           where: {
-            id: singleNews.id
+            id: getSingleNews.id
           }
         });
 
-        console.info(`Imported N° ${singleNews.id} - ${singleNews.title}`);
+        console.info(
+          `Imported N° ${getSingleNews.id} - ${getSingleNews.title}`
+        );
 
         return result;
       } else {
@@ -69,7 +71,7 @@ export async function GET(request: Request) {
         from: process.env.RESEND_FROM,
         to: [process.env.ADMIN_EMAIL],
         subject: 'Newsletter: import cron job',
-        text: `Found these ids ${topStories.join(', ')} and imported ${result.length} of them.`
+        text: `Imported ${result.length} news out of these ids: ${topStories.join(', ')}.`
       });
     }
 

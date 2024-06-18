@@ -1,4 +1,4 @@
-export const sayings = [
+export const getSayings = [
   'hot off the press',
   'straight from the oven',
   "straight from the horse's mouth",

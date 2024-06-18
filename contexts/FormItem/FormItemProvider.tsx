@@ -1,4 +1,4 @@
-import { cn } from '@utils/ui';
+import { cn } from '@utils/cn';
 import * as React from 'react';
 import { FormItemContext } from './FormItemContext';
 

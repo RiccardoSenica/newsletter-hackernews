@@ -1,4 +1,4 @@
-import { sayings } from '@utils/sayings';
+import { getSayings } from '@utils/getSayings';
 import { textTruncate } from '@utils/textTruncate';
 import { NewsType } from '@utils/validationSchemas';
 import Template from './Template';
@@ -9,7 +9,7 @@ export default function NewsletterTemplate(stories: NewsType[]) {
     template: (
       <Template
         title={`Here is something 
-              ${sayings[Math.floor(Math.random() * sayings.length)]}!`}
+              ${getSayings[Math.floor(Math.random() * getSayings.length)]}!`}
         body={
           <div>
             {stories.map(story => {

@@ -72,7 +72,7 @@ export async function GET(request: Request) {
         from: process.env.RESEND_FROM,
         to: [process.env.ADMIN_EMAIL],
         subject: 'Newsletter: mailing cron job',
-        text: `Found ${users.length} users and ${news.length} news to send.`
+        text: `Found ${users.length} users and ${news.length} news to send for ${new Date().toISOString()}.`
       });
     }
 

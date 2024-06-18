@@ -1,11 +1,9 @@
 import { z } from 'zod';
 
-export const ResponseSchema = z.object({
-  success: z.boolean(),
-  message: z.string()
-});
-
-export type ResponseType = z.infer<typeof ResponseSchema>;
+export interface ResponseType {
+  success: boolean;
+  message: string;
+}
 
 export const SubscribeFormSchema = z.object({
   email: z.string().email()
@@ -36,24 +34,17 @@ export const NewsDatabaseSchema = z.object({
 
 export type NewsDatabaseType = z.infer<typeof NewsDatabaseSchema>;
 
-export const NewsSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  text: z.string().nullable(),
-  type: z.string(),
-  by: z.string(),
-  time: z.number(),
-  url: z.string().nullable(),
-  score: z.number(),
-  createdAt: z.date()
-});
+export interface NewsTileType {
+  id: number;
+  title: string;
+  by: string;
+}
 
-export type NewsType = z.infer<typeof NewsSchema>;
-
-export const NewsTileSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  by: z.string()
-});
-
-export type NewsTileType = z.infer<typeof NewsTileSchema>;
+export interface NewsType extends NewsTileType {
+  text: string | null;
+  type: string;
+  time: number;
+  url: string | null;
+  score: number;
+  createdAt: Date;
+}
