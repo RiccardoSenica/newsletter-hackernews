@@ -36,6 +36,11 @@
         {
           "key": "X-Frame-Options",
           "value": "DENY"
+        },
+        { "key": "Referrer-Policy", "value": "same-origin" },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
         }
       ]
     }
