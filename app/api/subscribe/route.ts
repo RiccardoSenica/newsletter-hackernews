@@ -11,9 +11,10 @@ import {
 } from '@utils/statusCodes';
 import { ResponseType, SubscribeFormSchema } from '@utils/validationSchemas';
 import * as crypto from 'crypto';
+import { NextRequest } from 'next/server';
 import { Resend } from 'resend';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     if (!process.env.RESEND_KEY || !process.env.RESEND_AUDIENCE) {
       throw new Error('RESEND_KEY is not set');

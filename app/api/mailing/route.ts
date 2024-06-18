@@ -8,12 +8,13 @@ import {
   STATUS_OK,
   STATUS_UNAUTHORIZED
 } from '@utils/statusCodes';
+import { NextRequest } from 'next/server';
 import { Resend } from 'resend';
 
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
 const TEN_MINUTES_IN_MS = 1000 * 10 * 60;
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   if (
     request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`
   ) {

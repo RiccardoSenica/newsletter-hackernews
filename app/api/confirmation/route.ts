@@ -8,11 +8,12 @@ import {
   STATUS_OK
 } from '@utils/statusCodes';
 import { ConfirmationSchema, ResponseType } from '@utils/validationSchemas';
+import { NextRequest } from 'next/server';
 import { Resend } from 'resend';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     if (!process.env.RESEND_KEY || !process.env.RESEND_AUDIENCE) {
       throw new Error('RESEND_AUDIENCE is not set');
