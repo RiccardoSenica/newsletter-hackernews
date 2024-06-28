@@ -100,7 +100,7 @@ export default function Home() {
           </form>
         </FormProvider>
         <p className='py-1 text-center text-xs text-gray-600'>
-          You can rest assured that we will fill your inbox with spam. We
+          You can rest assured that we will not fill your inbox with spam. We
           don&apos;t like it either! 🙂
         </p>
       </div>
