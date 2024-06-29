@@ -12,7 +12,7 @@ import { NextRequest } from 'next/server';
 import { Resend } from 'resend';
 
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
-const TEN_MINUTES_IN_MS = 1000 * 10 * 60;
+const DELTA_MINUTES_IN_MS = 1000 * 60 * 60;
 
 export async function GET(request: NextRequest) {
   if (
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
         OR: [
           {
             lastMail: {
-              lt: new Date(Date.now() - ONE_DAY_IN_MS + TEN_MINUTES_IN_MS) // 24h - 10m
+              lt: new Date(Date.now() - ONE_DAY_IN_MS + DELTA_MINUTES_IN_MS) // 24h - 60m
             }
           },
           {
