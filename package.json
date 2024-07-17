@@ -11,6 +11,7 @@
     "format": "prettier --config .prettierrc 'app/' --write",
     "typecheck": "tsc --noEmit",
     "prepare": "husky install",
+    "analyze": "BUNDLE_ANALYZE=true next build",
     "vercel:link": "vercel link",
     "vercel:env": "vercel env pull .env",
     "prisma:migrate": "npx prisma migrate dev",
