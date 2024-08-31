@@ -1,4 +1,5 @@
 'use client';
+
 import { Button } from '@components/Button';
 import { CardDescription } from '@components/Card';
 import CustomCard from '@components/CustomCard';
@@ -6,6 +7,7 @@ import ErrorMessage from '@components/ErrorMessage';
 import { FormControl } from '@components/form/FormControl';
 import { FormMessage } from '@components/form/FormMessage';
 import { Input } from '@components/Input';
+import Schema from '@components/SchemaOrg';
 import { FormField } from '@contexts/FormField/FormFieldProvider';
 import { FormItem } from '@contexts/FormItem/FormItemProvider';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -22,6 +24,14 @@ export default function Unsubscribe() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
   const ref = useRef<HTMLInputElement | null>(null);
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'HackerNews Newsletter',
+    title: 'Unsubscribe',
+    url: `${process.env.HOME_URL}/unsubscribe`
+  };
 
   const form = useForm<UnsubscribeFormType>({
     resolver: zodResolver(UnsubscribeFormSchema),
@@ -65,7 +75,7 @@ export default function Unsubscribe() {
     }
   }
 
-  function render() {
+  const renderContent = () => {
     if (error) {
       return ErrorMessage();
     }
@@ -108,14 +118,17 @@ export default function Unsubscribe() {
         </FormProvider>
       </div>
     );
-  }
+  };
 
   return (
-    <CustomCard
-      className='max-90vw w-96'
-      title='Unsubscribe'
-      description='You sure you want to leave? :('
-      content={render()}
-    />
+    <>
+      <Schema schema={schema} />
+      <CustomCard
+        className='max-90vw w-96'
+        title='Unsubscribe'
+        description='You sure you want to leave? :('
+        content={renderContent()}
+      />
+    </>
   );
 }

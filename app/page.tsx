@@ -1,4 +1,5 @@
 'use client';
+
 import { Button } from '@components/Button';
 import { CardDescription } from '@components/Card';
 import CustomCard from '@components/CustomCard';
@@ -6,6 +7,7 @@ import ErrorMessage from '@components/ErrorMessage';
 import { FormControl } from '@components/form/FormControl';
 import { FormMessage } from '@components/form/FormMessage';
 import { Input } from '@components/Input';
+import Schema from '@components/SchemaOrg';
 import { FormField } from '@contexts/FormField/FormFieldProvider';
 import { FormItem } from '@contexts/FormItem/FormItemProvider';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,6 +23,14 @@ export default function Home() {
   const [completed, setCompleted] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'HackerNews Newsletter',
+    title: 'Home',
+    url: process.env.HOME_URL
+  };
 
   const form = useForm<SubscribeFormType>({
     resolver: zodResolver(SubscribeFormSchema),
@@ -58,7 +68,7 @@ export default function Home() {
     }
   }
 
-  function render() {
+  const renderContent = () => {
     if (error) {
       return ErrorMessage();
     }
@@ -105,14 +115,17 @@ export default function Home() {
         </p>
       </div>
     );
-  }
+  };
 
   return (
-    <CustomCard
-      className='max-90vw w-96'
-      title='Interested in keeping up with the latest from the tech world? 👩‍💻'
-      description='Subscribe to our newsletter! The top stories from Hackernews for you. Once a day. Every day.'
-      content={render()}
-    />
+    <>
+      <Schema schema={schema} />
+      <CustomCard
+        className='max-90vw w-96'
+        title='Interested in keeping up with the latest from the tech world? 👩‍💻'
+        description='Subscribe to our newsletter! The top stories from Hackernews for you. Once a day. Every day.'
+        content={renderContent()}
+      />
+    </>
   );
 }

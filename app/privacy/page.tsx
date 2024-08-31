@@ -1,9 +1,18 @@
 'use client';
 
 import CustomCard from '@components/CustomCard';
+import Schema from '@components/SchemaOrg';
 import Link from 'next/link';
 
 export default function Privacy() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'HackerNews Newsletter',
+    title: 'Privacy Policy',
+    url: `${process.env.HOME_URL}/privacy`
+  };
+
   const body = (
     <div className='my-2 max-h-[60vh] overflow-auto'>
       <p>
@@ -439,11 +448,14 @@ export default function Privacy() {
   );
 
   return (
-    <CustomCard
-      className='max-90vh max-90vw'
-      title='Privacy Policy'
-      description='Last updated: December 03, 2023'
-      content={body}
-    />
+    <>
+      <Schema schema={schema} />
+      <CustomCard
+        className='max-90vh max-90vw'
+        title='Privacy Policy'
+        description='Last updated: December 03, 2023'
+        content={body}
+      />
+    </>
   );
 }

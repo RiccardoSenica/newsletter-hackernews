@@ -1,6 +1,8 @@
 'use client';
+
 import { CardDescription } from '@components/Card';
 import CustomCard from '@components/CustomCard';
+import Schema from '@components/SchemaOrg';
 import { ResponseType } from '@utils/validationSchemas';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
@@ -54,7 +56,7 @@ function ConfirmationPage() {
     fetchData();
   }, [code, router]);
 
-  function render() {
+  const renderContent = () => {
     if (!loading) {
       return (
         <CardDescription className='text-center'>{message}</CardDescription>
@@ -62,22 +64,33 @@ function ConfirmationPage() {
     }
 
     return 'Just a second...';
-  }
+  };
 
   return (
     <CustomCard
       className='max-90vw w-96'
       title={loading ? 'Verifying' : 'Confirmed!'}
-      content={render()}
+      content={renderContent()}
       footer={false}
     />
   );
 }
 
 export default function Confirmation() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'HackerNews Newsletter',
+    title: 'Subscription Confirmation',
+    url: `${process.env.HOME_URL}/confirmation`
+  };
+
   return (
-    <Suspense fallback={<>Loading...</>}>
-      <ConfirmationPage />
-    </Suspense>
+    <>
+      <Schema schema={schema} />
+      <Suspense fallback={<>Loading...</>}>
+        <ConfirmationPage />
+      </Suspense>
+    </>
   );
 }
