@@ -83,9 +83,11 @@ export async function GET(request: NextRequest) {
 
     const validRankedNews = news.sort((a, b) => b.score - a.score);
 
+    const template = await NewsletterTemplate(validRankedNews);
+
     const sent = await sender(
       users.map(user => user.email),
-      NewsletterTemplate(validRankedNews)
+      template
     );
 
     if (!sent) {

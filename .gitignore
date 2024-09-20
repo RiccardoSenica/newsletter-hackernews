@@ -16,6 +16,9 @@
 # production
 /build
 
+# analyze
+/analyze
+
 # yarn
 /.yarn
 
