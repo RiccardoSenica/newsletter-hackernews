@@ -16,7 +16,7 @@ export const dynamic = 'force-dynamic'; // defaults to force-static
 export async function POST(request: NextRequest) {
   try {
     if (!process.env.RESEND_KEY || !process.env.RESEND_AUDIENCE) {
-      throw new Error('RESEND_AUDIENCE is not set');
+      throw new Error('Resend variables not set');
     }
     const body = await request.json();
     const validation = ConfirmationSchema.safeParse(body);

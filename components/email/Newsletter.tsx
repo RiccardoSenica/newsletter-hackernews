@@ -2,10 +2,14 @@ import { getSayings } from '@utils/getSayings';
 import { summirize } from '@utils/summarize';
 import { textTruncate } from '@utils/textTruncate';
 import { NewsType } from '@utils/validationSchemas';
+import createDOMPurify from 'isomorphic-dompurify';
 import Template from './Template';
 
 export default async function NewsletterTemplate(stories: NewsType[]) {
   const summary = await summirize(stories);
+  const sanitizedSummary = createDOMPurify.sanitize(summary, {
+    USE_PROFILES: { html: true }
+  });
 
   return {
     subject: `What's new from the Hackernews forum?`,
@@ -15,21 +19,20 @@ export default async function NewsletterTemplate(stories: NewsType[]) {
               ${getSayings[Math.floor(Math.random() * getSayings.length)]}!`}
         body={
           <>
-            {summary && (
+            {sanitizedSummary && (
               <div
                 style={{
                   marginTop: '2rem',
                   marginBottom: '2rem',
                   borderRadius: '0.5rem',
+                  padding: '2rem',
                   border: '2px solid #8230CC',
                   backgroundColor: `white`,
                   color: '#111827',
                   boxShadow: '0 16px 32px 0 rgba(0, 0, 0, 0.05)'
                 }}
-                data-v0-t='card'
-              >
-                {summary}
-              </div>
+                dangerouslySetInnerHTML={{ __html: sanitizedSummary }}
+              />
             )}
             <div>
               {stories.map(story => {

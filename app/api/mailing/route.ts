@@ -21,6 +21,10 @@ export async function GET(request: NextRequest) {
     return ApiResponse(STATUS_UNAUTHORIZED, 'Unauthorized');
   }
 
+  if (!process.env.NEWS_TO_USE) {
+    throw new Error('NEWS_TO_USE is not set');
+  }
+
   try {
     // send newsletter to users who didn't get it in the last 23h 50m, assuming a cron job every 10 minutes
     // this is to avoid sending the newsletter to the same users multiple times
@@ -61,7 +65,7 @@ export async function GET(request: NextRequest) {
       orderBy: {
         score: 'desc'
       },
-      take: 25
+      take: Number(process.env.NEWS_TO_USE)
     });
 
     console.info(`Found ${news.length} news to include in the newsletter.`);
