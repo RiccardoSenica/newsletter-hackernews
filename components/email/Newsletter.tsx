@@ -28,7 +28,7 @@ export default async function NewsletterTemplate(stories: NewsType[]) {
                 }}
                 data-v0-t='card'
               >
-                <p>{summary}</p>
+                {summary}
               </div>
             )}
             <div>
