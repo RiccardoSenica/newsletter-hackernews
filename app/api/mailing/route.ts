@@ -9,7 +9,6 @@ import {
   STATUS_UNAUTHORIZED
 } from '@utils/statusCodes';
 import { NextRequest } from 'next/server';
-import { Resend } from 'resend';
 
 const ONE_DAY_IN_MS = 1000 * 60 * 60 * 24;
 const DELTA_MINUTES_IN_MS = 1000 * 60 * 60;
@@ -69,17 +68,6 @@ export async function GET(request: NextRequest) {
     });
 
     console.info(`Found ${news.length} news to include in the newsletter.`);
-
-    if (process.env.ADMIN_EMAIL && process.env.RESEND_FROM) {
-      const resend = new Resend(process.env.RESEND_KEY);
-
-      await resend.emails.send({
-        from: process.env.RESEND_FROM,
-        to: [process.env.ADMIN_EMAIL],
-        subject: 'Newsletter: mailing cron job',
-        text: `Found ${users.length} users and ${news.length} news to send for ${new Date().toISOString()}.`
-      });
-    }
 
     if (news.length === 0) {
       return ApiResponse(STATUS_OK, 'No news to include in newsletter.');
