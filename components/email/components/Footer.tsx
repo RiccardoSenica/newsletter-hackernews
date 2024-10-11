@@ -27,6 +27,10 @@ export default function Footer() {
               {process.env.NEXT_PUBLIC_BRAND_EMAIL}
             </a>
           </p>
+          <p>
+            Click <a href={`${process.env.HOME_URL}/unsubscribe`}>here</a> to
+            unsubscribe.
+          </p>
         </div>
       </div>
     </footer>
