@@ -9,6 +9,11 @@
       "schedule": "0 5 * * *"
     }
   ],
+  "functions": {
+    "app/api/**/*": {
+      "maxDuration": 30
+    }
+  },
   "headers": [
     {
       "source": "/api/(.*)",
