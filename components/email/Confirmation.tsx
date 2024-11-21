@@ -1,3 +1,4 @@
+import React from 'react';
 import Note from './components/Note';
 import Template from './Template';
 
@@ -8,21 +9,32 @@ export default function ConfirmationTemplate(code: string) {
       <Template
         title='Welcome!'
         body={
-          <div style={{ fontSize: '1rem', color: '#4a5568' }}>
+          <div style={{ color: '#4A5568' }}>
             <p>Dear subscriber,</p>
-            <p style={{ marginTop: '0.5rem' }}>
-              thank you for subscribing to our newsletter! Please click the link
+            <p style={{ marginTop: '16px' }}>
+              Thank you for subscribing to our newsletter! Please click the link
               below to confirm your subscription.
             </p>
             <div
               style={{
-                margin: '2rem 0',
-                display: 'flex',
-                justifyContent: 'center'
+                margin: '32px 0',
+                textAlign: 'center'
               }}
             >
-              <a href={`${process.env.HOME_URL}/confirmation?code=${code}`}>
-                {'Confirm subscription'}
+              <a
+                href={`${process.env.HOME_URL}/confirmation?code=${code}`}
+                style={{
+                  display: 'inline-block',
+                  padding: '12px 24px',
+                  backgroundColor: '#9333EA',
+                  color: 'white',
+                  textDecoration: 'none',
+                  borderRadius: '6px',
+                  fontWeight: '500',
+                  border: 'none'
+                }}
+              >
+                Confirm subscription
               </a>
             </div>
             <Note>

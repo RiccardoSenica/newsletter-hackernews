@@ -63,7 +63,11 @@ function ConfirmationPage() {
       );
     }
 
-    return 'Just a second...';
+    return (
+      <CardDescription className='text-center'>
+        Just a second...
+      </CardDescription>
+    );
   };
 
   return (

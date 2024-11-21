@@ -4,15 +4,8 @@ interface NoteProps {
 
 export default function Note({ children }: NoteProps) {
   return (
-    <div
-      style={{
-        marginTop: '2rem',
-        padding: '1.5rem 1.5rem',
-        backgroundColor: '#EBF1F5',
-        color: '#718096'
-      }}
-    >
-      <div style={{ fontSize: '0.875rem' }}>{children}</div>
+    <div className='mt-6 rounded-md bg-gray-50 p-4 text-sm text-gray-600'>
+      {children}
     </div>
   );
 }
