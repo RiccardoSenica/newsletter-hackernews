@@ -3,7 +3,7 @@ import { summirize } from '@utils/summarize';
 import { NewsType } from '@utils/validationSchemas';
 import createDOMPurify from 'isomorphic-dompurify';
 import Template from './Template';
-import extractMainTopic from '@utils/extractMainTopic';
+import newsletterSubject from '@utils/newsletterSubject';
 
 export default async function NewsletterTemplate(stories: NewsType[]) {
   const summary = await summirize(stories);
@@ -17,7 +17,7 @@ export default async function NewsletterTemplate(stories: NewsType[]) {
     throw new Error('Failed to sanitize summary');
   }
 
-  const topic = extractMainTopic(sanitizedSummary);
+  const topic = newsletterSubject(sanitizedSummary);
 
   return {
     subject: topic,

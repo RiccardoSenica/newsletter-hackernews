@@ -1,4 +1,4 @@
-export default function extractMainTopic(summary: string): string {
+function extractMainTopic(summary: string): string {
   const firstParaMatch = summary.match(/<p>(.*?)<\/p>/);
   if (!firstParaMatch) return 'tech updates';
 
@@ -56,10 +56,15 @@ export default function extractMainTopic(summary: string): string {
     .slice(0, 2)
     .join(' ');
 
-  const topic = words.toLowerCase() || 'tech updates';
+  return words.toLowerCase() || 'tech updates';
+}
 
-  const titleSuffix =
-    topic === 'tech updates' ? topic : `tech: ${topic} in focus`;
+export default function newsletterSubject(summary: string) {
+  const topic = extractMainTopic(summary);
+  const title =
+    topic === 'tech updates'
+      ? 'Today in tech updates'
+      : `Today in tech: ${topic}`;
 
-  return `Today in ${titleSuffix}`;
+  return title;
 }
