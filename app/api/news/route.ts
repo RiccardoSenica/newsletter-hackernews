@@ -1,5 +1,5 @@
 import prisma from '@prisma/prisma';
-import { ApiResponse } from '@utils/apiResponse';
+import { formatApiResponse } from '@utils/formatApiResponse';
 import {
   INTERNAL_SERVER_ERROR,
   STATUS_INTERNAL_SERVER_ERROR,
@@ -21,10 +21,13 @@ export async function GET() {
     });
 
     if (news) {
-      return ApiResponse(STATUS_OK, news);
+      return formatApiResponse(STATUS_OK, news);
     }
   } catch (error) {
     console.error(error);
-    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
+    return formatApiResponse(
+      STATUS_INTERNAL_SERVER_ERROR,
+      INTERNAL_SERVER_ERROR
+    );
   }
 }

@@ -1,7 +1,7 @@
-import ConfirmationTemplate from '@components/email/Confirmation';
+import { ConfirmationTemplate } from '@components/email/Confirmation';
 import prisma from '@prisma/prisma';
-import { ApiResponse } from '@utils/apiResponse';
-import { sender } from '@utils/sender';
+import { formatApiResponse } from '@utils/formatApiResponse';
+import { sender } from '@utils/resendClient';
 import {
   BAD_REQUEST,
   INTERNAL_SERVER_ERROR,
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     const validation = SubscribeFormSchema.safeParse(body);
 
     if (!validation.success) {
-      return ApiResponse(STATUS_BAD_REQUEST, BAD_REQUEST);
+      return formatApiResponse(STATUS_BAD_REQUEST, BAD_REQUEST);
     }
 
     const { email } = validation.data;
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
         message: `Thank you for subscribing!`
       };
 
-      return ApiResponse(STATUS_OK, message);
+      return formatApiResponse(STATUS_OK, message);
     } else if (user && !user.confirmed) {
       await prisma.user.update({
         where: {
@@ -106,7 +106,10 @@ export async function POST(request: NextRequest) {
     const sent = await sender([email], ConfirmationTemplate(code));
 
     if (!sent) {
-      return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
+      return formatApiResponse(
+        STATUS_INTERNAL_SERVER_ERROR,
+        INTERNAL_SERVER_ERROR
+      );
     }
 
     const message: ResponseType = {
@@ -114,9 +117,12 @@ export async function POST(request: NextRequest) {
       message: `Thank you! You will now receive an email to ${email} to confirm the subscription.`
     };
 
-    return ApiResponse(STATUS_OK, message);
+    return formatApiResponse(STATUS_OK, message);
   } catch (error) {
     console.error(error);
-    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
+    return formatApiResponse(
+      STATUS_INTERNAL_SERVER_ERROR,
+      INTERNAL_SERVER_ERROR
+    );
   }
 }

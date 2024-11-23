@@ -1,7 +1,7 @@
-import UnsubscribeTemplate from '@components/email/Unsubscribe';
+import { UnsubscribeTemplate } from '@components/email/Unsubscribe';
 import prisma from '@prisma/prisma';
-import { ApiResponse } from '@utils/apiResponse';
-import { sender } from '@utils/sender';
+import { formatApiResponse } from '@utils/formatApiResponse';
+import { sender } from '@utils/resendClient';
 import {
   BAD_REQUEST,
   INTERNAL_SERVER_ERROR,
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validation = UnsubscribeFormSchema.safeParse(body);
     if (!validation.success) {
-      return ApiResponse(STATUS_BAD_REQUEST, BAD_REQUEST);
+      return formatApiResponse(STATUS_BAD_REQUEST, BAD_REQUEST);
     }
 
     const { email } = validation.data;
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
       const sent = await sender([email], UnsubscribeTemplate());
 
       if (!sent) {
-        return ApiResponse(
+        return formatApiResponse(
           STATUS_INTERNAL_SERVER_ERROR,
           'Internal server error'
         );
@@ -67,9 +67,12 @@ export async function POST(request: NextRequest) {
       message: `${email} unsubscribed.`
     };
 
-    return ApiResponse(STATUS_OK, message);
+    return formatApiResponse(STATUS_OK, message);
   } catch (error) {
     console.error(error);
-    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
+    return formatApiResponse(
+      STATUS_INTERNAL_SERVER_ERROR,
+      INTERNAL_SERVER_ERROR
+    );
   }
 }

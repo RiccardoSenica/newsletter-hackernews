@@ -2,10 +2,10 @@ import React from 'react';
 import { summirize } from '@utils/summarize';
 import { NewsType } from '@utils/validationSchemas';
 import createDOMPurify from 'isomorphic-dompurify';
-import Template from './Template';
-import newsletterSubject from '@utils/newsletterSubject';
+import getNewsletterSubject from '@utils/getNewsletterSubject';
+import { Template } from './Template';
 
-export default async function NewsletterTemplate(stories: NewsType[]) {
+export const NewsletterTemplate = async (stories: NewsType[]) => {
   const summary = await summirize(stories);
   const sanitizedSummary = createDOMPurify.sanitize(summary, {
     USE_PROFILES: { html: true },
@@ -17,7 +17,7 @@ export default async function NewsletterTemplate(stories: NewsType[]) {
     throw new Error('Failed to sanitize summary');
   }
 
-  const topic = newsletterSubject(sanitizedSummary);
+  const topic = getNewsletterSubject(sanitizedSummary);
 
   return {
     subject: topic,
@@ -66,4 +66,4 @@ export default async function NewsletterTemplate(stories: NewsType[]) {
       />
     )
   };
-}
+};

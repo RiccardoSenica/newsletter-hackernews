@@ -1,6 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 
-export async function message(text: string) {
+export async function getMessage(text: string) {
   const anthropic = new Anthropic({
     apiKey: process.env.ANTHROPIC_API_KEY
   });

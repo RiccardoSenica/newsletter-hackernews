@@ -3,13 +3,13 @@
 import { NewsTileType } from '@utils/validationSchemas';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import Tile from './components/Tile';
+import { Tile } from './components/Tile';
 
 interface TilesProps {
   children: React.ReactNode;
 }
 
-export default function Tiles({ children }: TilesProps) {
+export const Tiles = ({ children }: TilesProps) => {
   const pathname = usePathname();
   const [windowSize, setWindowSize] = useState<{
     width: number;
@@ -101,4 +101,4 @@ export default function Tiles({ children }: TilesProps) {
   if (pathname === '/maintenance') return <div>{children}</div>;
 
   return <div className='flex h-[100vh] overflow-hidden'>{renderGrid()}</div>;
-}
+};

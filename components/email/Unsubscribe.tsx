@@ -1,8 +1,8 @@
 import React from 'react';
-import Note from './components/Note';
-import Template from './Template';
+import { Note } from './components/Note';
+import { Template } from './Template';
 
-export default function UnsubscribeTemplate() {
+export const UnsubscribeTemplate = () => {
   return {
     subject: 'Unsubscribe confirmation',
     template: (
@@ -55,4 +55,4 @@ export default function UnsubscribeTemplate() {
       />
     )
   };
-}
+};

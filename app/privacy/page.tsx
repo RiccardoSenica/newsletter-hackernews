@@ -1,10 +1,10 @@
 'use client';
 
-import CustomCard from '@components/CustomCard';
-import Schema from '@components/SchemaOrg';
+import { CustomCard } from '@components/CustomCard';
+import { SchemaOrg } from '@components/SchemaOrg';
 import Link from 'next/link';
 
-export default function Privacy() {
+const Privacy = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -449,7 +449,7 @@ export default function Privacy() {
 
   return (
     <>
-      <Schema schema={schema} />
+      <SchemaOrg schema={schema} />
       <CustomCard
         className='max-90vh max-90vw'
         title='Privacy Policy'
@@ -458,4 +458,6 @@ export default function Privacy() {
       />
     </>
   );
-}
+};
+
+export default Privacy;

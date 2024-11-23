@@ -7,12 +7,12 @@ interface CardContentProps {
   secondColor: string;
 }
 
-export default function TileContent({
+export const TileContent = ({
   story,
   side,
   firstColor,
   secondColor
-}: CardContentProps) {
+}: CardContentProps) => {
   const color = side ? firstColor : secondColor;
 
   return (
@@ -38,4 +38,4 @@ export default function TileContent({
       ></div>
     </div>
   );
-}
+};

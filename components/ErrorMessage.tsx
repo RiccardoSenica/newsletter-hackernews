@@ -1,5 +1,5 @@
 'use client';
 
-export default function ErrorMessage() {
+export const ErrorMessage = () => {
   return 'Oops. Something went wrong. Please try later :(';
-}
+};
