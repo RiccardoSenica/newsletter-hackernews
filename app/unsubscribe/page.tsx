@@ -93,7 +93,7 @@ const Unsubscribe = () => {
     }
 
     return (
-      <div className='mb-5 h-32'>
+      <div className='flex h-32 flex-col justify-between'>
         <FormProvider {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -117,9 +117,13 @@ const Unsubscribe = () => {
                 </FormItem>
               )}
             />
-            <div className='align-top'>
-              <LoadingButton type='submit' loading={isLoading}>
-                Submit
+            <div className='mt-2 flex justify-center'>
+              <LoadingButton
+                type='submit'
+                loading={isLoading}
+                className='rounded bg-gray-50 px-3 py-1.5 text-sm text-gray-500 transition-colors duration-200 hover:bg-gray-100'
+              >
+                unsubscribe
               </LoadingButton>
             </div>
           </form>
@@ -132,10 +136,11 @@ const Unsubscribe = () => {
     <>
       <SchemaOrg schema={schema} />
       <CustomCard
-        className='max-90vw w-96'
-        title='Unsubscribe'
-        description='You sure you want to leave? :('
+        className='w-96'
+        title='Stay in the Loop!'
+        description="Don't miss out on the latest tech insights and community discussions."
         content={renderContent()}
+        footer={true}
       />
     </>
   );
