@@ -28,7 +28,7 @@ export const Home = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'HackerNews Newsletter',
+    name: 'Hackernews Newsletter',
     title: 'Home',
     url: process.env.HOME_URL
   };
@@ -132,7 +132,7 @@ export const Home = () => {
       <CustomCard
         className='max-90vw w-96'
         title='Interested in keeping up with the latest from the tech world? 👩‍💻'
-        description='Subscribe to our newsletter! Top stories from Hackernews for you. Once a day. Every day.'
+        description='Subscribe to our newsletter! Top stories from the Hacker News forum for you. Once a day. Every day.'
         content={renderContent()}
       />
     </>

@@ -40,7 +40,7 @@ export const Template = ({
             textAlign: 'center'
           }}
         >
-          Hackernews + newsletter
+          Hacker News + newsletter
         </p>
         <h2
           style={{

@@ -29,7 +29,7 @@ const Unsubscribe = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'HackerNews Newsletter',
+    name: 'Hackernews Newsletter',
     title: 'Unsubscribe',
     url: `${process.env.HOME_URL}/unsubscribe`
   };

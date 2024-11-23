@@ -7,7 +7,7 @@ const Privacy = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'HackerNews Newsletter',
+    name: 'Hackernews Newsletter',
     title: 'Privacy Policy',
     url: `${process.env.HOME_URL}/privacy`
   };

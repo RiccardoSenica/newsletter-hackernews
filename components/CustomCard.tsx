@@ -42,7 +42,7 @@ export const CustomCard = ({
         >
           <CardHeader>
             <p className='text-xs uppercase text-gray-500'>
-              Hackernews + newsletter
+              Hacker News + newsletter
             </p>
             <CardTitle>{title}</CardTitle>
             {description && <CardDescription>{description}</CardDescription>}

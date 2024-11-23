@@ -84,7 +84,7 @@ const Confirmation = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'HackerNews Newsletter',
+    name: 'Hackernews Newsletter',
     title: 'Subscription Confirmation',
     url: `${process.env.HOME_URL}/confirmation`
   };

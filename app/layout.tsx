@@ -6,8 +6,9 @@ import { Inter as FontSans } from 'next/font/google';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: `Hacker News newsletter by ${process.env.NEXT_PUBLIC_BRAND_NAME}`,
-  description: 'Newsletter delivering the best posts from Hacker News',
+  title: `Hackernews newsletter by ${process.env.NEXT_PUBLIC_BRAND_NAME}`,
+  description:
+    'Newsletter delivering the best posts from the Hacker News forum',
   keywords: 'newsletter, hackernews, technology, coding, programming, news'
 };
 
