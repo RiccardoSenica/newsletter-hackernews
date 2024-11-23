@@ -4,7 +4,7 @@ import { CardDescription } from '@components/Card';
 import { CustomCard } from '@components/CustomCard';
 import { ErrorMessage } from '@components/ErrorMessage';
 import { FormControl } from '@components/form/FormControl';
-import { FormMessage } from '@components/form/FormMessage';
+import { FormErrorMessage } from '@components/form/FormErrorMessage';
 import { Input } from '@components/Input';
 import { LoadingButton } from '@components/LoadingButton';
 import { SchemaOrg } from '@components/SchemaOrg';
@@ -38,7 +38,9 @@ const Unsubscribe = () => {
     resolver: zodResolver(UnsubscribeFormSchema),
     defaultValues: {
       email: ''
-    }
+    },
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit'
   });
 
   useEffect(() => {
@@ -103,7 +105,7 @@ const Unsubscribe = () => {
               render={({ field }) => (
                 <FormItem>
                   <div className='h-6'>
-                    <FormMessage className='text-center' />
+                    <FormErrorMessage className='text-center' />
                   </div>
                   <FormControl>
                     <Input

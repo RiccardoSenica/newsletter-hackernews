@@ -4,7 +4,7 @@ import { CardDescription } from '@components/Card';
 import { CustomCard } from '@components/CustomCard';
 import { ErrorMessage } from '@components/ErrorMessage';
 import { FormControl } from '@components/form/FormControl';
-import { FormMessage } from '@components/form/FormMessage';
+import { FormErrorMessage } from '@components/form/FormErrorMessage';
 import { Input } from '@components/Input';
 import { SchemaOrg } from '@components/SchemaOrg';
 import { FormField } from '@contexts/FormField/FormFieldProvider';
@@ -37,7 +37,9 @@ export const Home = () => {
     resolver: zodResolver(SubscribeFormSchema),
     defaultValues: {
       email: ''
-    }
+    },
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit'
   });
 
   async function handleSubmit(values: SubscribeFormType) {
@@ -96,7 +98,7 @@ export const Home = () => {
               render={({ field }) => (
                 <FormItem>
                   <div className='h-6'>
-                    <FormMessage className='text-center' />
+                    <FormErrorMessage className='text-center' />
                   </div>
                   <FormControl>
                     <Input
