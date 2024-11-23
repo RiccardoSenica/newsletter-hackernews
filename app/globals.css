@@ -54,6 +54,22 @@
   h6 {
     @apply text-lg italic;
   }
+
+  .privacy-content h1 {
+    @apply mb-6 text-3xl font-bold text-gray-900;
+  }
+
+  .privacy-content h2 {
+    @apply mt-8 border-b border-gray-200 pb-2 text-2xl font-semibold text-gray-800;
+  }
+
+  .privacy-content h3 {
+    @apply mt-6 text-xl font-medium text-gray-800;
+  }
+
+  .privacy-content h4 {
+    @apply mt-4 text-lg font-medium text-gray-800;
+  }
 }
 
 /* Card border gradient */
