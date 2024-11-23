@@ -21,7 +21,7 @@ export const CustomCard = ({
   title,
   description,
   content,
-  className,
+  className = '',
   footer = true
 }: CardProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -35,22 +35,26 @@ export const CustomCard = ({
   }
 
   return (
-    <div className='gradient-border shadow-2xl shadow-black'>
-      <Card className={`z-10 max-w-[90vw] p-8 ${className}`}>
-        <CardHeader>
-          <p className='text-xs uppercase text-gray-500'>
-            Hackernews + newsletter
-          </p>
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </CardHeader>
-        <CardContent>{content}</CardContent>
-        {footer && (
-          <CardFooter>
-            <Footer />
-          </CardFooter>
-        )}
-      </Card>
+    <div className='mx-auto w-full max-w-screen-lg px-4 sm:px-6 lg:px-8'>
+      <div className='gradient-border shadow-2xl shadow-black'>
+        <Card
+          className={`z-10 w-full transform p-8 transition-all duration-300 ${className}`}
+        >
+          <CardHeader>
+            <p className='text-xs uppercase text-gray-500'>
+              Hackernews + newsletter
+            </p>
+            <CardTitle>{title}</CardTitle>
+            {description && <CardDescription>{description}</CardDescription>}
+          </CardHeader>
+          <CardContent>{content}</CardContent>
+          {footer && (
+            <CardFooter>
+              <Footer />
+            </CardFooter>
+          )}
+        </Card>
+      </div>
     </div>
   );
 };
