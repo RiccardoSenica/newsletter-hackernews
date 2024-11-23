@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle
 } from './Card';
-import Footer from './Footer';
+import { Footer } from './Footer';
 
 interface CardProps {
   title: string;
@@ -17,13 +17,13 @@ interface CardProps {
   footer?: boolean;
 }
 
-export default function CustomCard({
+export const CustomCard = ({
   title,
   description,
   content,
   className,
   footer = true
-}: CardProps) {
+}: CardProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -53,4 +53,4 @@ export default function CustomCard({
       </Card>
     </div>
   );
-}
+};

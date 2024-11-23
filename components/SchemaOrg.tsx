@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const SchemaOrg = ({ schema }: Record<string, any>) => (
+export const SchemaOrg = ({ schema }: Record<string, any>) => (
   <Head>
     <script
       type='application/ld+json'
@@ -9,5 +9,3 @@ const SchemaOrg = ({ schema }: Record<string, any>) => (
     />
   </Head>
 );
-
-export default SchemaOrg;

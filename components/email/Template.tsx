@@ -1,5 +1,5 @@
 import React from 'react';
-import Footer from './components/Footer';
+import { Footer } from './components/Footer';
 
 interface TemplateProps {
   title: string;
@@ -7,11 +7,11 @@ interface TemplateProps {
   variant?: string;
 }
 
-export default function Template({
+export const Template = ({
   title,
   body,
   variant = 'default'
-}: TemplateProps) {
+}: TemplateProps) => {
   const isNewsletter = variant === 'newsletter';
 
   return (
@@ -74,4 +74,4 @@ export default function Template({
       <Footer />
     </div>
   );
-}
+};

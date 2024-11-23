@@ -1,8 +1,8 @@
 import React from 'react';
-import Note from './components/Note';
-import Template from './Template';
+import { Note } from './components/Note';
+import { Template } from './Template';
 
-export default function ConfirmationTemplate(code: string) {
+export const ConfirmationTemplate = (code: string) => {
   return {
     subject: 'Welcome!',
     template: (
@@ -46,4 +46,4 @@ export default function ConfirmationTemplate(code: string) {
       />
     )
   };
-}
+};

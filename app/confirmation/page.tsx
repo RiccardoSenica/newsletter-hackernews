@@ -1,13 +1,13 @@
 'use client';
 
 import { CardDescription } from '@components/Card';
-import CustomCard from '@components/CustomCard';
-import Schema from '@components/SchemaOrg';
+import { CustomCard } from '@components/CustomCard';
+import { SchemaOrg } from '@components/SchemaOrg';
 import { ResponseType } from '@utils/validationSchemas';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 
-function ConfirmationPage() {
+const ConfirmationPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
@@ -78,9 +78,9 @@ function ConfirmationPage() {
       footer={false}
     />
   );
-}
+};
 
-export default function Confirmation() {
+const Confirmation = () => {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -91,10 +91,12 @@ export default function Confirmation() {
 
   return (
     <>
-      <Schema schema={schema} />
+      <SchemaOrg schema={schema} />
       <Suspense fallback={<>Loading...</>}>
         <ConfirmationPage />
       </Suspense>
     </>
   );
-}
+};
+
+export default Confirmation;

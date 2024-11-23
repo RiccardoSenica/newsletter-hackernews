@@ -5,7 +5,7 @@ import CustomLink from './CustomLink';
 
 const links = [{ name: 'Subscribe', path: '/' }];
 
-export default function Footer() {
+export const Footer = () => {
   const pathname = usePathname();
 
   return (
@@ -37,4 +37,4 @@ export default function Footer() {
       )}
     </div>
   );
-}
+};

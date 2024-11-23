@@ -8,7 +8,7 @@ import {
   Home
 } from 'lucide-react';
 
-export default function Footer() {
+export const Footer = () => {
   return (
     <footer
       style={{
@@ -167,4 +167,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};

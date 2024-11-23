@@ -59,7 +59,7 @@ function extractMainTopic(summary: string): string {
   return words.toLowerCase() || 'tech updates';
 }
 
-export default function newsletterSubject(summary: string) {
+export default function getNewsletterSubject(summary: string) {
   const topic = extractMainTopic(summary);
   const title =
     topic === 'tech updates'

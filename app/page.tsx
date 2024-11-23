@@ -2,12 +2,12 @@
 
 import { Button } from '@components/Button';
 import { CardDescription } from '@components/Card';
-import CustomCard from '@components/CustomCard';
-import ErrorMessage from '@components/ErrorMessage';
+import { CustomCard } from '@components/CustomCard';
+import { ErrorMessage } from '@components/ErrorMessage';
 import { FormControl } from '@components/form/FormControl';
 import { FormMessage } from '@components/form/FormMessage';
 import { Input } from '@components/Input';
-import Schema from '@components/SchemaOrg';
+import { SchemaOrg } from '@components/SchemaOrg';
 import { FormField } from '@contexts/FormField/FormFieldProvider';
 import { FormItem } from '@contexts/FormItem/FormItemProvider';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,7 +19,7 @@ import {
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-export default function Home() {
+export const Home = () => {
   const [completed, setCompleted] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
@@ -119,7 +119,7 @@ export default function Home() {
 
   return (
     <>
-      <Schema schema={schema} />
+      <SchemaOrg schema={schema} />
       <CustomCard
         className='max-90vw w-96'
         title='Interested in keeping up with the latest from the tech world? 👩‍💻'
@@ -128,4 +128,6 @@ export default function Home() {
       />
     </>
   );
-}
+};
+
+export default Home;

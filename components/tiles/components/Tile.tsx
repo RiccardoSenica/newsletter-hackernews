@@ -1,7 +1,7 @@
 import { getRandomGrey } from '@utils/getRandomGrey';
 import { NewsTileType } from '@utils/validationSchemas';
 import { useEffect, useState } from 'react';
-import TileContent from './TileContent';
+import { TileContent } from './TileContent';
 
 interface CardProps {
   newsA?: NewsTileType;
@@ -11,7 +11,7 @@ interface CardProps {
 const TEN_SECONDS = 10000;
 const HALF_SECOND = 500;
 
-export default function Tile({ newsA, newsB }: CardProps) {
+export const Tile = ({ newsA, newsB }: CardProps) => {
   const [switched, setSwitched] = useState(false);
   const [active, setActive] = useState(false);
   const [delayed, setDelayed] = useState(true);
@@ -65,4 +65,4 @@ export default function Tile({ newsA, newsB }: CardProps) {
       </div>
     </div>
   );
-}
+};

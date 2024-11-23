@@ -1,5 +1,5 @@
 import prisma from '@prisma/prisma';
-import { ApiResponse } from '@utils/apiResponse';
+import { formatApiResponse } from '@utils/formatApiResponse';
 import {
   INTERNAL_SERVER_ERROR,
   STATUS_INTERNAL_SERVER_ERROR,
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
   if (
     request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`
   ) {
-    return ApiResponse(STATUS_UNAUTHORIZED, 'Unauthorized');
+    return formatApiResponse(STATUS_UNAUTHORIZED, 'Unauthorized');
   }
 
   try {
@@ -76,9 +76,15 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    return ApiResponse(STATUS_OK, `Imported ${newsPromises.length} news.`);
+    return formatApiResponse(
+      STATUS_OK,
+      `Imported ${newsPromises.length} news.`
+    );
   } catch (error) {
     console.error(error);
-    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
+    return formatApiResponse(
+      STATUS_INTERNAL_SERVER_ERROR,
+      INTERNAL_SERVER_ERROR
+    );
   }
 }

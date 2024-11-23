@@ -1,4 +1,4 @@
-import Tiles from '@components/tiles/Tiles';
+import { Tiles } from '@components/tiles/Tiles';
 import { cn } from '@utils/cn';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
@@ -6,7 +6,7 @@ import { Inter as FontSans } from 'next/font/google';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Hacker News newsletter by FromPixels',
+  title: `Hacker News newsletter by ${process.env.NEXT_PUBLIC_BRAND_NAME}`,
   description: 'Newsletter delivering the best posts from Hacker News',
   keywords: 'newsletter, hackernews, technology, coding, programming, news'
 };

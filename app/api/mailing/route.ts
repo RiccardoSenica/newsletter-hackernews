@@ -1,7 +1,7 @@
-import NewsletterTemplate from '@components/email/Newsletter';
+import { NewsletterTemplate } from '@components/email/Newsletter';
 import prisma from '@prisma/prisma';
-import { ApiResponse } from '@utils/apiResponse';
-import { sender } from '@utils/sender';
+import { formatApiResponse } from '@utils/formatApiResponse';
+import { sender } from '@utils/resendClient';
 import {
   INTERNAL_SERVER_ERROR,
   STATUS_INTERNAL_SERVER_ERROR,
@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
   if (
     request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`
   ) {
-    return ApiResponse(STATUS_UNAUTHORIZED, 'Unauthorized');
+    return formatApiResponse(STATUS_UNAUTHORIZED, 'Unauthorized');
   }
 
   if (!process.env.NEWS_TO_USE) {
@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
     console.info(`Found ${users.length} users to mail to.`);
 
     if (users.length === 0) {
-      return ApiResponse(STATUS_OK, 'No user to mail to.');
+      return formatApiResponse(STATUS_OK, 'No user to mail to.');
     }
 
     const news = await prisma.news.findMany({
@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
     console.info(`Found ${news.length} news to include in the newsletter.`);
 
     if (news.length === 0) {
-      return ApiResponse(STATUS_OK, 'No news to include in newsletter.');
+      return formatApiResponse(STATUS_OK, 'No news to include in newsletter.');
     }
 
     const validRankedNews = news.sort((a, b) => b.score - a.score);
@@ -83,7 +83,10 @@ export async function GET(request: NextRequest) {
     );
 
     if (!sent) {
-      return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
+      return formatApiResponse(
+        STATUS_INTERNAL_SERVER_ERROR,
+        INTERNAL_SERVER_ERROR
+      );
     }
 
     // update users so they don't get the newsletter again
@@ -98,12 +101,15 @@ export async function GET(request: NextRequest) {
       }
     });
 
-    return ApiResponse(
+    return formatApiResponse(
       STATUS_OK,
       `Newsletter sent to ${users.length} addresses.`
     );
   } catch (error) {
     console.error(error);
-    return ApiResponse(STATUS_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
+    return formatApiResponse(
+      STATUS_INTERNAL_SERVER_ERROR,
+      INTERNAL_SERVER_ERROR
+    );
   }
 }
