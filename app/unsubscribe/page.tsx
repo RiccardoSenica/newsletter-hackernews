@@ -1,12 +1,12 @@
 'use client';
 
-import { Button } from '@components/Button';
 import { CardDescription } from '@components/Card';
 import { CustomCard } from '@components/CustomCard';
 import { ErrorMessage } from '@components/ErrorMessage';
 import { FormControl } from '@components/form/FormControl';
 import { FormMessage } from '@components/form/FormMessage';
 import { Input } from '@components/Input';
+import { LoadingButton } from '@components/LoadingButton';
 import { SchemaOrg } from '@components/SchemaOrg';
 import { FormField } from '@contexts/FormField/FormFieldProvider';
 import { FormItem } from '@contexts/FormItem/FormItemProvider';
@@ -24,6 +24,7 @@ const Unsubscribe = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
   const ref = useRef<HTMLInputElement | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const schema = {
     '@context': 'https://schema.org',
@@ -47,6 +48,7 @@ const Unsubscribe = () => {
   }, []);
 
   async function handleSubmit(values: UnsubscribeFormType) {
+    setIsLoading(true);
     try {
       const response = await fetch('/api/unsubscribe', {
         method: 'POST',
@@ -72,6 +74,8 @@ const Unsubscribe = () => {
       setCompleted(true);
     } catch (error) {
       setError(true);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -112,7 +116,9 @@ const Unsubscribe = () => {
               )}
             />
             <div className='align-top'>
-              <Button type='submit'>Submit</Button>
+              <LoadingButton type='submit' loading={isLoading}>
+                Submit
+              </LoadingButton>
             </div>
           </form>
         </FormProvider>
