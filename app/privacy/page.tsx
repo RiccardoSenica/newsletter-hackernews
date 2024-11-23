@@ -2,7 +2,6 @@
 
 import { CustomCard } from '@components/CustomCard';
 import { SchemaOrg } from '@components/SchemaOrg';
-import Link from 'next/link';
 
 const Privacy = () => {
   const schema = {
@@ -14,8 +13,8 @@ const Privacy = () => {
   };
 
   const body = (
-    <div className='my-2 max-h-[60vh] overflow-auto'>
-      <p>
+    <div className='privacy-content my-2 max-h-[60vh] space-y-1 overflow-auto'>
+      <p className='leading-relaxed'>
         This Privacy Policy describes Our policies and procedures on the
         collection, use and disclosure of Your information when You use the
         Service and tells You about Your privacy rights and how the law protects
@@ -24,29 +23,23 @@ const Privacy = () => {
       <p>
         We use Your Personal data to provide and improve the Service. By using
         the Service, You agree to the collection and use of information in
-        accordance with this Privacy Policy. This Privacy Policy has been
-        created with the help of the{' '}
-        <Link
-          href='https://www.termsfeed.com/privacy-policy-generator/'
-          target='_blank'
-        >
-          Privacy Policy Generator
-        </Link>
-        .
+        accordance with this Privacy Policy.
       </p>
-      <br />
+
       <h2>Interpretation and Definitions</h2>
       <h3>Interpretation</h3>
-      <p>
+      <p className='leading-relaxed'>
         The words of which the initial letter is capitalized have meanings
         defined under the following conditions. The following definitions shall
         have the same meaning regardless of whether they appear in singular or
         in plural.
       </p>
-      <br />
-      <h4>Definitions</h4>
-      <p>For the purposes of this Privacy Policy:</p>
-      <ul>
+
+      <h3>Definitions</h3>
+      <p className='leading-relaxed'>
+        For the purposes of this Privacy Policy:
+      </p>
+      <ul className='list-disc space-y-4 pl-6'>
         <li>
           <p>
             <strong>Account</strong> means a unique account created for You to
@@ -124,17 +117,18 @@ const Privacy = () => {
           </p>
         </li>
       </ul>
-      <br />
-      <h3>Collecting and Using Your Personal Data</h3>
-      <h4>Types of Data Collected</h4>
-      <h6>Personal Data</h6>
-      <p>
+
+      <h2>Data Collection and Usage</h2>
+      <h3>Types of Data Collected</h3>
+
+      <h4>Personal Data</h4>
+      <p className='leading-relaxed'>
         While using Our Service, We may ask You to provide Us with certain
         personally identifiable information that can be used to contact or
         identify You. Personally identifiable information may include, but is
         not limited to:
       </p>
-      <ul>
+      <ul className='list-disc space-y-4 pl-6'>
         <li>
           <p>Email address</p>
         </li>
@@ -142,11 +136,13 @@ const Privacy = () => {
           <p>Usage Data</p>
         </li>
       </ul>
-      <br />
-      <h6>Usage Data</h6>
-      <p>Usage Data is collected automatically when using the Service.</p>
+
+      <h4>Usage Data</h4>
+      <p className='leading-relaxed'>
+        Usage Data is collected automatically when using the Service.
+      </p>
       <p>
-        Usage Data may include information such as Your Device&aposs Internet
+        Usage Data may include information such as Your Device&apos;s Internet
         Protocol address (e.g. IP address), browser type, browser version, the
         pages of our Service that You visit, the time and date of Your visit,
         the time spent on those pages, unique device identifiers and other
@@ -165,10 +161,12 @@ const Privacy = () => {
         visit our Service or when You access the Service by or through a mobile
         device.
       </p>
-      <br />
-      <h4>Use of Your Personal Data</h4>
-      <p>The Company may use Personal Data for the following purposes:</p>
-      <ul>
+
+      <h2>Use of Your Personal Data</h2>
+      <p className='leading-relaxed'>
+        The Company may use Personal Data for the following purposes:
+      </p>
+      <ul className='list-disc space-y-4 pl-6'>
         <li>
           <p>
             <strong>To provide and maintain our Service</strong>, including to
@@ -195,7 +193,7 @@ const Privacy = () => {
           <p>
             <strong>To contact You:</strong> To contact You by email, telephone
             calls, SMS, or other equivalent forms of electronic communication,
-            such as a mobile application&aposs push notifications regarding
+            such as a mobile application&apos;s push notifications regarding
             updates or informative communications related to the
             functionalities, products or contracted services, including the
             security updates, when necessary or reasonable for their
@@ -239,7 +237,7 @@ const Privacy = () => {
         </li>
       </ul>
       <p>We may share Your personal information in the following situations:</p>
-      <ul>
+      <ul className='list-disc space-y-4 pl-6'>
         <li>
           <strong>With Service Providers:</strong> We may share Your personal
           information with Service Providers to monitor and analyze the use of
@@ -274,9 +272,11 @@ const Privacy = () => {
           information for any other purpose with Your consent.
         </li>
       </ul>
-      <br />
-      <h4>Retention of Your Personal Data</h4>
-      <p>
+
+      <h2>Data Handling and Security</h2>
+
+      <h3>Retention of Your Personal Data</h3>
+      <p className='leading-relaxed'>
         The Company will retain Your Personal Data only for as long as is
         necessary for the purposes set out in this Privacy Policy. We will
         retain and use Your Personal Data to the extent necessary to comply with
@@ -291,18 +291,20 @@ const Privacy = () => {
         functionality of Our Service, or We are legally obligated to retain this
         data for longer time periods.
       </p>
-      <br />
-      <h4>Transfer of Your Personal Data</h4>
-      <p>
+
+      <h3>Transfer of Your Personal Data</h3>
+      <p className='leading-relaxed'>
         Your information, including Personal Data, is processed at the
-        Company&aposs operating offices and in any other places where the
+        Company&apos;s operating offices and in any other places where the
         parties involved in the processing are located. It means that this
         information may be transferred to — and maintained on — computers
         located outside of Your state, province, country or other governmental
         jurisdiction where the data protection laws may differ than those from
         Your jurisdiction.
       </p>
-      <p>
+
+      <h3>Security of Your Personal Data</h3>
+      <p className='leading-relaxed'>
         Your consent to this Privacy Policy followed by Your submission of such
         information represents Your agreement to that transfer.
       </p>
@@ -313,9 +315,11 @@ const Privacy = () => {
         a country unless there are adequate controls in place including the
         security of Your data and other personal information.
       </p>
-      <br />
-      <h4>Delete Your Personal Data</h4>
-      <p>
+
+      <h4 className='text-lg font-medium text-gray-800'>
+        Delete Your Personal Data
+      </h4>
+      <p className='leading-relaxed'>
         You have the right to delete or request that We assist in deleting the
         Personal Data that We have collected about You.
       </p>
@@ -334,29 +338,30 @@ const Privacy = () => {
         Please note, however, that We may need to retain certain information
         when we have a legal obligation or lawful basis to do so.
       </p>
-      <br />
-      <h4>Disclosure of Your Personal Data</h4>
-      <h6>Business Transactions</h6>
-      <p>
+
+      <h2>Legal Disclosures</h2>
+
+      <h3>Business Transactions</h3>
+      <p className='leading-relaxed'>
         If the Company is involved in a merger, acquisition or asset sale, Your
         Personal Data may be transferred. We will provide notice before Your
         Personal Data is transferred and becomes subject to a different Privacy
         Policy.
       </p>
-      <br />
-      <h6>Law enforcement</h6>
-      <p>
+
+      <h3>Law Enforcement</h3>
+      <p className='leading-relaxed'>
         Under certain circumstances, the Company may be required to disclose
         Your Personal Data if required to do so by law or in response to valid
         requests by public authorities (e.g. a court or a government agency).
       </p>
-      <br />
-      <h6>Other legal requirements</h6>
-      <p>
+
+      <h3>Other Legal Requirements</h3>
+      <p className='leading-relaxed'>
         The Company may disclose Your Personal Data in the good faith belief
         that such action is necessary to:
       </p>
-      <ul>
+      <ul className='list-disc space-y-4 pl-6'>
         <li>Comply with a legal obligation</li>
         <li>Protect and defend the rights or property of the Company</li>
         <li>
@@ -368,18 +373,17 @@ const Privacy = () => {
         </li>
         <li>Protect against legal liability</li>
       </ul>
-      <br />
-      <h4>Security of Your Personal Data</h4>
-      <p>
+
+      <h2>Additional Information</h2>
+      <p className='leading-relaxed'>
         The security of Your Personal Data is important to Us, but remember that
         no method of transmission over the Internet, or method of electronic
         storage is 100% secure. While We strive to use commercially acceptable
         means to protect Your Personal Data, We cannot guarantee its absolute
         security.
       </p>
-      <br />
-      <h3>{"Children's Privacy"}</h3>
-      <p>
+      <h3>Children&apos;s Privacy</h3>
+      <p className='leading-relaxed'>
         Our Service does not address anyone under the age of 13. We do not
         knowingly collect personally identifiable information from anyone under
         the age of 13. If You are a parent or guardian and You are aware that
@@ -391,24 +395,24 @@ const Privacy = () => {
       <p>
         If We need to rely on consent as a legal basis for processing Your
         information and Your country requires consent from a parent, We may
-        require Your parent&aposs consent before We collect and use that
+        require Your parent&apos;s consent before We collect and use that
         information.
       </p>
-      <br />
+
       <h3>Links to Other Websites</h3>
-      <p>
+      <p className='leading-relaxed'>
         Our Service may contain links to other websites that are not operated by
         Us. If You click on a third party link, You will be directed to that
-        third party&aposs site. We strongly advise You to review the Privacy
+        third party&apos;s site. We strongly advise You to review the Privacy
         Policy of every site You visit.
       </p>
       <p>
         We have no control over and assume no responsibility for the content,
         privacy policies or practices of any third party sites or services.
       </p>
-      <br />
+
       <h3>Changes to this Privacy Policy</h3>
-      <p>
+      <p className='leading-relaxed'>
         We may update Our Privacy Policy from time to time. We will notify You
         of any changes by posting the new Privacy Policy on this page.
       </p>
@@ -422,27 +426,18 @@ const Privacy = () => {
         changes. Changes to this Privacy Policy are effective when they are
         posted on this page.
       </p>
-      <br />
-      <h3>Contact Us</h3>
-      <p>
+
+      <h2>Contact Information</h2>
+      <p className='leading-relaxed'>
         If you have any questions about this Privacy Policy, You can contact us
         by writing to{' '}
-        {
-          <a href={`mailto:${process.env.NEXT_PUBLIC_BRAND_EMAIL}`}>
-            {process.env.NEXT_PUBLIC_BRAND_EMAIL}
-          </a>
-        }{' '}
-        or by visiting{' '}
-        {
-          <Link
-            href={'/privacy'}
-            rel='external nofollow noopener'
-            target='_blank'
-          >
-            this
-          </Link>
-        }{' '}
-        page on our website.
+        <a
+          href={`mailto:${process.env.NEXT_PUBLIC_BRAND_EMAIL}`}
+          className='text-purple-600 hover:text-purple-700'
+        >
+          {process.env.NEXT_PUBLIC_BRAND_EMAIL}
+        </a>
+        .
       </p>
     </div>
   );
@@ -453,7 +448,7 @@ const Privacy = () => {
       <CustomCard
         className='max-90vh max-90vw'
         title='Privacy Policy'
-        description='Last updated: December 03, 2023'
+        description='Last updated: November 23, 2024'
         content={body}
       />
     </>

@@ -5,11 +5,12 @@ import { Button } from './Button';
 interface LinkProps {
   path: string;
   text: string;
+  className?: string;
 }
 
-export default function CustomLink({ path, text }: LinkProps) {
+export default function CustomLink({ path, text, className }: LinkProps) {
   return (
-    <Button asChild>
+    <Button asChild className={className}>
       <Link href={path}>{text}</Link>
     </Button>
   );

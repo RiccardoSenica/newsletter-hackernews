@@ -1,12 +1,12 @@
 'use client';
 
-import { Button } from '@components/Button';
 import { CardDescription } from '@components/Card';
 import { CustomCard } from '@components/CustomCard';
 import { ErrorMessage } from '@components/ErrorMessage';
 import { FormControl } from '@components/form/FormControl';
-import { FormMessage } from '@components/form/FormMessage';
+import { FormErrorMessage } from '@components/form/FormErrorMessage';
 import { Input } from '@components/Input';
+import { LoadingButton } from '@components/LoadingButton';
 import { SchemaOrg } from '@components/SchemaOrg';
 import { FormField } from '@contexts/FormField/FormFieldProvider';
 import { FormItem } from '@contexts/FormItem/FormItemProvider';
@@ -24,6 +24,7 @@ const Unsubscribe = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
   const ref = useRef<HTMLInputElement | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const schema = {
     '@context': 'https://schema.org',
@@ -37,7 +38,9 @@ const Unsubscribe = () => {
     resolver: zodResolver(UnsubscribeFormSchema),
     defaultValues: {
       email: ''
-    }
+    },
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit'
   });
 
   useEffect(() => {
@@ -47,6 +50,7 @@ const Unsubscribe = () => {
   }, []);
 
   async function handleSubmit(values: UnsubscribeFormType) {
+    setIsLoading(true);
     try {
       const response = await fetch('/api/unsubscribe', {
         method: 'POST',
@@ -72,6 +76,8 @@ const Unsubscribe = () => {
       setCompleted(true);
     } catch (error) {
       setError(true);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -87,7 +93,7 @@ const Unsubscribe = () => {
     }
 
     return (
-      <div className='mb-5 h-32'>
+      <div className='flex h-32 flex-col justify-between'>
         <FormProvider {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -99,7 +105,7 @@ const Unsubscribe = () => {
               render={({ field }) => (
                 <FormItem>
                   <div className='h-6'>
-                    <FormMessage className='text-center' />
+                    <FormErrorMessage className='text-center' />
                   </div>
                   <FormControl>
                     <Input
@@ -111,8 +117,14 @@ const Unsubscribe = () => {
                 </FormItem>
               )}
             />
-            <div className='align-top'>
-              <Button type='submit'>Submit</Button>
+            <div className='mt-2 flex justify-center'>
+              <LoadingButton
+                type='submit'
+                loading={isLoading}
+                className='rounded bg-gray-50 px-3 py-1.5 text-sm text-gray-500 transition-colors duration-200 hover:bg-gray-100'
+              >
+                Unsubscribe
+              </LoadingButton>
             </div>
           </form>
         </FormProvider>
@@ -124,10 +136,11 @@ const Unsubscribe = () => {
     <>
       <SchemaOrg schema={schema} />
       <CustomCard
-        className='max-90vw w-96'
-        title='Unsubscribe'
-        description='You sure you want to leave? :('
+        className='w-96'
+        title='Stay in the Loop!'
+        description="Don't miss out on the latest tech insights and community discussions."
         content={renderContent()}
+        footer={true}
       />
     </>
   );

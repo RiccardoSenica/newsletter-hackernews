@@ -1,16 +1,16 @@
 'use client';
 
-import { Button } from '@components/Button';
 import { CardDescription } from '@components/Card';
 import { CustomCard } from '@components/CustomCard';
 import { ErrorMessage } from '@components/ErrorMessage';
 import { FormControl } from '@components/form/FormControl';
-import { FormMessage } from '@components/form/FormMessage';
+import { FormErrorMessage } from '@components/form/FormErrorMessage';
 import { Input } from '@components/Input';
 import { SchemaOrg } from '@components/SchemaOrg';
 import { FormField } from '@contexts/FormField/FormFieldProvider';
 import { FormItem } from '@contexts/FormItem/FormItemProvider';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { LoadingButton } from '@components/LoadingButton';
 import {
   ResponseType,
   SubscribeFormSchema,
@@ -23,6 +23,7 @@ export const Home = () => {
   const [completed, setCompleted] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const schema = {
     '@context': 'https://schema.org',
@@ -36,10 +37,13 @@ export const Home = () => {
     resolver: zodResolver(SubscribeFormSchema),
     defaultValues: {
       email: ''
-    }
+    },
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit'
   });
 
   async function handleSubmit(values: SubscribeFormType) {
+    setIsLoading(true);
     try {
       const response = await fetch('/api/subscribe', {
         method: 'POST',
@@ -65,6 +69,8 @@ export const Home = () => {
       setCompleted(true);
     } catch (error) {
       setError(true);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -92,12 +98,13 @@ export const Home = () => {
               render={({ field }) => (
                 <FormItem>
                   <div className='h-6'>
-                    <FormMessage className='text-center' />
+                    <FormErrorMessage className='text-center' />
                   </div>
                   <FormControl>
                     <Input
                       placeholder='example@example.com'
                       className='text-center'
+                      disabled={isLoading}
                       {...field}
                     />
                   </FormControl>
@@ -105,7 +112,9 @@ export const Home = () => {
               )}
             />
             <div className='align-top'>
-              <Button type='submit'>Submit</Button>
+              <LoadingButton type='submit' loading={isLoading}>
+                Submit
+              </LoadingButton>
             </div>
           </form>
         </FormProvider>
@@ -123,7 +132,7 @@ export const Home = () => {
       <CustomCard
         className='max-90vw w-96'
         title='Interested in keeping up with the latest from the tech world? 👩‍💻'
-        description='Subscribe to our newsletter! The top stories from Hackernews for you. Once a day. Every day.'
+        description='Subscribe to our newsletter! Top stories from Hackernews for you. Once a day. Every day.'
         content={renderContent()}
       />
     </>
