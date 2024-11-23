@@ -7,10 +7,14 @@ export type ButtonProps = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ asChild = false, ...props }, ref) => {
+  ({ asChild = false, className, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
     return (
-      <Comp className={cn('btn-grad', 'btn-grad-hover')} ref={ref} {...props} />
+      <Comp
+        className={className ?? cn('btn-grad', 'btn-grad-hover')}
+        ref={ref}
+        {...props}
+      />
     );
   }
 );

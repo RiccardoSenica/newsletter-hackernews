@@ -123,7 +123,7 @@ const Unsubscribe = () => {
                 loading={isLoading}
                 className='rounded bg-gray-50 px-3 py-1.5 text-sm text-gray-500 transition-colors duration-200 hover:bg-gray-100'
               >
-                unsubscribe
+                Unsubscribe
               </LoadingButton>
             </div>
           </form>
