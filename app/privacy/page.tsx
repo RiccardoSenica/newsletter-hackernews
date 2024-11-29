@@ -13,7 +13,7 @@ const Privacy = () => {
   };
 
   const body = (
-    <div className='privacy-content my-2 max-h-[60vh] space-y-1 overflow-auto'>
+    <div className='privacy-content my-2 max-h-[50vh] space-y-1 overflow-auto'>
       <p className='leading-relaxed'>
         This Privacy Policy describes Our policies and procedures on the
         collection, use and disclosure of Your information when You use the

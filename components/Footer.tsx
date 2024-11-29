@@ -12,26 +12,34 @@ export const Footer = () => {
 
   if (pathname === '/unsubscribe') {
     return (
-      <div className='flex justify-center space-x-4'>
+      <div className='flex flex-col justify-center space-x-4'>
         <CustomLink path='/' text='Subscribe' />
+        <div className='mt-2 text-xs text-gray-600'>
+          <Link
+            className='font-medium text-indigo-600 hover:text-indigo-500'
+            href='/privacy'
+          >
+            Privacy Policy
+          </Link>
+        </div>
       </div>
     );
   }
 
   if (pathname === '/privacy') {
     return (
-      <div className='relative flex w-full items-center'>
-        <div className='flex w-full justify-center'>
-          <div className='inline-flex'>
+      <div className='w-full'>
+        <div className='relative flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-8 sm:space-y-0'>
+          <div>
             <CustomLink path='/' text='Subscribe' />
           </div>
-        </div>
-        <div className='absolute right-0'>
-          <CustomLink
-            path='/unsubscribe'
-            text='Unsubscribe'
-            className='rounded bg-gray-50 px-3 py-1.5 text-sm text-gray-500 transition-colors duration-200 hover:bg-gray-100'
-          />
+          <div>
+            <CustomLink
+              path='/unsubscribe'
+              text='Unsubscribe'
+              className='rounded bg-gray-50 px-3 py-1.5 text-sm text-gray-500 transition-colors duration-200 hover:bg-gray-100'
+            />
+          </div>
         </div>
       </div>
     );
