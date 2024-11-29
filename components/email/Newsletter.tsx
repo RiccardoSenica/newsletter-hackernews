@@ -1,26 +1,23 @@
 import React from 'react';
-import { summirize } from '@utils/summarize';
+import { summirize } from '@utils/anthropic/summarize';
 import { NewsType } from '@utils/validationSchemas';
 import createDOMPurify from 'isomorphic-dompurify';
-import getNewsletterSubject from '@utils/getNewsletterSubject';
 import { Template } from './Template';
 
 export const NewsletterTemplate = async (stories: NewsType[]) => {
-  const summary = await summirize(stories);
-  const sanitizedSummary = createDOMPurify.sanitize(summary, {
-    USE_PROFILES: { html: true },
-    ADD_ATTR: ['target', 'rel', 'style']
-  });
+  const { title, content, focus } = await summirize(stories);
 
-  if (!sanitizedSummary) {
-    console.error('Failed to sanitize summary');
-    throw new Error('Failed to sanitize summary');
+  const sanitizedContent = createDOMPurify.sanitize(content);
+
+  const sanitizedFocus = createDOMPurify.sanitize(focus);
+
+  if (!sanitizedContent || !sanitizedFocus) {
+    console.error('Failed to sanitize newsletter');
+    throw new Error('Failed to sanitize newsletter');
   }
 
-  const topic = getNewsletterSubject(sanitizedSummary);
-
   return {
-    subject: topic,
+    subject: title,
     template: (
       <Template
         variant='newsletter'
@@ -60,7 +57,29 @@ export const NewsletterTemplate = async (stories: NewsType[]) => {
                 }
               `}
             </style>
-            <div dangerouslySetInnerHTML={{ __html: sanitizedSummary }} />
+            <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+            <div
+              style={{
+                marginTop: '24px',
+                color: '#374151',
+                padding: '20px',
+                background: '#F8FAFC',
+                borderLeft: '3px solid #386FA4',
+                borderRadius: '4px'
+              }}
+            >
+              <h3
+                style={{
+                  margin: '0 0 12px 0',
+                  color: '#386FA4',
+                  fontSize: '18px',
+                  fontWeight: '600'
+                }}
+              >
+                What to Watch
+              </h3>
+              <div dangerouslySetInnerHTML={{ __html: sanitizedFocus }} />
+            </div>
           </div>
         }
       />
