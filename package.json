@@ -1,6 +1,6 @@
 {
-  "name": "nextjs-hackernews",
-  "version": "0.5.0",
+  "name": "hackernews-newsletter",
+  "version": "1.0.0",
   "description": "Newsletter with the top stories from the Hacker News forum",
   "author": "riccardo@frompixels.com",
   "scripts": {
