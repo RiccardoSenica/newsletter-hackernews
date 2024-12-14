@@ -3197,6 +3197,53 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hackernews-newsletter@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "hackernews-newsletter@workspace:."
+  dependencies:
+    "@anthropic-ai/sdk": "npm:^0.27.3"
+    "@commitlint/cli": "npm:^18.4.3"
+    "@commitlint/config-conventional": "npm:^18.4.3"
+    "@hookform/resolvers": "npm:^3.3.2"
+    "@next/bundle-analyzer": "npm:^14.2.5"
+    "@prisma/client": "npm:^5.6.0"
+    "@radix-ui/react-label": "npm:^2.0.2"
+    "@radix-ui/react-slot": "npm:^1.0.2"
+    "@types/node": "npm:^20"
+    "@types/react": "npm:^18"
+    "@types/react-dom": "npm:^18"
+    "@typescript-eslint/eslint-plugin": "npm:^6.12.0"
+    "@typescript-eslint/parser": "npm:^6.12.0"
+    "@vercel/analytics": "npm:^1.1.1"
+    audit-ci: "npm:^6.6.1"
+    autoprefixer: "npm:^10.0.1"
+    class-variance-authority: "npm:^0.7.0"
+    clsx: "npm:^2.0.0"
+    eslint: "npm:^8"
+    eslint-config-next: "npm:14.0.3"
+    eslint-config-prettier: "npm:^9.0.0"
+    husky: "npm:^8.0.3"
+    isomorphic-dompurify: "npm:^2.15.0"
+    lint-staged: "npm:^15.1.0"
+    lucide-react: "npm:^0.460.0"
+    next: "npm:^14.2.10"
+    postcss: "npm:^8"
+    postcss-nesting: "npm:^12.0.2"
+    prettier: "npm:^3.1.0"
+    prettier-plugin-tailwindcss: "npm:^0.5.7"
+    prisma: "npm:^5.6.0"
+    react: "npm:^18"
+    react-dom: "npm:^18"
+    react-hook-form: "npm:^7.48.2"
+    resend: "npm:^3.1.0"
+    tailwind-merge: "npm:^2.1.0"
+    tailwindcss: "npm:^3.4.1"
+    tailwindcss-animate: "npm:^1.0.7"
+    typescript: "npm:^5.6.2"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "hard-rejection@npm:^2.1.0":
   version: 2.1.0
   resolution: "hard-rejection@npm:2.1.0"
@@ -4574,11 +4621,11 @@ __metadata:
   linkType: hard
 
 "nanoid@npm:^3.3.6, nanoid@npm:^3.3.7":
-  version: 3.3.7
-  resolution: "nanoid@npm:3.3.7"
+  version: 3.3.8
+  resolution: "nanoid@npm:3.3.8"
   bin:
     nanoid: bin/nanoid.cjs
-  checksum: 10/ac1eb60f615b272bccb0e2b9cd933720dad30bf9708424f691b8113826bb91aca7e9d14ef5d9415a6ba15c266b37817256f58d8ce980c82b0ba3185352565679
+  checksum: 10/2d1766606cf0d6f47b6f0fdab91761bb81609b2e3d367027aff45e6ee7006f660fb7e7781f4a34799fe6734f1268eeed2e37a5fdee809ade0c2d4eb11b0f9c40
   languageName: node
   linkType: hard
 
@@ -4653,53 +4700,6 @@ __metadata:
   checksum: 10/152928801dc403172e6b4a3d64ae250ad59a4d57fff862d9560687380d4b6ca95a07439da9a9b702bda86ff01093aa04e46a0003d0422295bdbd7d8ce449c4d6
   languageName: node
   linkType: hard
-
-"nextjs-hackernews@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "nextjs-hackernews@workspace:."
-  dependencies:
-    "@anthropic-ai/sdk": "npm:^0.27.3"
-    "@commitlint/cli": "npm:^18.4.3"
-    "@commitlint/config-conventional": "npm:^18.4.3"
-    "@hookform/resolvers": "npm:^3.3.2"
-    "@next/bundle-analyzer": "npm:^14.2.5"
-    "@prisma/client": "npm:^5.6.0"
-    "@radix-ui/react-label": "npm:^2.0.2"
-    "@radix-ui/react-slot": "npm:^1.0.2"
-    "@types/node": "npm:^20"
-    "@types/react": "npm:^18"
-    "@types/react-dom": "npm:^18"
-    "@typescript-eslint/eslint-plugin": "npm:^6.12.0"
-    "@typescript-eslint/parser": "npm:^6.12.0"
-    "@vercel/analytics": "npm:^1.1.1"
-    audit-ci: "npm:^6.6.1"
-    autoprefixer: "npm:^10.0.1"
-    class-variance-authority: "npm:^0.7.0"
-    clsx: "npm:^2.0.0"
-    eslint: "npm:^8"
-    eslint-config-next: "npm:14.0.3"
-    eslint-config-prettier: "npm:^9.0.0"
-    husky: "npm:^8.0.3"
-    isomorphic-dompurify: "npm:^2.15.0"
-    lint-staged: "npm:^15.1.0"
-    lucide-react: "npm:^0.460.0"
-    next: "npm:^14.2.10"
-    postcss: "npm:^8"
-    postcss-nesting: "npm:^12.0.2"
-    prettier: "npm:^3.1.0"
-    prettier-plugin-tailwindcss: "npm:^0.5.7"
-    prisma: "npm:^5.6.0"
-    react: "npm:^18"
-    react-dom: "npm:^18"
-    react-hook-form: "npm:^7.48.2"
-    resend: "npm:^3.1.0"
-    tailwind-merge: "npm:^2.1.0"
-    tailwindcss: "npm:^3.4.1"
-    tailwindcss-animate: "npm:^1.0.7"
-    typescript: "npm:^5.6.2"
-    zod: "npm:^3.22.4"
-  languageName: unknown
-  linkType: soft
 
 "node-domexception@npm:1.0.0":
   version: 1.0.0
