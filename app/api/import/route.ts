@@ -9,7 +9,6 @@ import {
 import { getSingleNews, getTopNews } from '@utils/urls';
 import { NewsDatabaseSchema, NewsDatabaseType } from '@utils/validationSchemas';
 import { NextRequest } from 'next/server';
-import { Resend } from 'resend';
 
 export async function GET(request: NextRequest) {
   if (
@@ -64,17 +63,6 @@ export async function GET(request: NextRequest) {
     const result = await Promise.all(upsertPromises);
 
     console.info(`Imported ${result.length} news.`);
-
-    if (process.env.ADMIN_EMAIL && process.env.RESEND_FROM) {
-      const resend = new Resend(process.env.RESEND_KEY);
-
-      await resend.emails.send({
-        from: process.env.RESEND_FROM,
-        to: [process.env.ADMIN_EMAIL],
-        subject: 'Newsletter: import cron job',
-        text: `Imported ${result.length} news out of these ids: ${topStories.join(', ')}.`
-      });
-    }
 
     return formatApiResponse(
       STATUS_OK,

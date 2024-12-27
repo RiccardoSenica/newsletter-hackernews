@@ -1,7 +1,7 @@
 import { NewsletterTemplate } from '@components/email/Newsletter';
 import prisma from '@prisma/prisma';
 import { formatApiResponse } from '@utils/formatApiResponse';
-import { sender } from '@utils/resendClient';
+import { sender } from '@utils/nodemailer';
 import {
   INTERNAL_SERVER_ERROR,
   STATUS_INTERNAL_SERVER_ERROR,
