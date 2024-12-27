@@ -72,14 +72,9 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const sent = await sender([email], ConfirmationTemplate(code));
-
-    if (!sent) {
-      return formatApiResponse(
-        STATUS_INTERNAL_SERVER_ERROR,
-        INTERNAL_SERVER_ERROR
-      );
-    }
+    sender([email], ConfirmationTemplate(code)).catch(error => {
+      console.error('Failed to send confirmation email:', error);
+    });
 
     const message: ResponseType = {
       success: true,
