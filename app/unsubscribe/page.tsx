@@ -15,7 +15,7 @@ import {
   ResponseType,
   UnsubscribeFormSchema,
   UnsubscribeFormType
-} from '@utils/validationSchemas';
+} from '@utils/types';
 import { useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -63,13 +63,13 @@ const Unsubscribe = () => {
       });
 
       if (!response?.ok) {
-        throw new Error(`Invalid response: ${response.status}`);
+        throw new Error(`Invalid response: ${response.status}.`);
       }
 
       const formResponse: ResponseType = await response.json();
 
       if (!formResponse.success) {
-        throw Error(formResponse.message);
+        throw new Error(formResponse.message);
       }
 
       setMessage(formResponse.message);

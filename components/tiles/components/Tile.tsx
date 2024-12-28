@@ -1,5 +1,5 @@
 import { getRandomGrey } from '@utils/getRandomGrey';
-import { NewsTileType } from '@utils/validationSchemas';
+import { NewsTileType } from '@utils/types';
 import { useEffect, useState } from 'react';
 import { TileContent } from './TileContent';
 

@@ -7,7 +7,7 @@ import {
   STATUS_UNAUTHORIZED
 } from '@utils/statusCodes';
 import { getSingleNews, getTopNews } from '@utils/urls';
-import { NewsDatabaseSchema, NewsDatabaseType } from '@utils/validationSchemas';
+import { NewsDatabaseSchema, NewsDatabaseType } from '@utils/types';
 import { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {

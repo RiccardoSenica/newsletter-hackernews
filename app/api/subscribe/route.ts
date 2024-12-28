@@ -1,7 +1,7 @@
 import { ConfirmationTemplate } from '@components/email/Confirmation';
 import prisma from '@prisma/prisma';
 import { formatApiResponse } from '@utils/formatApiResponse';
-import { sender } from '@utils/nodemailer';
+import { sendEmailAndTrack } from '@utils/mailing/sendEmailAndTrack';
 import {
   BAD_REQUEST,
   INTERNAL_SERVER_ERROR,
@@ -9,7 +9,7 @@ import {
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK
 } from '@utils/statusCodes';
-import { ResponseType, SubscribeFormSchema } from '@utils/validationSchemas';
+import { ResponseType, SubscribeFormSchema } from '@utils/types';
 import * as crypto from 'crypto';
 import { NextRequest } from 'next/server';
 
@@ -31,11 +31,6 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    const code = crypto
-      .createHash('sha256')
-      .update(`${process.env.SECRET_HASH}${email}}`)
-      .digest('hex');
-
     if (user && user.confirmed) {
       if (user.deleted) {
         await prisma.user.update({
@@ -54,7 +49,14 @@ export async function POST(request: NextRequest) {
       };
 
       return formatApiResponse(STATUS_OK, message);
-    } else if (user && !user.confirmed) {
+    }
+
+    const code = crypto
+      .createHash('sha256')
+      .update(`${process.env.SECRET_HASH}${email}}`)
+      .digest('hex');
+
+    if (user && !user.confirmed) {
       await prisma.user.update({
         where: {
           email
@@ -72,29 +74,9 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const template = ConfirmationTemplate(code);
-
-    sender([email], template)
-      .then(async () => {
-        await prisma.$transaction(async tx => {
-          const email = await tx.email.create({
-            data: {
-              subject: template.subject,
-              body: JSON.stringify(template.body)
-            }
-          });
-
-          await tx.emailUser.create({
-            data: {
-              userId: user.id,
-              emailId: email.id
-            }
-          });
-        });
-      })
-      .catch(error => {
-        console.error('Failed to send confirmation email:', error);
-      });
+    sendEmailAndTrack(user, ConfirmationTemplate(code), prisma).catch(error => {
+      console.error('Failed to send confirmation email:', error);
+    });
 
     const message: ResponseType = {
       success: true,

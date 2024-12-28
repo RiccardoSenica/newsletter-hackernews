@@ -7,7 +7,7 @@ import {
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK
 } from '@utils/statusCodes';
-import { ConfirmationSchema, ResponseType } from '@utils/validationSchemas';
+import { ConfirmationSchema, ResponseType } from '@utils/types';
 import { NextRequest } from 'next/server';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static

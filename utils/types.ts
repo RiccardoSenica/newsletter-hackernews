@@ -1,5 +1,15 @@
 import { z } from 'zod';
 
+export interface EmailTemplate {
+  subject: string;
+  body: JSX.Element;
+}
+
+export interface UserEmail {
+  id: string;
+  email: string;
+}
+
 export interface ResponseType {
   success: boolean;
   message: string;

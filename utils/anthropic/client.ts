@@ -25,6 +25,6 @@ export async function getMessage<T>(text: string, tool: BaseTool) {
 
     return data[1].input as T;
   } catch (error) {
-    throw Error(JSON.stringify(error));
+    throw new Error(`Anthropic client error: ${JSON.stringify(error)}.`);
   }
 }
