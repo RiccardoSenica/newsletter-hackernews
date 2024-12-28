@@ -1,7 +1,7 @@
 import { NewsletterTemplate } from '@components/email/Newsletter';
 import prisma from '@prisma/prisma';
 import { formatApiResponse } from '@utils/formatApiResponse';
-import { sender } from '@utils/resendClient';
+import { sender } from '@utils/mailing/nodemailer';
 import {
   INTERNAL_SERVER_ERROR,
   STATUS_INTERNAL_SERVER_ERROR,
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
   }
 
   if (!process.env.NEWS_TO_USE) {
-    throw new Error('NEWS_TO_USE is not set');
+    throw new Error('Environment variable (NEWS_TO_USE) is not set.');
   }
 
   try {
@@ -73,14 +73,18 @@ export async function GET(request: NextRequest) {
       return formatApiResponse(STATUS_OK, 'No news to include in newsletter.');
     }
 
-    const validRankedNews = news.sort((a, b) => b.score - a.score);
+    const rankedNews = news.sort((a, b) => b.score - a.score);
 
-    const template = await NewsletterTemplate(validRankedNews);
+    const template = await NewsletterTemplate(rankedNews);
 
-    const sent = await sender(
-      users.map(user => user.email),
-      template
-    );
+    const emailRecord = await prisma.email.create({
+      data: {
+        subject: template.subject,
+        body: JSON.stringify(template.body)
+      }
+    });
+
+    const sent = await sender(users, template, prisma);
 
     if (!sent) {
       return formatApiResponse(
@@ -89,17 +93,16 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // update users so they don't get the newsletter again
-    await prisma.user.updateMany({
-      where: {
-        id: {
-          in: users.map(user => user.id)
-        }
-      },
-      data: {
-        lastMail: new Date()
-      }
-    });
+    const BATCH_SIZE = 1000;
+    for (let i = 0; i < users.length; i += BATCH_SIZE) {
+      const batch = users.slice(i, i + BATCH_SIZE);
+      await prisma.emailUser.createMany({
+        data: batch.map(u => ({
+          userId: u.id,
+          emailId: emailRecord.id
+        }))
+      });
+    }
 
     return formatApiResponse(
       STATUS_OK,

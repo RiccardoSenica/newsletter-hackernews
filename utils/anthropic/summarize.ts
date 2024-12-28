@@ -1,5 +1,5 @@
 import { getMessage } from './client';
-import { NewsType } from '../validationSchemas';
+import { NewsType } from '../types';
 import { NewsletterTool, newsletterTool } from './tool';
 
 export async function summirize(news: NewsType[]) {
@@ -22,7 +22,6 @@ export async function summirize(news: NewsType[]) {
       focus
     };
   } catch (error) {
-    console.error('Error in summarize:', error);
-    throw Error(JSON.stringify(error));
+    throw new Error(`Error in summarize: ${JSON.stringify(error)}.`);
   }
 }

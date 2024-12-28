@@ -15,7 +15,7 @@ import {
   ResponseType,
   SubscribeFormSchema,
   SubscribeFormType
-} from '@utils/validationSchemas';
+} from '@utils/types';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -56,13 +56,13 @@ export const Home = () => {
       });
 
       if (!response?.ok) {
-        throw new Error(`Invalid response: ${response.status}`);
+        throw new Error(`Invalid response: ${response.status}.`);
       }
 
       const formResponse: ResponseType = await response.json();
 
       if (!formResponse.success) {
-        throw Error(formResponse.message);
+        throw new Error(formResponse.message);
       }
 
       setMessage(formResponse.message);

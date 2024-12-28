@@ -1,6 +1,6 @@
 import React from 'react';
 import { summirize } from '@utils/anthropic/summarize';
-import { NewsType } from '@utils/validationSchemas';
+import { NewsType } from '@utils/types';
 import createDOMPurify from 'isomorphic-dompurify';
 import { Template } from './Template';
 
@@ -12,13 +12,12 @@ export const NewsletterTemplate = async (stories: NewsType[]) => {
   const sanitizedFocus = createDOMPurify.sanitize(focus);
 
   if (!sanitizedContent || !sanitizedFocus) {
-    console.error('Failed to sanitize newsletter');
-    throw new Error('Failed to sanitize newsletter');
+    throw new Error('Failed to sanitize newsletter.');
   }
 
   return {
     subject: title,
-    template: (
+    body: (
       <Template
         variant='newsletter'
         title='Your Daily Tech Updates'

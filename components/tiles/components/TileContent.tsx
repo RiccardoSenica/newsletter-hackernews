@@ -1,4 +1,4 @@
-import { NewsTileType } from '@utils/validationSchemas';
+import { NewsTileType } from '@utils/types';
 
 interface CardContentProps {
   story: NewsTileType;

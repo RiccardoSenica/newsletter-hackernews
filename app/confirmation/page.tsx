@@ -3,7 +3,7 @@
 import { CardDescription } from '@components/Card';
 import { CustomCard } from '@components/CustomCard';
 import { SchemaOrg } from '@components/SchemaOrg';
-import { ResponseType } from '@utils/validationSchemas';
+import { ResponseType } from '@utils/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 

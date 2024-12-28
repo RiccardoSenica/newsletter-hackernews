@@ -7,17 +7,13 @@ import {
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK
 } from '@utils/statusCodes';
-import { ConfirmationSchema, ResponseType } from '@utils/validationSchemas';
+import { ConfirmationSchema, ResponseType } from '@utils/types';
 import { NextRequest } from 'next/server';
-import { Resend } from 'resend';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
 
 export async function POST(request: NextRequest) {
   try {
-    if (!process.env.RESEND_KEY || !process.env.RESEND_AUDIENCE) {
-      throw new Error('Resend variables not set');
-    }
     const body = await request.json();
     const validation = ConfirmationSchema.safeParse(body);
     if (!validation.success || !validation.data.code) {
@@ -31,14 +27,6 @@ export async function POST(request: NextRequest) {
     });
 
     if (user) {
-      const resend = new Resend(process.env.RESEND_KEY);
-
-      await resend.contacts.update({
-        id: user.resendId,
-        audienceId: process.env.RESEND_AUDIENCE,
-        unsubscribed: false
-      });
-
       await prisma.user.update({
         where: {
           code: validation.data.code

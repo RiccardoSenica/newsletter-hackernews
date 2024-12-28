@@ -9,16 +9,38 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  resendId  String
-  email     String    @unique
-  code      String    @unique
-  confirmed Boolean   @default(false)
-  deleted   Boolean   @default(false)
-  createdAt DateTime  @default(now())
+  id        String      @id @default(cuid())
+  resendId  String?
+  email     String      @unique
+  code      String      @unique
+  confirmed Boolean     @default(false)
+  deleted   Boolean     @default(false)
+  createdAt DateTime    @default(now())
   lastMail  DateTime?
+  emailUser EmailUser[]
 
   @@map(name: "users")
+}
+
+model Email {
+  id        String      @id @default(cuid())
+  subject   String
+  body      String
+  createdAt DateTime    @default(now())
+  emailUser EmailUser[]
+
+  @@map(name: "email")
+}
+
+model EmailUser {
+  emailId   String
+  userId    String
+  createdAt DateTime @default(now())
+  email     Email    @relation(fields: [emailId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@id([emailId, userId])
+  @@map(name: "emailUsers")
 }
 
 model News {

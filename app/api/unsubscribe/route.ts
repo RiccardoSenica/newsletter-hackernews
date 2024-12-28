@@ -1,7 +1,7 @@
 import { UnsubscribeTemplate } from '@components/email/Unsubscribe';
 import prisma from '@prisma/prisma';
 import { formatApiResponse } from '@utils/formatApiResponse';
-import { sender } from '@utils/resendClient';
+import { sendEmailAndTrack } from '@utils/mailing/sendEmailAndTrack';
 import {
   BAD_REQUEST,
   INTERNAL_SERVER_ERROR,
@@ -9,17 +9,11 @@ import {
   STATUS_INTERNAL_SERVER_ERROR,
   STATUS_OK
 } from '@utils/statusCodes';
-import { ResponseType, UnsubscribeFormSchema } from '@utils/validationSchemas';
+import { ResponseType, UnsubscribeFormSchema } from '@utils/types';
 import { NextRequest } from 'next/server';
-import { Resend } from 'resend';
-
-export const dynamic = 'force-dynamic'; // defaults to force-static
 
 export async function POST(request: NextRequest) {
   try {
-    if (!process.env.RESEND_KEY || !process.env.RESEND_AUDIENCE) {
-      throw new Error('RESEND_AUDIENCE is not set');
-    }
     const body = await request.json();
     const validation = UnsubscribeFormSchema.safeParse(body);
     if (!validation.success) {
@@ -44,22 +38,9 @@ export async function POST(request: NextRequest) {
         }
       });
 
-      const resend = new Resend(process.env.RESEND_KEY);
-
-      await resend.contacts.update({
-        id: user.resendId,
-        audienceId: process.env.RESEND_AUDIENCE,
-        unsubscribed: true
+      sendEmailAndTrack(user, UnsubscribeTemplate(), prisma).catch(error => {
+        console.error('Failed to send unsubscribe confirmation email:', error);
       });
-
-      const sent = await sender([email], UnsubscribeTemplate());
-
-      if (!sent) {
-        return formatApiResponse(
-          STATUS_INTERNAL_SERVER_ERROR,
-          'Internal server error'
-        );
-      }
     }
 
     const message: ResponseType = {

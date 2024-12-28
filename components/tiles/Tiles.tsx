@@ -1,6 +1,6 @@
 'use client';
 
-import { NewsTileType } from '@utils/validationSchemas';
+import { NewsTileType } from '@utils/types';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { Tile } from './components/Tile';
