@@ -5,7 +5,7 @@ import { Template } from './Template';
 export const UnsubscribeTemplate = () => {
   return {
     subject: 'Unsubscribe confirmation',
-    template: (
+    body: (
       <Template
         title="We're sad to see you go"
         body={

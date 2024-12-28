@@ -89,16 +89,32 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // update users so they don't get the newsletter again
-    await prisma.user.updateMany({
-      where: {
-        id: {
-          in: users.map(user => user.id)
+    await prisma.$transaction(async tx => {
+      const email = await tx.email.create({
+        data: {
+          subject: template.subject,
+          body: JSON.stringify(template.body)
         }
-      },
-      data: {
-        lastMail: new Date()
-      }
+      });
+
+      await tx.emailUser.createMany({
+        data: users.map(u => ({
+          userId: u.id,
+          emailId: email.id
+        }))
+      });
+
+      // update users so they don't get the newsletter again
+      await tx.user.updateMany({
+        where: {
+          id: {
+            in: users.map(user => user.id)
+          }
+        },
+        data: {
+          lastMail: new Date()
+        }
+      });
     });
 
     return formatApiResponse(

@@ -5,7 +5,7 @@ import { Template } from './Template';
 export const ConfirmationTemplate = (code: string) => {
   return {
     subject: 'Welcome!',
-    template: (
+    body: (
       <Template
         title='Welcome!'
         body={

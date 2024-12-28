@@ -18,7 +18,7 @@ export const NewsletterTemplate = async (stories: NewsType[]) => {
 
   return {
     subject: title,
-    template: (
+    body: (
       <Template
         variant='newsletter'
         title='Your Daily Tech Updates'

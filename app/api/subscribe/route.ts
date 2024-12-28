@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 
     const { email } = validation.data;
 
-    const user = await prisma.user.findUnique({
+    let user = await prisma.user.findUnique({
       where: {
         email
       }
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
         }
       });
     } else {
-      await prisma.user.create({
+      user = await prisma.user.create({
         data: {
           email,
           code
@@ -72,9 +72,29 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    sender([email], ConfirmationTemplate(code)).catch(error => {
-      console.error('Failed to send confirmation email:', error);
-    });
+    const template = ConfirmationTemplate(code);
+
+    sender([email], template)
+      .then(async () => {
+        await prisma.$transaction(async tx => {
+          const email = await tx.email.create({
+            data: {
+              subject: template.subject,
+              body: JSON.stringify(template.body)
+            }
+          });
+
+          await tx.emailUser.create({
+            data: {
+              userId: user.id,
+              emailId: email.id
+            }
+          });
+        });
+      })
+      .catch(error => {
+        console.error('Failed to send confirmation email:', error);
+      });
 
     const message: ResponseType = {
       success: true,

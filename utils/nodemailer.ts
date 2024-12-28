@@ -3,7 +3,7 @@ import { render } from '@react-email/render';
 
 interface EmailTemplate {
   subject: string;
-  template: JSX.Element;
+  body: JSX.Element;
 }
 
 const createTransporter = () => {
@@ -30,7 +30,7 @@ const createTransporter = () => {
 
 export async function sender(
   recipients: string[],
-  { subject, template }: EmailTemplate
+  { subject, body }: EmailTemplate
 ): Promise<boolean> {
   if (!process.env.SMTP_FROM) {
     throw new Error('Missing email credentials in environment variables');
@@ -41,7 +41,7 @@ export async function sender(
   try {
     await transporter.verify();
 
-    const htmlContent = await render(template);
+    const htmlContent = await render(body);
 
     const sendPromises = recipients.map(recipient =>
       transporter.sendMail({

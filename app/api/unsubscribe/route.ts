@@ -40,7 +40,25 @@ export async function POST(request: NextRequest) {
         }
       });
 
-      const sent = await sender([email], UnsubscribeTemplate());
+      const template = UnsubscribeTemplate();
+
+      const sent = await sender([email], template);
+
+      await prisma.$transaction(async tx => {
+        const email = await tx.email.create({
+          data: {
+            subject: template.subject,
+            body: JSON.stringify(template.body)
+          }
+        });
+
+        await tx.emailUser.create({
+          data: {
+            userId: user.id,
+            emailId: email.id
+          }
+        });
+      });
 
       if (!sent) {
         return formatApiResponse(
