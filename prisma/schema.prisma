@@ -10,7 +10,6 @@ datasource db {
 
 model User {
   id        String      @id @default(cuid())
-  resendId  String?
   email     String      @unique
   code      String      @unique
   confirmed Boolean     @default(false)
