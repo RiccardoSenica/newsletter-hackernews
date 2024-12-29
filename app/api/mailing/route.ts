@@ -25,9 +25,6 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // send newsletter to users who didn't get it in the last 23h 50m, assuming a cron job every 10 minutes
-    // this is to avoid sending the newsletter to the same users multiple times
-    // this is not a perfect solution, but it's good enough for now
     const users = await prisma.user.findMany({
       where: {
         confirmed: true,
