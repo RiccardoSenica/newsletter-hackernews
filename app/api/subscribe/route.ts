@@ -12,11 +12,10 @@ import {
 import { ResponseType, SubscribeFormSchema } from '@utils/validationSchemas';
 import * as crypto from 'crypto';
 import { NextRequest } from 'next/server';
-import { Resend } from 'resend';
 
 export async function POST(request: NextRequest) {
   try {
-    if (!process.env.RESEND_KEY || !process.env.RESEND_AUDIENCE) {
+    if (!process.env.RESEND_KEY) {
       throw new Error('RESEND_KEY is not set');
     }
 
@@ -36,8 +35,6 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    const resend = new Resend(process.env.RESEND_KEY);
-
     const code = crypto
       .createHash('sha256')
       .update(`${process.env.SECRET_HASH}${email}}`)
@@ -53,19 +50,6 @@ export async function POST(request: NextRequest) {
             deleted: false
           }
         });
-
-        const contact = await resend.contacts.get({
-          id: user.resendId,
-          audienceId: process.env.RESEND_AUDIENCE
-        });
-
-        if (!contact) {
-          await resend.contacts.update({
-            id: user.resendId,
-            audienceId: process.env.RESEND_AUDIENCE,
-            unsubscribed: true
-          });
-        }
       }
 
       const message: ResponseType = {
@@ -84,21 +68,10 @@ export async function POST(request: NextRequest) {
         }
       });
     } else {
-      const contact = await resend.contacts.create({
-        email: email,
-        audienceId: process.env.RESEND_AUDIENCE,
-        unsubscribed: true
-      });
-
-      if (!contact.data?.id) {
-        throw new Error('Failed to create Resend contact');
-      }
-
       await prisma.user.create({
         data: {
           email,
-          code,
-          resendId: contact.data.id
+          code
         }
       });
     }

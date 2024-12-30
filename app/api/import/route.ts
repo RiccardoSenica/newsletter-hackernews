@@ -1,4 +1,5 @@
 import prisma from '@prisma/prisma';
+import axios from 'axios';
 import { formatApiResponse } from '@utils/formatApiResponse';
 import {
   INTERNAL_SERVER_ERROR,
@@ -19,17 +20,22 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const topStories: number[] = await fetch(getTopNews, {
-      cache: 'no-store'
-    }).then(res => res.json());
+    const { data: topStories } = await axios.get<number[]>(getTopNews, {
+      headers: {
+        'Cache-Control': 'no-store'
+      }
+    });
 
     console.info(`Top stories ids: ${topStories}`);
 
     const newsPromises = topStories
       .slice(0, Number(process.env.NEWS_LIMIT))
-      .map(id => fetch(getSingleNews(id)).then(res => res.json()));
+      .map(id => axios.get<NewsDatabaseType>(getSingleNews(id)));
 
-    const news: NewsDatabaseType[] = await Promise.all(newsPromises);
+    const newsResponses = await Promise.all(newsPromises);
+    const news: NewsDatabaseType[] = newsResponses.map(
+      response => response.data
+    );
 
     const upsertPromises = news.map(async getSingleNews => {
       const validation = NewsDatabaseSchema.safeParse(getSingleNews);
@@ -81,7 +87,11 @@ export async function GET(request: NextRequest) {
       `Imported ${newsPromises.length} news.`
     );
   } catch (error) {
-    console.error(error);
+    if (axios.isAxiosError(error)) {
+      console.error('Axios error:', error.response?.data || error.message);
+    } else {
+      console.error('Error:', error);
+    }
     return formatApiResponse(
       STATUS_INTERNAL_SERVER_ERROR,
       INTERNAL_SERVER_ERROR

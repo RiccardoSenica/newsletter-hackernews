@@ -18,6 +18,7 @@ import {
 } from '@utils/validationSchemas';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import axios from 'axios';
 
 export const Home = () => {
   const [completed, setCompleted] = useState(false);
@@ -45,29 +46,28 @@ export const Home = () => {
   async function handleSubmit(values: SubscribeFormType) {
     setIsLoading(true);
     try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+      const { data } = await axios.post<ResponseType>(
+        '/api/subscribe',
+        {
           email: values.email
-        })
-      });
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
 
-      if (!response?.ok) {
-        throw new Error(`Invalid response: ${response.status}`);
+      if (!data.success) {
+        throw new Error(data.message);
       }
 
-      const formResponse: ResponseType = await response.json();
-
-      if (!formResponse.success) {
-        throw Error(formResponse.message);
-      }
-
-      setMessage(formResponse.message);
+      setMessage(data.message);
       setCompleted(true);
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Axios error:', error.response?.data || error.message);
+      }
       setError(true);
     } finally {
       setIsLoading(false);

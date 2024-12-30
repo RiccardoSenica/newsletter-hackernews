@@ -4,6 +4,7 @@ import { NewsTileType } from '@utils/validationSchemas';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { Tile } from './components/Tile';
+import axios from 'axios';
 
 interface TilesProps {
   children: React.ReactNode;
@@ -22,11 +23,19 @@ export const Tiles = ({ children }: TilesProps) => {
 
   useEffect(() => {
     async function getNews() {
-      const news: NewsTileType[] = await fetch('/api/news').then(res =>
-        res.json()
-      );
-
-      setNews(news);
+      try {
+        const { data: news } = await axios.get<NewsTileType[]>('/api/news');
+        setNews(news);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error(
+            'Failed to fetch news:',
+            error.response?.data || error.message
+          );
+        } else {
+          console.error('Failed to fetch news:', error);
+        }
+      }
     }
 
     if (!news) {

@@ -9,13 +9,12 @@ import {
 } from '@utils/statusCodes';
 import { ConfirmationSchema, ResponseType } from '@utils/validationSchemas';
 import { NextRequest } from 'next/server';
-import { Resend } from 'resend';
 
 export const dynamic = 'force-dynamic'; // defaults to force-static
 
 export async function POST(request: NextRequest) {
   try {
-    if (!process.env.RESEND_KEY || !process.env.RESEND_AUDIENCE) {
+    if (!process.env.RESEND_KEY) {
       throw new Error('Resend variables not set');
     }
     const body = await request.json();
@@ -31,14 +30,6 @@ export async function POST(request: NextRequest) {
     });
 
     if (user) {
-      const resend = new Resend(process.env.RESEND_KEY);
-
-      await resend.contacts.update({
-        id: user.resendId,
-        audienceId: process.env.RESEND_AUDIENCE,
-        unsubscribed: false
-      });
-
       await prisma.user.update({
         where: {
           code: validation.data.code

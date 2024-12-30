@@ -16,6 +16,8 @@ import {
   UnsubscribeFormSchema,
   UnsubscribeFormType
 } from '@utils/validationSchemas';
+
+import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -52,29 +54,28 @@ const Unsubscribe = () => {
   async function handleSubmit(values: UnsubscribeFormType) {
     setIsLoading(true);
     try {
-      const response = await fetch('/api/unsubscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+      const { data } = await axios.post<ResponseType>(
+        '/api/unsubscribe',
+        {
           email: values.email
-        })
-      });
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
 
-      if (!response?.ok) {
-        throw new Error(`Invalid response: ${response.status}`);
+      if (!data.success) {
+        throw new Error(data.message);
       }
 
-      const formResponse: ResponseType = await response.json();
-
-      if (!formResponse.success) {
-        throw Error(formResponse.message);
-      }
-
-      setMessage(formResponse.message);
+      setMessage(data.message);
       setCompleted(true);
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Axios error:', error.response?.data || error.message);
+      }
       setError(true);
     } finally {
       setIsLoading(false);

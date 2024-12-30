@@ -4,6 +4,7 @@ import { CardDescription } from '@components/Card';
 import { CustomCard } from '@components/CustomCard';
 import { SchemaOrg } from '@components/SchemaOrg';
 import { ResponseType } from '@utils/validationSchemas';
+import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 
@@ -23,32 +24,31 @@ const ConfirmationPage = () => {
       }
 
       try {
-        const res = await fetch('/api/confirmation', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
+        const { data } = await axios.post<ResponseType>(
+          '/api/confirmation',
+          {
             code: code
-          })
-        });
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        );
 
-        if (!res.ok) {
+        if (!data.success) {
           router.push('/');
           return;
         }
 
-        const response: ResponseType = await res.json();
-
-        if (!response.success) {
-          router.push('/');
-          return;
-        }
-
-        setMessage(response.message);
+        setMessage(data.message);
         setLoading(false);
       } catch (error) {
-        console.error(error);
+        if (axios.isAxiosError(error)) {
+          console.error('Axios error:', error.response?.data || error.message);
+        } else {
+          console.error('Error:', error);
+        }
         router.push('/');
       }
     };

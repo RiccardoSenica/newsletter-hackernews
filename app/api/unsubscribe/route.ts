@@ -11,14 +11,11 @@ import {
 } from '@utils/statusCodes';
 import { ResponseType, UnsubscribeFormSchema } from '@utils/validationSchemas';
 import { NextRequest } from 'next/server';
-import { Resend } from 'resend';
-
-export const dynamic = 'force-dynamic'; // defaults to force-static
 
 export async function POST(request: NextRequest) {
   try {
-    if (!process.env.RESEND_KEY || !process.env.RESEND_AUDIENCE) {
-      throw new Error('RESEND_AUDIENCE is not set');
+    if (!process.env.RESEND_KEY) {
+      throw new Error('Resend variables not set');
     }
     const body = await request.json();
     const validation = UnsubscribeFormSchema.safeParse(body);
@@ -42,14 +39,6 @@ export async function POST(request: NextRequest) {
         data: {
           deleted: true
         }
-      });
-
-      const resend = new Resend(process.env.RESEND_KEY);
-
-      await resend.contacts.update({
-        id: user.resendId,
-        audienceId: process.env.RESEND_AUDIENCE,
-        unsubscribed: true
       });
 
       const sent = await sender([email], UnsubscribeTemplate());

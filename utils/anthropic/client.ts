@@ -20,7 +20,7 @@ export async function getMessage<T>(text: string, tool: BaseTool) {
   try {
     const data = response.content as [
       { type: string; text: string },
-      { type: string; input: object } // object of type V
+      { type: string; input: object }
     ];
 
     return data[1].input as T;
