@@ -14,11 +14,10 @@ import { NextRequest } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    if (!process.env.RESEND_KEY) {
-      throw new Error('Resend variables not set');
-    }
     const body = await request.json();
+
     const validation = UnsubscribeFormSchema.safeParse(body);
+    
     if (!validation.success) {
       return formatApiResponse(STATUS_BAD_REQUEST, BAD_REQUEST);
     }

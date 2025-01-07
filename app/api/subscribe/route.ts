@@ -15,10 +15,6 @@ import { NextRequest } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    if (!process.env.RESEND_KEY) {
-      throw new Error('RESEND_KEY is not set');
-    }
-
     const body = await request.json();
 
     const validation = SubscribeFormSchema.safeParse(body);
