@@ -9,6 +9,10 @@ export async function sender(
   recipients: string[],
   { subject, template }: EmailTemplate
 ) {
+  if (!process.env.RESEND_KEY) {
+    throw new Error('RESEND_KEY is not set');
+  }
+
   if (recipients.length === 0) {
     console.info(`${subject} email skipped for having zero recipients`);
     return true;
