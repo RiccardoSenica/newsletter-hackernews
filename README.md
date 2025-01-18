@@ -27,7 +27,7 @@ A Next.js application that aggregates HackerNews stories and delivers them as pe
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
+git clone https://github.com/RiccardoSenica/newsletter-hackernews
 cd hackernews-newsletter
 ```
 
