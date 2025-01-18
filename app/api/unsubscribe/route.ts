@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     const validation = UnsubscribeFormSchema.safeParse(body);
-    
+
     if (!validation.success) {
       return formatApiResponse(STATUS_BAD_REQUEST, BAD_REQUEST);
     }

@@ -29,7 +29,7 @@ model News {
   time      Float
   url       String?
   score     Float
-  createdAt DateTime @default(now()) @map(name: "created_at")
+  createdAt DateTime @default(now())
 
   @@map(name: "news")
 }
