@@ -1,54 +1,76 @@
-# Hackernews newsletter
+# 📰 HackerNews Newsletter
 
-## Future improvements
+A Next.js application that aggregates HackerNews stories and delivers them as personalized daily newsletters.
 
-- Cron every 10 minutes and reduce time delta to 10 minutes: people are more likely to open the newsletter if delivered around the time when they subscribed (if cron becomes not enough, then the cost of sending all the emails might be a bigger issue)
+## ✨ Features
+- 📧 Daily newsletter containing curated HackerNews stories
+- ☁️ Vercel hosting integration
 
-## Some resources used
+## 🚀 Future improvements
+- ⏰ Cron every 10 minutes and reduce time delta to 10 minutes: people are more likely to open the newsletter if delivered around the time when they subscribed (if cron becomes not enough, then the cost of sending all the emails might be a bigger issue)
 
-https://gradientbuttons.colorion.co/
-https://codepen.io/alphardex/pen/vYEYGzp
+## 🛠️ Tech Stack
+- ⚡ Next.js
+- 🗄️ Prisma (Database ORM)
+- 🚀 Vercel (Hosting)
+- 📝 Custom email templates
 
-## Commands
+## 🏁 Getting Started
 
-Install vercel cli
+### 📋 Prerequisites
+- 📦 Node.js
+- 🐳 Docker
+- 🔧 Vercel CLI
+- 🧶 Yarn package manager
 
+### 💻 Installation
+
+1. Clone the repository:
 ```bash
+git clone [repository-url]
+cd hackernews-newsletter
+```
+
+2. Install dependencies:
+```bash
+yarn install
+```
+
+3. Set up Vercel:
+```bash
+# Install Vercel CLI
 yarn add -g vercel@latest
-```
 
-Link to vercel
-
-```bash
+# Link to your Vercel project
 yarn vercel:link
-```
 
-Pull env variables from vercel
-
-```bash
+# Pull environment variables
 yarn vercel:env
 ```
 
-Push Prisma schema to vercel
-
+4. Set up the database:
 ```bash
+# Push Prisma schema to database
 yarn db:push
-```
 
-Generate Prisma client
-
-```bash
+# Generate Prisma client
 yarn prisma:generate
 ```
 
-Reset Prisma database
+### 🔧 Development
 
+Run locally with Docker:
+```bash
+docker-compose up --build
+```
+
+### 🗄️ Database Management
+
+Reset database (⚠️ caution: this will delete all data):
 ```bash
 yarn db:reset
 ```
 
-Run on Docker
-
-```bash
-docker-compose up --build
-```
+## 🙏 Acknowledgments
+- 🎨 [Gradient Buttons](https://gradientbuttons.colorion.co/)
+- ✨ [Custom Animation Effects](https://codepen.io/alphardex/pen/vYEYGzp)
