@@ -1,33 +1,52 @@
-import Anthropic from '@anthropic-ai/sdk';
-import { BaseTool, ToolUseBlock } from './tool';
+import { generateText, tool, jsonSchema } from 'ai';
+import { BaseTool } from './tool';
+import type { JSONSchema7 } from 'json-schema';
 
-export async function getMessage<T>(text: string, tool: BaseTool) {
-  const anthropic = new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY
-  });
-
-  console.info('Anthropic request with text: ', text);
-
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-0',
-    max_tokens: 2048,
-    messages: [{ role: 'user', content: text }],
-    tools: [tool]
-  });
-
-  console.info('Anthropic response: ', response);
+export async function getMessage<T>(text: string, baseTool: BaseTool) {
+  console.info('Vercel AI Gateway request with text: ', text);
 
   try {
-    const content = response.content;
+    const { steps } = await generateText({
+      model: 'anthropic/claude-sonnet-4.5',
+      temperature: 1,
+      tools: {
+        [baseTool.name]: tool({
+          description: baseTool.input_schema.description || '',
+          inputSchema: jsonSchema(baseTool.input_schema as JSONSchema7),
+          execute: async args => args
+        })
+      },
+      toolChoice: {
+        type: 'tool',
+        toolName: baseTool.name
+      },
+      prompt: text
+    });
 
-    const toolUse = content.find((block): block is ToolUseBlock => block.type === 'tool_use');
+    console.info('Vercel AI Gateway response steps: ', steps);
 
-    if (!toolUse) {
-      throw new Error('No tool_use block found in response');
+    const toolCalls = steps.flatMap(step => step.toolCalls);
+
+    if (!toolCalls || toolCalls.length === 0) {
+      throw new Error('No tool calls found in response');
     }
 
-    return toolUse.input as T;
+    const typedCall = toolCalls[0] as unknown as {
+      toolName: string;
+      input: Record<string, unknown>;
+    };
+
+    console.info('Tool call input: ', typedCall.input);
+
+    if (typedCall.toolName !== baseTool.name) {
+      throw new Error(
+        `Expected tool ${baseTool.name} but got ${typedCall.toolName}`
+      );
+    }
+
+    return typedCall.input as T;
   } catch (error) {
-    throw Error(JSON.stringify(error));
+    console.error('Vercel AI Gateway error: ', error);
+    throw new Error('Failed to get message from AI Gateway');
   }
 }
