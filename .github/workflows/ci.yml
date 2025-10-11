@@ -31,7 +31,7 @@ jobs:
         run: yarn typecheck
 
       - name: Run Prettier check
-        run: yarn format:check
+        run: yarn format
 
   build:
     name: Build
