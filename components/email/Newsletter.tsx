@@ -1,5 +1,5 @@
 import React from 'react';
-import { summirize } from '@utils/anthropic/summarize';
+import { summirize } from '@utils/ai/summarize';
 import { NewsType } from '@utils/validationSchemas';
 import createDOMPurify from 'isomorphic-dompurify';
 import { Template } from './Template';
